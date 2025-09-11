@@ -1,5 +1,5 @@
 // @assets/data/interfaces/content.ts
-import { socialSvgComponents } from "../../../components/svg_Icon/social/socialSvgComponents";
+import { socialSvgComponents } from "../../../home/contact-section/socialSvgComponents";
 // Interface pour le contenu "About"
 export interface AboutCardIdentity {
     firstName: string;

@@ -1,29 +1,27 @@
-import { Content } from "../interfaces/content"; // Assurez-vous que "Content" est importé
+// src/interfaces/menu.ts
+import React from "react";
+import { Content } from "../interfaces/content";
+import { SvgIconName } from "@components/header/svgComponents";
 
 export interface SubItem {
     id: string;
     title: string;
-    path?: string;
     AnchorId: string;
     class: string;
-    scrollOffset?: number | null;
-    content?: Content[]; // Changez ReactNode à Content[]
+    content?: Content[]; // contenu typé Content[]
 }
 
-// Définition de l'interface MenuItem
 export interface MenuItem {
     id: string;
     title: string;
-    class: string;
-    path?: string;
-    svg: string;
+    class?: string;
+    path: string;
+    svg: SvgIconName; // <-- on passe de string à SvgIconName
     subItems?: SubItem[];
     AnchorId?: string;
-    scrollOffset?: number;
-    content?: string | React.ReactNode; // Même chose pour le menu, si c'est du texte ou JSX
+    content?: string | React.ReactNode;
 }
 
-// Définition de l'interface MenuLinks
 export interface MenuLinks {
     mainLink: MenuItem[];
     reservation?: MenuItem[];

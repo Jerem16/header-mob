@@ -68,21 +68,18 @@ export const menuItems: MenuLinks = {
             path: "/p1",
             AnchorId: "#top",
             svg: "Services",
-            scrollOffset: 0,
             subItems: [
                 {
                     id: "menu-without-license",
                     title: "Sans Permis",
                     AnchorId: "#sans-permis",
                     class: "",
-                    scrollOffset: 102,
                 },
                 {
                     id: "menu-with-license",
                     title: "Avec Permis",
                     AnchorId: "#avec-permis",
                     class: "",
-                    scrollOffset: 102,
                 },
             ],
         },
@@ -93,21 +90,18 @@ export const menuItems: MenuLinks = {
             path: "/p2",
             AnchorId: "#top",
             svg: "Tarifs",
-            scrollOffset: 0,
             subItems: [
                 {
                     id: "menu-without-license",
                     title: "Débutant",
                     AnchorId: "#novice",
                     class: "",
-                    scrollOffset: 102,
                 },
                 {
                     id: "menu-with-license",
                     title: "Confirmé",
                     AnchorId: "#expert",
                     class: "",
-                    scrollOffset: 102,
                 },
             ],
         },
@@ -136,16 +130,6 @@ export const menuItems: MenuLinks = {
             path: "/p1",
             AnchorId: "#top",
             svg: "Reservation",
-        },
-    ],
-    search: [
-        {
-            id: "search",
-            title: "Rechercher ...",
-            class: "",
-            path: "/search",
-            AnchorId: "#top",
-            svg: "Search",
         },
     ],
     connection: [
