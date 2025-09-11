@@ -1,14 +1,14 @@
 \next.config.ts:18 - default
 \app\DesktopRedirect.tsx:5 - default
 \app\HomeOut.tsx:4 - default
+\app\layout.tsx:28 - default
+\app\layout.tsx:14 - Roboto (used in module)
+\app\layout.tsx:26 - metadata
 \app\PageContainer.tsx:30 - default
 \app\p1\error.tsx:3 - default
 \app\p1\loading.tsx:1 - default
 \app\p2\error.tsx:3 - default
 \app\p2\loading.tsx:1 - default
-\app\search\error.tsx:3 - default
-\app\search\loading.tsx:2 - default
-\app\search\page.tsx:4 - default
 \src\components\PageLazyLoader.tsx:10 - default
 \src\context\DataBlogProvider.tsx:27 - DataBlogProvider
 \src\context\DataBlogProvider.tsx:63 - useDataBlog
@@ -31,15 +31,12 @@
 \src\utils\validationForm.js:1 - validatePassword
 \src\utils\validationForm.js:1 - isAlphanumeric
 \src\utils\validationForm.js:1 - isNotEmpty
-\.next\types\app\layout.ts:54 - PageProps
-\.next\types\app\layout.ts:58 - LayoutProps (used in module)
 \.next\types\app\page.ts:54 - PageProps (used in module)
 \.next\types\app\page.ts:58 - LayoutProps
 \src\components\Blog\Blog.tsx:60 - default
 \src\components\Blog\ButtonPage.tsx:29 - default
 \src\components\button\Button.tsx:11 - default
 \src\components\footer\footer.tsx:22 - default
-\src\components\header\svgComponents.ts:26 - SvgIconName
 \src\components\Legal\DevLegalNotices.tsx:63 - default
 \src\components\Legal\LegalNotices.tsx:61 - default
 \src\components\Legal\PrivacyPolicy.tsx:67 - default
@@ -56,6 +53,7 @@
 \src\utils\blogData\loadData.ts:5 - loadData
 \src\utils\cookieStorage\useCookie.tsx:1 - default
 \src\utils\localStorage\useLocalStorage.tsx:1 - default
+\src\utils\sessionStorage\useSessionStorage.tsx:1 - default
 \.next\types\app\p1\page.ts:54 - PageProps (used in module)
 \.next\types\app\p1\page.ts:58 - LayoutProps
 \.next\types\app\p2\page.ts:54 - PageProps (used in module)

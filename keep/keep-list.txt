@@ -11,10 +11,6 @@ app/p2/error.tsx
 app/p2/loading.tsx
 app/p2/page.tsx
 app/page.tsx
-app/search/SearchPageContent.tsx
-app/search/error.tsx
-app/search/loading.tsx
-app/search/page.tsx
 app/tarifs.css
 app/useScrollAnchors.ts
 src/assets/data/content/about.ts
@@ -64,11 +60,18 @@ src/components/svg_Icon/Reservation.jsx
 src/components/svg_Icon/Search.jsx
 src/components/svg_Icon/Services.jsx
 src/components/svg_Icon/Tarifs.jsx
+src/components/svg_Icon/social/Facebook.jsx
+src/components/svg_Icon/social/Instagram.jsx
+src/components/svg_Icon/social/Linkedin.jsx
+src/components/svg_Icon/social/TikTok.jsx
+src/components/svg_Icon/social/WhatsApp.jsx
+src/components/svg_Icon/social/Youtube.jsx
 src/components/svg_Icon/utils/MenuIcon.jsx
 src/components/svg_Icon/utils/XIcon.jsx
 src/home/about/_about.scss
 src/home/contact-section/_contact.scss
 src/home/contact-section/contactForm/_form.scss
+src/home/contact-section/socialSvgComponents.ts
 src/home/service/_questionaire.scss
 src/home/service/_services.scss
 src/home/service/beginner/_beginner.scss
@@ -85,6 +88,4 @@ src/utils/context/ScrollContext.tsx
 src/utils/context/utils/createUseContext.tsx
 src/utils/fnScrollUtils.ts
 src/utils/scrollUtils.ts
-src/utils/sessionStorage/useSessionStorage.tsx
 src/utils/updateMenuUtils.ts
-src/utils/useIsBrowser.ts

@@ -1,18 +1,34 @@
-// next.config.ts
-const isProd = process.env.NODE_ENV === "production";
-const repo = "mob-peur-de-la-conduite"; // ← ton nom de repo
+import type { NextConfig } from "next";
 
-/** @type {import('next').NextConfig} */
-const nextConfig = {
-    // Export statique (GitHub Pages ne sait servir que des fichiers)
-    output: "export",
-    // Évite les 404 en deep-link (GH Pages sert index.html par dossier)
-    trailingSlash: true,
-    // Désactive l'optimisation d'image côté serveur
-    images: { unoptimized: true },
-    // Nécessaire pour Project Pages (URL de type /<repo>/...)
-    basePath: isProd ? `/${repo}` : "",
-    assetPrefix: isProd ? `/${repo}/` : "",
+const nextConfig: NextConfig = {
+    experimental: {},
+    images: {
+        minimumCacheTTL: 60 * 60 * 24 * 365, // 365 jours
+    },
+
+    async headers() {
+        return [
+            {
+                source: "/workers/(.*)",
+                headers: [
+                    { key: "Cross-Origin-Opener-Policy", value: "same-origin" },
+                    {
+                        key: "Cross-Origin-Embedder-Policy",
+                        value: "require-corp",
+                    },
+                ],
+            },
+            {
+                source: "/img/:path*",
+                headers: [
+                    {
+                        key: "Cache-Control",
+                        value: "public, max-age=31536000, immutable",
+                    },
+                ],
+            },
+        ];
+    },
 };
 
 export default nextConfig;
