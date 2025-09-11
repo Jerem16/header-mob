@@ -22,126 +22,82 @@
 import { MenuLinks } from "./interfaces/menu";
 import { contentIndex } from "./content/index";
 export const menuItems: MenuLinks = {
-    mainLink: [
+  mainLink: [
+    {
+      id: "menu-home",
+      title: "Accueil",
+      class: "",
+      path: "/",
+      AnchorId: "#top",
+      svg: "Home",
+      subItems: [
         {
-            id: "menu-home",
-            title: "Accueil",
-            class: "",
-            path: "/",
-            AnchorId: "#slider",
-            svg: "Home",
-            subItems: [
-                {
-                    id: "menu-slider",
-                    title: "Slider",
-                    AnchorId: "#slider",
-                    class: "",
-                    content: contentIndex["#slider"],
-                },
-                {
-                    id: "menu-about",
-                    title: "À propos",
-                    AnchorId: "#about",
-                    class: "",
-                    content: contentIndex["#about"],
-                },
-                {
-                    id: "menu-services",
-                    title: "Services",
-                    AnchorId: "#services",
-                    class: "",
-                    content: contentIndex["#services"],
-                },
-                {
-                    id: "menu-contact",
-                    title: "Contact",
-                    AnchorId: "#contact",
-                    class: "",
-                    content: contentIndex["#contact"],
-                },
-            ],
+          id: "menu-about",
+          title: "À propos",
+          AnchorId: "#about",
+          class: "",
+          content: contentIndex["#about"],
         },
         {
-            id: "menu-services",
-            title: "Services",
-            class: "",
-            path: "/p1",
-            AnchorId: "#top",
-            svg: "Services",
-            subItems: [
-                {
-                    id: "menu-without-license",
-                    title: "Sans Permis",
-                    AnchorId: "#sans-permis",
-                    class: "",
-                },
-                {
-                    id: "menu-with-license",
-                    title: "Avec Permis",
-                    AnchorId: "#avec-permis",
-                    class: "",
-                },
-            ],
+          id: "menu-contact",
+          title: "Contact",
+          AnchorId: "#contact",
+          class: "",
+          content: contentIndex["#contact"],
+        },
+      ],
+    },
+    {
+      id: "menu-prices",
+      title: "Tarifs",
+      class: "",
+      path: "/p2",
+      AnchorId: "#top",
+      svg: "Tarifs",
+      subItems: [
+        {
+          id: "menu-without-license",
+          title: "Débutant",
+          AnchorId: "#novice",
+          class: "",
         },
         {
-            id: "menu-prices",
-            title: "Tarifs",
-            class: "",
-            path: "/p2",
-            AnchorId: "#top",
-            svg: "Tarifs",
-            subItems: [
-                {
-                    id: "menu-without-license",
-                    title: "Débutant",
-                    AnchorId: "#novice",
-                    class: "",
-                },
-                {
-                    id: "menu-with-license",
-                    title: "Confirmé",
-                    AnchorId: "#expert",
-                    class: "",
-                },
-            ],
+          id: "menu-with-license",
+          title: "Confirmé",
+          AnchorId: "#expert",
+          class: "",
         },
-        {
-            id: "menu-blog",
-            title: "Blog",
-            class: "",
-            path: "/p1",
-            AnchorId: "#top",
-            svg: "Blog",
-        },
-        {
-            id: "menu-contact",
-            title: "Contact",
-            class: "",
-            path: "/p2",
-            AnchorId: "#expert",
-            svg: "Contact",
-        },
-    ],
-    reservation: [
-        {
-            id: "reservationId",
-            title: "Réservation",
-            class: "",
-            path: "/p1",
-            AnchorId: "#top",
-            svg: "Reservation",
-        },
-    ],
-    connection: [
-        {
-            id: "connexion",
-            title: "Connexion",
-            class: "",
-            path: "/p2",
-            AnchorId: "#top",
-            svg: "Connection",
-        },
-    ],
+      ],
+    },
+    {
+      id: "menu-contact",
+      title: "Contact",
+      class: "",
+      path: "/p2",
+      AnchorId: "#expert",
+      svg: "Contact",
+    },
+  ],
+  reservation: [
+    {
+      id: "reservationId",
+      title: "Réservation",
+      class: "",
+      path: "/p1",
+      AnchorId: "#top",
+      svg: "Reservation",
+    },
+  ],
+  connection: [
+    {
+      id: "connexion",
+      title: "Connexion",
+      class: "",
+      path: "/p2",
+      AnchorId: "#top",
+      svg: "Connection",
+    },
+  ],
 };
 
 export type { MenuItem } from "./interfaces/menu";

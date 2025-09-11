@@ -1,6 +1,6 @@
 // src/components/ServiceCard.tsx
 import React from "react";
-import type { ServiceItem, PriceData } from "@src/home/service/Component/servicesTypes";
+import type { ServiceItem, PriceData } from "./types";
 import PriceTable from "./PriceTable";
 
 type Props = {

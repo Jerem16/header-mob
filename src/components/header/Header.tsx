@@ -10,43 +10,43 @@ import { handleScrollClick, handleNavClick } from "../../utils/fnScrollUtils";
 import { useInitialScroll } from "../../utils/scrollUtils";
 
 interface NavProps {
-    menuItems: MenuItem[];
-    onNavigationClick: (path: string) => void;
+  menuItems: MenuItem[];
+  onNavigationClick: (path: string) => void;
 }
 
 const Header: React.FC<NavProps> = () => {
-    const pathname = usePathname();
-    const { currentRoute, updateRoute, closeHamburgerMenu } = useNavigation();
-    const { activeSection } = useScrollContext();
+  const pathname = usePathname();
+  const { currentRoute, updateRoute, closeHamburgerMenu } = useNavigation();
+  const { activeSection } = useScrollContext();
 
-    useInitialScroll(pathname);
+  useInitialScroll(pathname);
 
-    const handleNavigationClick = (path: string) => {
-        handleNavClick(path, currentRoute, updateRoute, handleScrollClick);
-    };
+  const handleNavigationClick = (path: string) => {
+    handleNavClick(path, currentRoute, updateRoute, handleScrollClick);
+  };
 
-    const updatedMenuItems = updateMenuClasses(
-        menuItems.mainLink,
-        activeSection,
-        currentRoute
-    );
+  const updatedMenuItems = updateMenuClasses(
+    menuItems.mainLink,
+    activeSection,
+    currentRoute,
+  );
 
-    return (
-        <div className="header">
-            <LogoLink
-                onClick={(e: React.MouseEvent<HTMLAnchorElement>) => {
-                    e.preventDefault();
-                    closeHamburgerMenu(200);
-                    handleNavigationClick("/#slider");
-                    e.stopPropagation();
-                }}
-            />
-            <Nav
-                menuItems={updatedMenuItems}
-                onNavigationClick={handleNavigationClick}
-            />
-        </div>
-    );
+  return (
+    <div className="header">
+      <LogoLink
+        onClick={(e: React.MouseEvent<HTMLAnchorElement>) => {
+          e.preventDefault();
+          closeHamburgerMenu(200);
+          handleNavigationClick("/#top");
+          e.stopPropagation();
+        }}
+      />
+      <Nav
+        menuItems={updatedMenuItems}
+        onNavigationClick={handleNavigationClick}
+      />
+    </div>
+  );
 };
 
 export default React.memo(Header);

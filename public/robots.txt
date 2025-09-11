@@ -131,14 +131,11 @@ Disallow: /
 # 1 Autoriser explicitement vos pages clés
 
 Allow: /$
-Allow: /services$
 Allow: /tarifs$
 Allow: /contact$
 Allow: /mentions-legales$
 Allow: /informations-legales$
 
-# 2 Autoriser explicitement toutes les pages blog
-Allow: /blog/
 
 
 # 2 Bloquer les dossiers de code source / assets internes
