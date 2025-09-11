@@ -1,4 +1,4 @@
-\next.config.ts:18 - default
+\next.config.ts:34 - default
 \app\DesktopRedirect.tsx:5 - default
 \app\HomeOut.tsx:4 - default
 \app\layout.tsx:28 - default

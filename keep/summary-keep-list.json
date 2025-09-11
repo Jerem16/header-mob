@@ -5,17 +5,17 @@
   "protectedCount": 15,
   "scssReachableCount": 25,
   "keepCount": 91,
-  "deleteCandidatesCount": 203,
+  "deleteCandidatesCount": 126,
   "examples": {
     "entries": [
       "app/layout.tsx",
       "app/page.tsx",
-      "app/p2/error.tsx",
-      "app/p2/loading.tsx",
-      "app/p2/page.tsx",
       "app/p1/error.tsx",
       "app/p1/loading.tsx",
-      "app/p1/page.tsx"
+      "app/p1/page.tsx",
+      "app/p2/error.tsx",
+      "app/p2/loading.tsx",
+      "app/p2/page.tsx"
     ],
     "keep": [
       "app/ClientLayout.tsx",
@@ -35,11 +35,11 @@
       "app/PageContainer.tsx",
       "app/SectionContainer.tsx",
       "app/useDesktopRedirectWrapper.jsx",
-      "out/_next/static/KIioNHDF2riIcSZOJ1qzw/_buildManifest.js",
-      "out/_next/static/KIioNHDF2riIcSZOJ1qzw/_ssgManifest.js",
-      "out/_next/static/chunks/280.d7a2518d397c3c0d.js",
-      "out/_next/static/chunks/392-07b6cb8494bc0f0a.js",
-      "out/_next/static/chunks/44.aa1440c357939597.js"
+      "src/assets/data/utils/attachContent.ts",
+      "src/components/Blog/AuthorSignature.tsx",
+      "src/components/Blog/Blog.tsx",
+      "src/components/Blog/BlogCard.tsx",
+      "src/components/Blog/BlogList.tsx"
     ]
   }
 }
