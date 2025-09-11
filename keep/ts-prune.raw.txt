@@ -1,12 +1,10 @@
 \next.config.ts:34 - default
 \app\DesktopRedirect.tsx:5 - default
 \app\HomeOut.tsx:4 - default
-\app\layout.tsx:28 - default
-\app\layout.tsx:14 - Roboto (used in module)
-\app\layout.tsx:26 - metadata
 \app\PageContainer.tsx:30 - default
 \app\p1\error.tsx:3 - default
 \app\p1\loading.tsx:1 - default
+\app\p1\page.tsx:3 - default
 \app\p2\error.tsx:3 - default
 \app\p2\loading.tsx:1 - default
 \src\components\PageLazyLoader.tsx:10 - default
@@ -31,6 +29,8 @@
 \src\utils\validationForm.js:1 - validatePassword
 \src\utils\validationForm.js:1 - isAlphanumeric
 \src\utils\validationForm.js:1 - isNotEmpty
+\.next\types\app\layout.ts:54 - PageProps
+\.next\types\app\layout.ts:58 - LayoutProps (used in module)
 \.next\types\app\page.ts:54 - PageProps (used in module)
 \.next\types\app\page.ts:58 - LayoutProps
 \src\components\Blog\Blog.tsx:60 - default
@@ -54,8 +54,6 @@
 \src\utils\cookieStorage\useCookie.tsx:1 - default
 \src\utils\localStorage\useLocalStorage.tsx:1 - default
 \src\utils\sessionStorage\useSessionStorage.tsx:1 - default
-\.next\types\app\p1\page.ts:54 - PageProps (used in module)
-\.next\types\app\p1\page.ts:58 - LayoutProps
 \.next\types\app\p2\page.ts:54 - PageProps (used in module)
 \.next\types\app\p2\page.ts:58 - LayoutProps
 \src\assets\data\interfaces\content.ts:4 - AboutCardIdentity (used in module)

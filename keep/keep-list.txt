@@ -1,7 +1,6 @@
 app/ClientLayout.tsx
 app/ClientLayout2.tsx
 app/ScrollSectionsWrapper.jsx
-app/globals.css
 app/layout.tsx
 app/metaData.tsx
 app/p1/error.tsx
@@ -11,7 +10,6 @@ app/p2/error.tsx
 app/p2/loading.tsx
 app/p2/page.tsx
 app/page.tsx
-app/tarifs.css
 app/useScrollAnchors.ts
 src/assets/data/content/about.ts
 src/assets/data/content/contact.ts
@@ -34,7 +32,6 @@ src/assets/styles/03_pages/_page.scss
 src/assets/styles/main.scss
 src/components/LazyWrapper.tsx
 src/components/button/_button.scss
-src/components/checkbox/_input-checkbox.scss
 src/components/frames/Frames.jsx
 src/components/frames/frames.css
 src/components/header/ButtonOpen.tsx
@@ -68,20 +65,7 @@ src/components/svg_Icon/social/WhatsApp.jsx
 src/components/svg_Icon/social/Youtube.jsx
 src/components/svg_Icon/utils/MenuIcon.jsx
 src/components/svg_Icon/utils/XIcon.jsx
-src/home/about/_about.scss
-src/home/contact-section/_contact.scss
-src/home/contact-section/contactForm/_form.scss
 src/home/contact-section/socialSvgComponents.ts
-src/home/service/_questionaire.scss
-src/home/service/_services.scss
-src/home/service/beginner/_beginner.scss
-src/home/slider/_slider.scss
-src/home/slider/_sliderArrow.scss
-src/home/slider/_sliderCTA.scss
-src/home/slider/_sliderContent.scss
-src/home/slider/_sliderInfo.scss
-src/home/slider/_sliderRoad.scss
-src/home/slider/_sunBG.scss
 src/hook/useTimeoutWorker.ts
 src/utils/context/NavigationContext.tsx
 src/utils/context/ScrollContext.tsx

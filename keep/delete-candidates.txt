@@ -2,6 +2,8 @@ app/DesktopRedirect.tsx
 app/HomeOut.tsx
 app/PageContainer.tsx
 app/SectionContainer.tsx
+app/globals.css
+app/tarifs.css
 app/useDesktopRedirectWrapper.jsx
 src/assets/data/utils/attachContent.ts
 src/components/Blog/AuthorSignature.tsx
@@ -38,6 +40,7 @@ src/components/Tarifs/PriceSection.tsx
 src/components/Tarifs/PriceTable.tsx
 src/components/button/Button.tsx
 src/components/button/ButtonLink.tsx
+src/components/checkbox/_input-checkbox.scss
 src/components/checkbox/inputCheckbox.tsx
 src/components/footer/_footer.scss
 src/components/footer/footer.tsx
@@ -49,7 +52,9 @@ src/components/svg_Icon/utils/CheckedIcon.jsx
 src/context/DataBlogProvider.tsx
 src/home/about/AboutCard.jsx
 src/home/about/LoadMoreButton.jsx
+src/home/about/_about.scss
 src/home/about/index.tsx
+src/home/contact-section/_contact.scss
 src/home/contact-section/contactBackGround.tsx
 src/home/contact-section/contactCard/SocialLinkP1.tsx
 src/home/contact-section/contactCard/SocialLinkP2.tsx
@@ -57,6 +62,7 @@ src/home/contact-section/contactCard/SocialLinks.tsx
 src/home/contact-section/contactCard/contactAnnouncement.tsx
 src/home/contact-section/contactCard/contactInfo.tsx
 src/home/contact-section/contactCard/index.tsx
+src/home/contact-section/contactForm/_form.scss
 src/home/contact-section/contactForm/contactCGU.tsx
 src/home/contact-section/contactForm/contactFormTitle.tsx
 src/home/contact-section/contactForm/contactQuestions.tsx
@@ -74,7 +80,10 @@ src/home/service/Component/servicesData.ts
 src/home/service/Component/servicesTypes.ts
 src/home/service/Origine/services.tsx
 src/home/service/QuestionServices.tsx
+src/home/service/_questionaire.scss
+src/home/service/_services.scss
 src/home/service/beginner/BeginnerLazy.tsx
+src/home/service/beginner/_beginner.scss
 src/home/service/beginner/beginner.tsx
 src/home/service/confirmed/ConfirmedLazy.tsx
 src/home/service/confirmed/confirmed.tsx
@@ -96,6 +105,13 @@ src/home/slider/SliderContentX.tsx
 src/home/slider/SliderInfo.tsx
 src/home/slider/SliderRoad.tsx
 src/home/slider/SunBG.tsx
+src/home/slider/_slider.scss
+src/home/slider/_sliderArrow.scss
+src/home/slider/_sliderCTA.scss
+src/home/slider/_sliderContent.scss
+src/home/slider/_sliderInfo.scss
+src/home/slider/_sliderRoad.scss
+src/home/slider/_sunBG.scss
 src/home/slider/sliderItem/SldDescribe.tsx
 src/home/slider/sliderItem/SldParagraph.tsx
 src/home/slider/sliderItem/SldTitle.jsx

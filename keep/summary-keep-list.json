@@ -3,43 +3,43 @@
   "tsconfigUsed": "tsconfig.json",
   "entryCount": 8,
   "protectedCount": 15,
-  "scssReachableCount": 25,
-  "keepCount": 91,
-  "deleteCandidatesCount": 126,
+  "scssReachableCount": 11,
+  "keepCount": 75,
+  "deleteCandidatesCount": 142,
   "examples": {
     "entries": [
       "app/layout.tsx",
       "app/page.tsx",
-      "app/p1/error.tsx",
-      "app/p1/loading.tsx",
-      "app/p1/page.tsx",
       "app/p2/error.tsx",
       "app/p2/loading.tsx",
-      "app/p2/page.tsx"
+      "app/p2/page.tsx",
+      "app/p1/error.tsx",
+      "app/p1/loading.tsx",
+      "app/p1/page.tsx"
     ],
     "keep": [
       "app/ClientLayout.tsx",
       "app/ClientLayout2.tsx",
       "app/ScrollSectionsWrapper.jsx",
-      "app/globals.css",
       "app/layout.tsx",
       "app/metaData.tsx",
       "app/p1/error.tsx",
       "app/p1/loading.tsx",
       "app/p1/page.tsx",
-      "app/p2/error.tsx"
+      "app/p2/error.tsx",
+      "app/p2/loading.tsx"
     ],
     "deleteCandidates": [
       "app/DesktopRedirect.tsx",
       "app/HomeOut.tsx",
       "app/PageContainer.tsx",
       "app/SectionContainer.tsx",
+      "app/globals.css",
+      "app/tarifs.css",
       "app/useDesktopRedirectWrapper.jsx",
       "src/assets/data/utils/attachContent.ts",
       "src/components/Blog/AuthorSignature.tsx",
-      "src/components/Blog/Blog.tsx",
-      "src/components/Blog/BlogCard.tsx",
-      "src/components/Blog/BlogList.tsx"
+      "src/components/Blog/Blog.tsx"
     ]
   }
 }

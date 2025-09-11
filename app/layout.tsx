@@ -34,7 +34,7 @@ export default function RootLayout({
             <head>
                 <link
                     rel="preload"
-                    href="/mob-peur-de-la-conduite/img/retroviseur.svg"
+                    href="/img/retroviseur.svg"
                     as="image"
                 />
 
