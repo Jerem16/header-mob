@@ -3,8 +3,7 @@ import metaData from "./metaData";
 import localFont from "next/font/local";
 import HeaderLazy from "../src/components/header/HeaderLazy";
 import ClientLayout from "./ClientLayout";
-import "./globals.css";
-import "./tarifs.css";
+import "../src/assets/styles/main.scss";
 const Montserrat = localFont({
     src: "./fonts/Montserrat.woff2",
     variable: "--montserrat",
