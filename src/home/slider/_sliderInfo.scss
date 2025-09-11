@@ -1,0 +1,81 @@
+.info {
+    display: flex;
+    flex-flow: column;
+    // grid-template-columns: 1fr auto;
+    // grid-template-rows: auto auto;
+    align-items: center;
+    justify-content: space-between;
+    text-align: center;
+    width: 100%;
+    min-height: 220px;
+    // height: calc(100% + 124px);
+    height: 266px;
+    margin: auto;
+    position: absolute;
+    top: calc(630px - 88px);
+    // gap: 0.5rem;
+}
+p.p-info_ctn {
+    text-align: right;
+    padding: 0 0 0 1rem;
+    // width: calc(100% - 127px);
+    // max-width: 292px;
+    width: 212px;
+    height: auto;
+    @include bannerDescribeBold;
+}
+.sld-info_ctn {
+    // position: absolute;
+    padding-right: 0.5rem; /* Caché en dehors de l'écran */
+    // bottom: calc(-10px + 5vw);
+    min-width: 339px;
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: center;
+    align-items: center;
+    z-index: 1;
+    transition: transform 0.8s ease-out 0.75s; /* Animation fluide */
+    transform: scale(1.5) translateX(100%);
+    perspective: 1000px;
+    align-self: flex-end;
+
+    .icon-position {
+        align-self: flex-start;
+        width: 127px;
+        height: 119px;
+        position: relative;
+        display: flex;
+        justify-content: flex-end;
+        .locationP1,
+        .locationP2 {
+            position: absolute;
+            width: 119px;
+            height: 119px;
+            filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
+        }
+        .locationP1 {
+            transform: scaleY(0) rotate3d(0, 0, 1, 0deg);
+            transform-origin: bottom;
+            transition: all 0.5s ease-out 2.5s;
+        }
+    }
+}
+
+/* Animation d'entrée quand #slider est actif */
+#slider.active-section {
+    .sld-info_ctn {
+        transform: scale(1) translateX(0%) !important;
+        .locationP1 {
+            animation: grow 0.65s ease-in-out forwards 2s;
+        }
+        .locationP2,
+        p.p-info_ctn {
+            animation: opacityAnimation 0.75s ease-in-out backwards 1.25s;
+        }
+        p.p-info_ctn {
+            transform: scale(1);
+            // transition: transform 0.5s ease-out 1.35s;
+            animation: growWidth 0.5s ease-in-out forwards 1.9s;
+        }
+    }
+}

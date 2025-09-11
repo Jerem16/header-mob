@@ -1,0 +1,27 @@
+@import "../../home/slider/sliderRoad";
+@import "../../home/slider/sliderContent";
+@import "../../home/slider/sliderArrow";
+@import "../../home/slider/sliderCTA";
+@import "../../home/slider/sliderInfo";
+@import "../../home/slider/sunBG";
+.slider-bg {
+    position: relative;
+    margin: 0 auto;
+    z-index: 0;
+}
+.sld-bg,
+.slider {
+    height: 100%;
+    width: 100%;
+    position: absolute;
+}
+
+.sld-sun,
+.slider-content,
+.slide {
+    margin: 0 auto;
+    width: auto;
+}
+#slider {
+    min-height: 823px;
+}

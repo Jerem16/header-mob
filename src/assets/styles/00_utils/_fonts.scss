@@ -1,0 +1,82 @@
+/****** Fonts Adaptées pour Mobile ******/
+
+/* Nav-Menu */
+@mixin navLink {
+    font-family: "Roboto", serif;
+    font-size: 1rem; // 16px
+    font-style: normal;
+    font-weight: 400;
+    line-height: 1.25rem; // 20px
+}
+
+/* Bannière */
+@mixin bannerH2 {
+    font-family: $montserrat;
+    color: $black;
+    font-size: 1.5rem; // 24px
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+}
+
+@mixin bannerH2Bold {
+    font-family: $montserrat;
+    color: $black;
+    font-size: 1.5rem; // 24px
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+}
+
+@mixin bannerDescribe {
+    @include paragraph();
+    color: $black;
+}
+
+@mixin bannerDescribeBold {
+    font-family: $montserrat;
+    color: $primary-black;
+    font-size: 1.375rem; // 22px
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+    letter-spacing: -0.9px;
+}
+
+/* Titres */
+@mixin h2Title {
+    font-family: $montserrat;
+    color: $black;
+    font-size: 2rem; // 32px
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+    letter-spacing: 0.6px;
+}
+
+/* Paragraphe */
+@mixin paragraph {
+    font-family: $montserrat;
+    color: $primary-black;
+    font-size: 1.25rem; // 22px
+    font-style: normal;
+    font-weight: 500;
+    line-height: 1.75rem; // 28px
+}
+
+/* Services */
+@mixin serviceDescribeBold {
+    @include paragraph();
+    font-weight: 600;
+}
+
+/* Boutons */
+@mixin buttonText {
+    font-family: "Nunito", serif;
+    color: $white;
+    font-size: 1rem; // 16px
+    font-style: normal;
+    font-weight: 700;
+    line-height: 1rem; // 16px
+    text-align: center;
+}

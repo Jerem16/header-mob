@@ -1,0 +1,96 @@
+.about-bg {
+    &.active-section {
+        .fixed-menu {
+            transition: all 125ms ease-in-out;
+        }
+    }
+}
+
+.about,
+.services {
+    position: relative;
+    height: 396px;
+    height: auto;
+    justify-content: inherit;
+
+    .ab-img_info {
+        background: $secondary-blue;
+        position: absolute;
+        z-index: -1;
+        top: -72px;
+        left: 0;
+        border-radius: 0 192px 192px 0;
+        width: calc(100% - 1.5rem);
+
+        img {
+            left: -4rem;
+            position: relative;
+            filter: drop-shadow(4px 4px 4px rgba(0, 0, 0, 0.15));
+            height: 384px;
+            width: calc(100%);
+        }
+    }
+
+    .sgm {
+        margin-top: 2.6rem;
+        .card_H {
+            position: relative;
+            z-index: 2;
+            padding: 0;
+            width: 100%;
+            margin-left: 1rem;
+            justify-content: space-between;
+            height: 310px;
+            h3 {
+                @include bannerH2Bold;
+                color: $white;
+                text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+                font-weight: 900;
+                height: 39px;
+                margin: 0 auto;
+                width: 100%;
+                text-align: center;
+
+                span {
+                    font-weight: 500;
+                    margin-left: 0.5rem;
+                }
+            }
+            .profession {
+                font-size: 1.5rem;
+                font-weight: 700;
+                letter-spacing: -1.12px;
+                color: $primary-blue;
+                text-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+                height: 34px;
+                text-align: center;
+            }
+
+            img.ab-img_head {
+                margin: 6px;
+                border-radius: 48px;
+                width: 225px;
+                height: 225px;
+            }
+        }
+
+        .card_cnt {
+            height: auto;
+            width: 100%;
+            gap: 24px;
+            padding: 2rem 0 0 0;
+
+            p {
+                max-width: inherit;
+                width: 100%;
+                padding: 0 1rem 0 0;
+                margin: 0;
+                font-size: 1.25rem;
+            }
+        }
+    }
+    .btn-SB {
+        margin: 3.5rem 1.5rem 0 0;
+        align-self: center;
+    }
+}

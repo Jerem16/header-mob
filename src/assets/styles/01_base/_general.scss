@@ -1,0 +1,218 @@
+// _general.scss] ******/
+
+body {
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        text-decoration: none;
+    }
+    svg {
+        image-rendering: auto;
+    }
+    overflow-x: hidden;
+}
+
+#top {
+    border-top: 0.25px solid transparent;
+}
+p {
+    margin: 0 auto;
+    @include paragraph;
+}
+h2 {
+    @include h2Title;
+}
+input,
+button,
+select,
+textarea,
+option {
+    background: transparent;
+    outline: none;
+    margin: 0;
+    padding: 0;
+    border: none;
+    appearance: none;
+}
+option {
+    cursor: pointer;
+}
+*:focus-visible {
+    outline: 2px solid $primary-blue;
+}
+
+.content-wrapper {
+    margin: 0 auto;
+    width: auto;
+    position: relative;
+}
+
+.flx-c {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.visually-hidden {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    margin: -1px;
+    padding: 0;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    border: 0;
+}
+
+//? Card
+.card_bg {
+    position: absolute;
+    left: 42px;
+    top: 82px;
+    width: $width-card_bg;
+    height: calc(360px + 82px);
+    border-radius: 45px 0px 45px 45px;
+    background: $white;
+}
+.sgm {
+    width: calc(100% - 2rem);
+    height: auto;
+    display: flex;
+    flex-flow: column wrap;
+    align-items: center;
+    column-gap: calc(42px);
+    position: relative;
+    margin: 0 auto;
+    .card_H,
+    .card_empty {
+        // width: calc($width-card_H + 42px + 42px);
+        flex-flow: column nowrap;
+        // padding: 40px 42px 42px 42px;
+        display: flex;
+        // justify-content: center !important;
+        // align-items: center !important;
+        border-radius: 45px;
+    }
+
+    .card_cnt,
+    .srv-description {
+        display: flex;
+        flex-flow: column nowrap;
+        align-content: space-between;
+        justify-content: space-between;
+
+        p {
+            padding: 0;
+            margin: 0;
+        }
+    }
+}
+@keyframes opacityAnim {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+@keyframes opacityAnimationDelay {
+    0% {
+        opacity: 0;
+        // display: none;
+    }
+    50% {
+        // display: inherit;
+    }
+    66% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+@keyframes grow {
+    0% {
+        height: 0%;
+        transform: scale(0);
+    }
+
+    78% {
+        height: 100%;
+        transform: scaleY(1) rotate3d(0, 1, 0, 270deg);
+    }
+    100% {
+        transform: scale(1) rotate3d(0, 1, 0, 360deg);
+    }
+}
+@keyframes growWidth {
+    0% {
+        transform: scale(1);
+    }
+
+    78% {
+        transform: scale(1.15);
+    }
+    90% {
+        transform: scale(1.05);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+@keyframes opacityAnimation {
+    0% {
+        opacity: 0;
+        transform: translateY(-16px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+// @keyframes shadowAnimation {
+//     0% {
+//         @include menuShadow(rgba(0, 0, 0, 0.5));
+//     }
+//     100% {
+//         @include menuShadow(rgba(0, 0, 0, 0.25));
+//     }
+// }
+@keyframes opacityWidthAnimationIn {
+    0% {
+        opacity: 0;
+        width: 0;
+    }
+    66% {
+        width: 50%;
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    90% {
+        width: 100%;
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+@keyframes opacityWidthAnimationOut {
+    0% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+    10% {
+        width: 100%;
+    }
+    66% {
+        width: 50%;
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+
+    100% {
+        opacity: 0;
+        transform: translateY(-20px);
+        width: 0%;
+    }
+}

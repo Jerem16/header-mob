@@ -1,0 +1,138 @@
+.ctc-layout {
+    .ctc-form {
+        position: relative;
+        gap: 40px !important;
+
+        .form {
+            // background: #000;
+            display: flex;
+            flex-flow: column wrap;
+            gap: 12px;
+            label {
+                @include navLink;
+                color: #1d1d1b;
+                text-align: justify;
+                justify-content: space-between;
+                align-items: center;
+                display: block;
+                height: fit-content;
+                &:nth-of-type(1) {
+                    margin-top: 12px;
+                }
+            }
+            input,
+            textarea {
+                @include navLink;
+                padding: 0.5rem 1rem;
+                height: 60px;
+                border-radius: 8px;
+                border: 1px solid #c4c4c4;
+                background: #fff;
+                box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25) inset;
+            }
+            textarea {
+                height: 236px;
+            }
+            .error-message {
+                position: initial;
+                display: block;
+                // text-align: right;
+                @include navLink;
+                margin: 0;
+                padding: 0;
+                color: red;
+                font-size: 1rem;
+                margin-top: 5px;
+                width: 100%;
+                // border: 1px solid #000;
+            }
+        }
+        .endOF {
+            height: 1px;
+            // width: 607px;
+            button[type="submit"] {
+                position: relative;
+                top: -22px;
+                margin: 0 auto;
+            }
+        }
+        .cgu {
+            position: relative;
+            top: 0px;
+            gap: 0rem;
+            margin: 1rem 0 3rem 0;
+            .questions {
+                display: inline-flex;
+                flex-flow: row;
+                justify-content: flex-start;
+                // gap: 1rem;
+                margin: 0 0 0.5rem 0;
+
+                p {
+                    position: relative;
+                    font-weight: 500;
+                    // margin-left: 8px;
+                    display: block;
+                    padding-top: 0.65rem;
+                    font-size: 1rem;
+                    width: 100%;
+                }
+                .response {
+                    position: relative;
+                    left: -12px;
+                    top: -18px;
+                    width: 40px;
+                    input[type="checkbox"] {
+                        margin: 0;
+                        padding: 0;
+                        left: 0;
+                    }
+                    span {
+                        position: absolute;
+                        left: 0;
+                        &.checked {
+                            left: 5px;
+                        }
+                    }
+                }
+            }
+            label {
+                display: none;
+            }
+        }
+        .valid-message {
+            p {
+                @include navLink;
+                text-align: center;
+                width: 417px;
+            }
+            flex-flow: column;
+            gap: 0.5rem;
+            padding: 2rem;
+            width: calc(417px + 4rem);
+            height: calc(82px + 4rem);
+            position: absolute;
+            z-index: 1000;
+            left: calc(50% - (417px + 4rem) / 2);
+            top: calc(50% - (82px + 4rem) / 2);
+            border-radius: 18px;
+            background: $grey-light;
+            box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+            animation: fadeOut 4s ease-in-out forwards;
+            @keyframes fadeOut {
+                0% {
+                    opacity: 1;
+                    transform: scale(1);
+                }
+                80% {
+                    opacity: 1;
+                }
+                100% {
+                    opacity: 0;
+                    transform: scale(0.95);
+                    visibility: hidden;
+                }
+            }
+        }
+    }
+}

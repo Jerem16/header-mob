@@ -1,0 +1,78 @@
+@import "../../home/service/questionaire";
+@import "../../home/service/beginner/beginner";
+.services {
+    .sgm {
+        flex-flow: column nowrap;
+        background: $primary-blue;
+        margin: 0;
+        width: 100%;
+        h2.card_title {
+            justify-content: flex-start;
+            color: $primary-blue;
+            color: $white;
+            text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+            margin: 0 0 0 1rem;
+            padding: 0.5rem 0 0 1rem;
+            width: 100%;
+            align-self: flex-start;
+        }
+        .card_H {
+            margin: 1rem 1rem 2.5rem 2rem;
+            padding: 1rem;
+            width: 75%;
+            background: $white;
+            height: 75%;
+            box-shadow: 2px 4px 6px rgba(0, 0, 0, 0.25);
+            border-radius: 1.5rem;
+            img.srv-img_typo {
+                width: $width-card_H;
+                padding: 0.5rem 0.5rem 0.5rem 0.5rem;
+            }
+
+            img.srv-img_lesson {
+                margin-top: 12px;
+            }
+        }
+
+        .card_cnt {
+            height: calc(360px + 82px);
+            height: auto;
+            padding: 1rem 0.5rem 0 2rem;
+            background: $white;
+            border-radius: 0;
+
+            p {
+                padding-bottom: 14px;
+                strong:nth-child(1) {
+                    font-size: 1.375rem;
+                }
+            }
+
+            p.srv-ask {
+                font-weight: bolder;
+            }
+        }
+
+        .accompanist-bg {
+            position: relative;
+            top: -42px;
+            background: $white;
+            height: calc(121px + 50px);
+            width: $width-card_bg;
+            margin: 0;
+            border-radius: 0 0 45px 45px;
+
+            .card_cnt {
+                max-height: 121px;
+            }
+
+            .isAccompanist {
+                padding-top: 0;
+
+                p {
+                    padding-top: 0;
+                }
+            }
+        }
+    }
+}

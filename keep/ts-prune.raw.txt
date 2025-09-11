@@ -1,0 +1,66 @@
+\next.config.ts:18 - default
+\app\DesktopRedirect.tsx:5 - default
+\app\HomeOut.tsx:4 - default
+\app\PageContainer.tsx:30 - default
+\app\p1\error.tsx:3 - default
+\app\p1\loading.tsx:1 - default
+\app\p2\error.tsx:3 - default
+\app\p2\loading.tsx:1 - default
+\app\search\error.tsx:3 - default
+\app\search\loading.tsx:2 - default
+\app\search\page.tsx:4 - default
+\src\components\PageLazyLoader.tsx:10 - default
+\src\context\DataBlogProvider.tsx:27 - DataBlogProvider
+\src\context\DataBlogProvider.tsx:63 - useDataBlog
+\src\hook\useDesktopRedirect.tsx:5 - useDesktopRedirect
+\src\types\blog.d.ts:46 - BlogProps
+\src\types\blog.d.ts:50 - Seo
+\src\utils\cookiesUtils.ts:1 - setCookie
+\src\utils\cookiesUtils.ts:1 - getCookie
+\src\utils\fnScrollUtils.ts:119 - handleSectionIntersection
+\src\utils\fnScrollUtils.ts:101 - currentSectionId (used in module)
+\src\utils\getSectionIds.ts:1 - getSectionIds
+\src\utils\Space.tsx:7 - default
+\src\utils\updateMenuUtils.ts:4 - isMainItemActive (used in module)
+\src\utils\updateMenuUtils.ts:25 - updateMenuItems (used in module)
+\src\utils\useToggle.ts:1 - default
+\src\utils\validationForm.js:1 - validateBirthDate
+\src\utils\validationForm.js:1 - validateNumberInput
+\src\utils\validationForm.js:1 - validateRadio
+\src\utils\validationForm.js:1 - validateCheckbox
+\src\utils\validationForm.js:1 - validatePassword
+\src\utils\validationForm.js:1 - isAlphanumeric
+\src\utils\validationForm.js:1 - isNotEmpty
+\.next\types\app\layout.ts:54 - PageProps
+\.next\types\app\layout.ts:58 - LayoutProps (used in module)
+\.next\types\app\page.ts:54 - PageProps (used in module)
+\.next\types\app\page.ts:58 - LayoutProps
+\src\components\Blog\Blog.tsx:60 - default
+\src\components\Blog\ButtonPage.tsx:29 - default
+\src\components\button\Button.tsx:11 - default
+\src\components\footer\footer.tsx:22 - default
+\src\components\header\svgComponents.ts:26 - SvgIconName
+\src\components\Legal\DevLegalNotices.tsx:63 - default
+\src\components\Legal\LegalNotices.tsx:61 - default
+\src\components\Legal\PrivacyPolicy.tsx:67 - default
+\src\components\Legal\RegistrationAndVAT.tsx:18 - default
+\src\components\Legal\TermsOfUse.tsx:65 - default
+\src\components\Service\CategorySection.tsx:23 - default
+\src\components\Tarifs\PriceSection.tsx:25 - default
+\src\home\about\index.tsx:27 - default
+\src\home\about\LoadMoreButton.jsx:13 - default
+\src\home\contact-section\index.tsx:22 - default
+\src\home\service\QuestionServices.tsx:33 - default
+\src\home\slider\Slider.tsx:25 - default
+\src\home\slider\SliderContentIntro.tsx:24 - default
+\src\utils\blogData\loadData.ts:5 - loadData
+\src\utils\cookieStorage\useCookie.tsx:1 - default
+\src\utils\localStorage\useLocalStorage.tsx:1 - default
+\.next\types\app\p1\page.ts:54 - PageProps (used in module)
+\.next\types\app\p1\page.ts:58 - LayoutProps
+\.next\types\app\p2\page.ts:54 - PageProps (used in module)
+\.next\types\app\p2\page.ts:58 - LayoutProps
+\src\assets\data\interfaces\content.ts:4 - AboutCardIdentity (used in module)
+\src\assets\data\interfaces\content.ts:10 - AboutCardContent (used in module)
+\src\assets\data\utils\attachContent.ts:5 - attachContentToMenu
+\src\home\service\Origine\services.tsx:62 - default

@@ -1,0 +1,152 @@
+.services.content-srv {
+    margin-top: 60px;
+    // padding: 0 1rem;
+
+    .sgm {
+        margin: 0;
+        width: 100%;
+
+        &-tle {
+            padding: 0.5rem;
+            align-items: flex-start;
+            text-align: center;
+            text-align: left;
+            width: 100%;
+            h2.card_title {
+                font-size: 1.375rem;
+                padding: 1rem 0.5rem 0.5rem 0.5rem;
+                margin: 0;
+            }
+        }
+
+        .card_H {
+            margin: 0.5rem 1rem 2rem 1rem;
+            width: 100%;
+            width: calc(100% - 2rem);
+            border-radius: 0.5rem;
+            p {
+                text-align: left;
+                font-size: 1rem;
+                font-size: 1.135rem;
+            }
+        }
+
+        .card_cnt {
+            width: 100%;
+            padding: 0rem;
+            .srv-description {
+                padding: 0;
+                margin: 0 1.5rem;
+                align-items: center;
+                justify-content: space-between;
+                text-align: center;
+                text-align: left;
+                height: 60px;
+                border-radius: 45px;
+                background: $white;
+                flex-flow: row-reverse;
+                a {
+                    font-weight: 600;
+                    font-size: 1.25rem;
+                    color: $primary-black;
+                    width: calc(100% - 1rem);
+                    margin-left: 1rem;
+                }
+
+                .icon-description {
+                    position: relative;
+                    border-radius: 50%;
+                    background: $white;
+                    width: 60px;
+                    min-width: 60px;
+                    height: 60px;
+                    margin: 0;
+                    img {
+                        border-radius: 50%;
+                        background: $white;
+                        position: absolute;
+                        width: 100%;
+                        height: 100%;
+                    }
+                }
+
+                &.o1 {
+                    border-radius: 0px;
+                    background: #647d21;
+                    width: 100%;
+                    // margin: 0;
+                    margin: 0 0 0.5rem 0;
+                    padding: 1rem 1.5rem 1rem 2.5rem;
+                    filter: drop-shadow(4px 4px 4px rgba(0, 0, 0, 0.25));
+                    flex-flow: row nowrap;
+                    gap: 1rem;
+                    height: auto;
+
+                    p {
+                        font-size: 1.375rem;
+                        font-weight: 600;
+                        text-shadow: 4px 4px 4px rgba(0, 0, 0, 0.25);
+                        width: 100%;
+                        color: $white;
+                        height: auto;
+                        padding: 0;
+                        text-align: left;
+                    }
+                    .icon-description {
+                        border: none;
+                        min-width: inherit;
+                        // border: 1px solid #000;
+                        height: auto;
+                        filter: drop-shadow(4px 4px 4px rgba(0, 0, 0, 0.25));
+                        img {
+                            background: transparent;
+                            border-radius: 0;
+                            width: 45px;
+                            height: 45px;
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    .card_bg {
+        // border-radius: 0 40px 0 20px;
+    }
+
+    // img.road-confirmed {
+    //     width: 100%;
+    //     height: auto;
+    //     position: relative;
+    //     z-index: 1;
+    // }
+
+    // Media queries pour mobile
+    @media (max-width: 768px) {
+        .sgm-tle h2.card_title {
+            font-size: 1.25rem;
+        }
+
+        .card_H {
+            padding: 0.5rem;
+        }
+
+        .card_cnt {
+            border-radius: 0;
+        }
+
+        .srv-description {
+            padding: 0.75rem;
+        }
+
+        .icon-description {
+            width: 80px;
+            height: 80px;
+
+            img {
+                width: 70px;
+                height: 70px;
+            }
+        }
+    }
+}
