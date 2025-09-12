@@ -15,23 +15,18 @@
         "css:prune:apply": "tsx tools/scripts/css-prune.ts --apply"
     },
     "dependencies": {
-        "@formspree/react": "^2.5.1",
-        "next": "15.0.3",
-        "react": "^18.0.0",
-        "react-dom": "^18.0.0",
-        "react-markdown": "^10.1.0",
-        "remark-gfm": "^4.0.1",
-        "sass": "1.60.0",
-        "sitemap": "^8.0.0"
+        "next": "15.5.3",
+        "react": "19.1.1",
+        "react-dom": "19.1.1"
     },
     "devDependencies": {
         "@types/node": "^20",
-        "@types/react": "^18",
-        "@types/react-dom": "^18",
+        "@types/react": "19.1.12",
+        "@types/react-dom": "19.1.9",
         "constructs": "^10.3.0",
         "esbuild": "^0.23.1",
         "eslint": "^9.15.0",
-        "eslint-config-next": "15.0.3",
+        "eslint-config-next": "15.5.3",
         "tsx": "^4.19.0",
         "typescript": "^5.6.2"
     },
@@ -41,5 +36,9 @@
         "edge >= 115",
         "safari >= 16"
     ],
-    "packageManager": "yarn@4.9.2"
+    "packageManager": "yarn@4.9.2",
+    "resolutions": {
+        "@types/react": "19.1.12",
+        "@types/react-dom": "19.1.9"
+    }
 }
