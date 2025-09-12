@@ -3,7 +3,8 @@ import metaData from "./metaData";
 import localFont from "next/font/local";
 import HeaderLazy from "../src/components/header/HeaderLazy";
 import ClientLayout from "./ClientLayout";
-import "../src/assets/styles/main.scss";
+import "./globals.css";
+import "./tarifs.css";
 const Montserrat = localFont({
     src: "./fonts/Montserrat.woff2",
     variable: "--montserrat",
@@ -32,11 +33,7 @@ export default function RootLayout({
     return (
         <html lang="fr-FR">
             <head>
-                <link
-                    rel="preload"
-                    href="/img/retroviseur.svg"
-                    as="image"
-                />
+                <link rel="preload" href="/img/retroviseur.svg" as="image" />
 
                 {/* <link rel="preload" href="/css/globals.css" as="style" />
                 <link

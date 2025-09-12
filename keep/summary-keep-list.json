@@ -3,9 +3,9 @@
   "tsconfigUsed": "tsconfig.json",
   "entryCount": 8,
   "protectedCount": 15,
-  "scssReachableCount": 11,
-  "keepCount": 75,
-  "deleteCandidatesCount": 142,
+  "scssReachableCount": 10,
+  "keepCount": 76,
+  "deleteCandidatesCount": 1,
   "examples": {
     "entries": [
       "app/layout.tsx",
@@ -21,25 +21,16 @@
       "app/ClientLayout.tsx",
       "app/ClientLayout2.tsx",
       "app/ScrollSectionsWrapper.jsx",
+      "app/globals.css",
       "app/layout.tsx",
       "app/metaData.tsx",
       "app/p1/error.tsx",
       "app/p1/loading.tsx",
       "app/p1/page.tsx",
-      "app/p2/error.tsx",
-      "app/p2/loading.tsx"
+      "app/p2/error.tsx"
     ],
     "deleteCandidates": [
-      "app/DesktopRedirect.tsx",
-      "app/HomeOut.tsx",
-      "app/PageContainer.tsx",
-      "app/SectionContainer.tsx",
-      "app/globals.css",
-      "app/tarifs.css",
-      "app/useDesktopRedirectWrapper.jsx",
-      "src/assets/data/utils/attachContent.ts",
-      "src/components/Blog/AuthorSignature.tsx",
-      "src/components/Blog/Blog.tsx"
+      "src/components/button/_button.scss"
     ]
   }
 }

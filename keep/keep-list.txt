@@ -1,6 +1,7 @@
 app/ClientLayout.tsx
 app/ClientLayout2.tsx
 app/ScrollSectionsWrapper.jsx
+app/globals.css
 app/layout.tsx
 app/metaData.tsx
 app/p1/error.tsx
@@ -10,6 +11,7 @@ app/p2/error.tsx
 app/p2/loading.tsx
 app/p2/page.tsx
 app/page.tsx
+app/tarifs.css
 app/useScrollAnchors.ts
 src/assets/data/content/about.ts
 src/assets/data/content/contact.ts
@@ -31,7 +33,6 @@ src/assets/styles/01_base/_navToggler.scss
 src/assets/styles/03_pages/_page.scss
 src/assets/styles/main.scss
 src/components/LazyWrapper.tsx
-src/components/button/_button.scss
 src/components/frames/Frames.jsx
 src/components/frames/frames.css
 src/components/header/ButtonOpen.tsx

@@ -6,6 +6,7 @@ const Frames = ({ className, id, children, ...rest }) => {
     return (
         <section className={className} id={id} {...rest}>
             {children}
+            <p>Hello, World !</p>
         </section>
     );
 };
