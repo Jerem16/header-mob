@@ -1,10 +1,7 @@
-import type { Metadata } from "next";
-import metaData from "./metaData";
 import localFont from "next/font/local";
 import HeaderLazy from "../src/components/header/HeaderLazy";
 import ClientLayout from "./ClientLayout";
-import "./globals.css";
-import "./tarifs.css";
+
 const Montserrat = localFont({
     src: "./fonts/Montserrat.woff2",
     variable: "--montserrat",
@@ -23,7 +20,6 @@ const Nunito = localFont({
     weight: "400",
     display: "swap",
 });
-export const metadata: Metadata = metaData;
 
 export default function RootLayout({
     children,
@@ -35,19 +31,19 @@ export default function RootLayout({
             <head>
                 <link rel="preload" href="/img/retroviseur.svg" as="image" />
 
-                {/* <link rel="preload" href="/css/globals.css" as="style" />
+                <link rel="preload" href="/css/globals.css" as="style" />
                 <link
                     rel="stylesheet"
                     href="/css/globals.css"
                     fetchPriority="high"
-                /> */}
+                />
 
-                {/* <link rel="preload" href="/css/mobileDefer.css" as="style" />
+                <link rel="preload" href="/css/mobileDefer.css" as="style" />
                 <link
                     rel="stylesheet"
                     href="/css/mobileDefer.css"
                     fetchPriority="low"
-                /> */}
+                />
 
                 {/* <>
                 <script
