@@ -1,24 +1,3 @@
-/**
- *! ⚠️ NOTE IMPORTANTE SUR LA NAVIGATION DES SOUS-MENUS
- *
- ** Pour que les sous-menus fonctionnent correctement (clic et navigation),
- ** il faut ajouter `ref={navRef}` provenant du hook `useMenuBehavior`
- ** dans le bloc de navigation <nav.. <nav ref={navRef} className="main-nav">.
- *
- * Exemple (Nav.tsx) :
- *
- *   <div className="head-flex" >
- *     <nav ref={navRef} className="main-nav"> ... </nav>
- *     <nav className="reservationId"> ... </nav>
- *     <nav className="research"> ... </nav>
- *     <nav ref={navRef} className="connection"> ... </nav>
- *   </div>
- *
- *? 👉 Sans ça : les clics dans <nav class="connection"> ou dans un <SubMenu>
- *? sont considérés comme des "clics extérieurs" et ferment le menu avant la navigation.
- *
- */
-
 import { MenuLinks } from "./interfaces/menu";
 import { contentIndex } from "./content/index";
 export const menuItems: MenuLinks = {
@@ -28,36 +7,36 @@ export const menuItems: MenuLinks = {
             title: "Accueil",
             class: "",
             path: "/",
-            AnchorId: "#slider",
+            AnchorId: "#top",
             svg: "Home",
             subItems: [
                 {
                     id: "menu-slider",
                     title: "Slider",
-                    AnchorId: "#slider",
+                    AnchorId: "#s1",
                     class: "",
-                    content: contentIndex["#slider"],
+                    content: contentIndex["#s1"],
                 },
                 {
                     id: "menu-about",
                     title: "À propos",
-                    AnchorId: "#about",
+                    AnchorId: "#s2",
                     class: "",
-                    content: contentIndex["#about"],
+                    content: contentIndex["#s2"],
                 },
                 {
                     id: "menu-services",
                     title: "Services",
-                    AnchorId: "#services",
+                    AnchorId: "#s3",
                     class: "",
-                    content: contentIndex["#services"],
+                    content: contentIndex["#s3"],
                 },
                 {
                     id: "menu-contact",
                     title: "Contact",
-                    AnchorId: "#contact",
+                    AnchorId: "#s4",
                     class: "",
-                    content: contentIndex["#contact"],
+                    content: contentIndex["#s4"],
                 },
             ],
         },

@@ -3,16 +3,16 @@ import Frames from "@/src/components/frames/Frames";
 export default function Home() {
     return (
         <>
-            <Frames className="section slider-bg" id="slider">
+            <Frames className="section s1-bg" id="s1">
                 <></>
             </Frames>
-            <Frames className="section about-bg" id="about">
+            <Frames className="section s2-bg" id="s2">
                 <></>
             </Frames>
-            <Frames className="section" id="services">
+            <Frames className="section" id="s3">
                 <></>
             </Frames>
-            <Frames className="section" id="contact">
+            <Frames className="section" id="s4">
                 <></>
             </Frames>
         </>
