@@ -2,10 +2,10 @@
   "root": "C:\\Users\\super\\Desktop\\TEST BCK\\peur-de-la-conduite\\Nouveau dossier\\MOBILEHEADER",
   "tsconfigUsed": "tsconfig.json",
   "entryCount": 8,
-  "protectedCount": 15,
-  "scssReachableCount": 10,
-  "keepCount": 76,
-  "deleteCandidatesCount": 1,
+  "protectedCount": 14,
+  "scssReachableCount": 0,
+  "keepCount": 57,
+  "deleteCandidatesCount": 6,
   "examples": {
     "entries": [
       "app/layout.tsx",
@@ -23,14 +23,19 @@
       "app/ScrollSectionsWrapper.jsx",
       "app/globals.css",
       "app/layout.tsx",
-      "app/metaData.tsx",
       "app/p1/error.tsx",
       "app/p1/loading.tsx",
       "app/p1/page.tsx",
-      "app/p2/error.tsx"
+      "app/p2/error.tsx",
+      "app/p2/loading.tsx"
     ],
     "deleteCandidates": [
-      "src/components/button/_button.scss"
+      "src/components/svg_Icon/social/Facebook.jsx",
+      "src/components/svg_Icon/social/Instagram.jsx",
+      "src/components/svg_Icon/social/Linkedin.jsx",
+      "src/components/svg_Icon/social/TikTok.jsx",
+      "src/components/svg_Icon/social/WhatsApp.jsx",
+      "src/components/svg_Icon/social/Youtube.jsx"
     ]
   }
 }

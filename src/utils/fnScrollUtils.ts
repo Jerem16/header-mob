@@ -116,15 +116,7 @@ export function scrollInView(sections: { id: string }[]) {
         }
     });
 }
-export function handleSectionIntersection(
-    entries: IntersectionObserverEntry[]
-) {
-    entries.forEach((entry) => {
-        if (entry.isIntersecting && entry.target instanceof HTMLElement) {
-            currentSectionId = entry.target.id;
-        }
-    });
-}
+
 export function updateSectionClasses(
     sections: { id: string }[],
     setActiveSection: (id: string) => void

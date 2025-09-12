@@ -3,7 +3,6 @@ app/ClientLayout2.tsx
 app/ScrollSectionsWrapper.jsx
 app/globals.css
 app/layout.tsx
-app/metaData.tsx
 app/p1/error.tsx
 app/p1/loading.tsx
 app/p1/page.tsx
@@ -11,7 +10,6 @@ app/p2/error.tsx
 app/p2/loading.tsx
 app/p2/page.tsx
 app/page.tsx
-app/tarifs.css
 app/useScrollAnchors.ts
 src/assets/data/content/about.ts
 src/assets/data/content/contact.ts
@@ -23,15 +21,6 @@ src/assets/data/interfaces/content.ts
 src/assets/data/interfaces/menu.ts
 src/assets/data/menuItems.ts
 src/assets/data/sections.ts
-src/assets/styles/00_utils/_fonts.scss
-src/assets/styles/00_utils/_functions.scss
-src/assets/styles/00_utils/_mixins.scss
-src/assets/styles/00_utils/_variables.scss
-src/assets/styles/01_base/_general.scss
-src/assets/styles/01_base/_media-query.scss
-src/assets/styles/01_base/_navToggler.scss
-src/assets/styles/03_pages/_page.scss
-src/assets/styles/main.scss
 src/components/LazyWrapper.tsx
 src/components/frames/Frames.jsx
 src/components/frames/frames.css
@@ -46,7 +35,6 @@ src/components/header/MenuOpen.tsx
 src/components/header/Nav.tsx
 src/components/header/NavLink.tsx
 src/components/header/SubMenu.tsx
-src/components/header/_header.scss
 src/components/header/svgComponents.ts
 src/components/loader/Loader.jsx
 src/components/svg_Icon/Blog.jsx
@@ -58,15 +46,8 @@ src/components/svg_Icon/Reservation.jsx
 src/components/svg_Icon/Search.jsx
 src/components/svg_Icon/Services.jsx
 src/components/svg_Icon/Tarifs.jsx
-src/components/svg_Icon/social/Facebook.jsx
-src/components/svg_Icon/social/Instagram.jsx
-src/components/svg_Icon/social/Linkedin.jsx
-src/components/svg_Icon/social/TikTok.jsx
-src/components/svg_Icon/social/WhatsApp.jsx
-src/components/svg_Icon/social/Youtube.jsx
 src/components/svg_Icon/utils/MenuIcon.jsx
 src/components/svg_Icon/utils/XIcon.jsx
-src/home/contact-section/socialSvgComponents.ts
 src/hook/useTimeoutWorker.ts
 src/utils/context/NavigationContext.tsx
 src/utils/context/ScrollContext.tsx

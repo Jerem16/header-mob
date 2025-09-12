@@ -12,7 +12,6 @@ interface SectionPosition {
     height: number;
 }
 
-// sections parameter is kept for compatibility but current sections are detected dynamically
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 export const useScrollAnchors = (_sections: { id: string }[]) => {
     const { setActiveSection } = useScrollContext();
