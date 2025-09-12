@@ -145,10 +145,7 @@ ul {
         transform: scale(1) rotateY(1turn);
     }
 }
-.slider-bg,
-p {
-    margin: 0 auto;
-}
+
 *,
 .header,
 body,
@@ -274,10 +271,7 @@ textarea {
 .slider-bg {
     position: relative;
 }
-.slider-bg {
-    z-index: 0;
-    min-height: 100vw;
-}
+
 .header,
 .section {
     width: 100%;
@@ -709,10 +703,7 @@ nav .group_link-submenu:focus-visible .submenu {
     transition: fill, color, transform 0.35s;
     background: 0 0;
 }
-.sld-bg .slider-bg:before {
-    position: relative;
-    z-index: 1;
-}
+
 .ctc-layout .ctc-form .form .error-message,
 .ctc-layout .ctc-form .valid-message p,
 .nav-link {
@@ -898,17 +889,18 @@ section#hs > p {
     display: block;
 }
 #expert,
-#slider {
+#s1 {
     background: linear-gradient(#c2be51, #fff);
 }
-#about {
+#s2 {
     background: linear-gradient(#62c251, #fff);
 }
 #novice,
-#services {
+#s3 {
     background: linear-gradient(#516dc2, #fff);
 }
-#sans-permis {
+#sans-permis,
+#s4 {
     background: linear-gradient(#c2518a, #fff);
 }
 #avec-permis,
