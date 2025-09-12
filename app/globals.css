@@ -1,3 +1,8 @@
+.hidden,
+.ld-frame img {
+    opacity: 0;
+    transform: scale(0);
+}
 *,
 body,
 body *,
@@ -122,15 +127,11 @@ ul {
         transform: scale(1) rotateY(1turn);
     }
 }
-
 *,
 .header,
 body,
 body * {
     box-sizing: border-box;
-}
-.logo {
-    z-index: 1;
 }
 a,
 hr {
@@ -243,7 +244,6 @@ textarea {
 .logo {
     position: relative;
 }
-
 .header,
 .section {
     width: 100%;
@@ -300,7 +300,12 @@ header {
     transition: transform 0.5s ease-in-out;
 }
 .logo {
+    z-index: 1;
     top: 0;
+    margin: 0;
+    box-shadow: var(--S_10105010) var(--bkR05);
+    border-radius: 50%;
+    background: var(--w);
 }
 .icon-color,
 .nav-link {
@@ -311,12 +316,6 @@ header {
 .logo-link {
     width: 50px;
     height: 50px;
-}
-.logo {
-    margin: 0;
-    box-shadow: var(--S_10105010) var(--bkR05);
-    border-radius: 50%;
-    background: var(--w);
 }
 .logo .eyes,
 .logo .mouth {
@@ -344,6 +343,9 @@ header {
     flex-flow: column;
     align-items: center;
     justify-content: center;
+    position: fixed;
+    top: 0;
+    left: 0;
 }
 .loader p {
     width: 75vw;
@@ -370,8 +372,6 @@ header {
     width: calc(100% - 30vw);
     height: -moz-fit-content;
     height: fit-content;
-    opacity: 0;
-    transform: scale(0);
     animation: 0.6s ease-in-out forwards growImage;
 }
 .ld-dot,
@@ -554,15 +554,18 @@ ul {
     transform: rotate(180deg);
 }
 .hidden {
-    opacity: 0;
     visibility: hidden;
     margin: 0 !important;
     padding: 0 !important;
-    transform: scale(0);
     width: 0;
 }
 .nav-link {
     margin-left: 10px;
+    font-family: var(--FtR);
+    font-size: 1rem;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 1.25rem;
 }
 .submenu.open,
 nav .group_link-submenu:focus .submenu,
@@ -616,14 +619,6 @@ nav .group_link-submenu:focus-visible .submenu {
     color: var(--bl1);
     transition: fill, color, transform 0.35s;
     background: 0 0;
-}
-
-.nav-link {
-    font-family: var(--FtR);
-    font-size: 1rem;
-    font-style: normal;
-    font-weight: 400;
-    line-height: 1.25rem;
 }
 @keyframes fadeOut {
     0% {
@@ -709,11 +704,6 @@ thead tr th:last-child {
         top: 0;
     }
 }
-.loader {
-    position: fixed;
-    top: 0;
-    left: 0;
-}
 main {
     min-height: 100dvh;
 }
@@ -733,8 +723,8 @@ main {
 #s3 {
     background: linear-gradient(#516dc2, #fff);
 }
-#sans-permis,
-#s4 {
+#s4,
+#sans-permis {
     background: linear-gradient(#c2518a, #fff);
 }
 #avec-permis,
