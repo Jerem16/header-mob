@@ -22,7 +22,7 @@ const MenuList: React.FC<MenuListProps> = ({
                     key={menuItem.id}
                     menuItem={menuItem}
                     onNavigationClick={onNavigationClick}
-                    isOpen={openSubMenu === menuItem.id}
+                    openSubMenu={openSubMenu}
                     handleMenuClick={handleMenuClick}
                 />
             ))}
