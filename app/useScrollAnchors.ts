@@ -2,69 +2,69 @@
 import { useEffect } from "react";
 import { useScrollContext } from "../src/utils/context/ScrollContext";
 import {
-    scrollInView,
-    addNewUrl,
-    updateSectionClasses,
+  scrollInView,
+  addNewUrl,
+  updateSectionClasses,
 } from "../src/utils/fnScrollUtils";
+import { sections } from "@assets/data/sections";
+import addPassive from "@utils/addPassive";
 
 interface SectionPosition {
-    top: number;
-    height: number;
+  top: number;
+  height: number;
 }
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-export const useScrollAnchors = (_sections: { id: string }[]) => {
-    const { setActiveSection } = useScrollContext();
+export const useScrollAnchors = () => {
+  const { setActiveSection } = useScrollContext();
 
-    useEffect(() => {
-        if (typeof window === "undefined") return;
+  useEffect(() => {
+    if (typeof window === "undefined") return;
 
-        const worker = new Worker(
-            new URL("../public/workers/scrollWorker.js", import.meta.url)
-        );
+    const worker = new Worker(
+      new URL("../public/workers/scrollWorker.js", import.meta.url),
+    );
 
-        let currentSections: { id: string }[] = [];
+    let positions: Record<string, SectionPosition> = {};
 
-        const handleScroll = () => {
-            const nodes = Array.from(
-                document.querySelectorAll<HTMLElement>("section[id]")
-            );
-            currentSections = nodes.map((el) => ({ id: el.id }));
-            const positions = currentSections.reduce<
-                Record<string, SectionPosition>
-            >((acc, { id }) => {
-                const section = document.getElementById(id);
-                if (section) {
-                    acc[id] = {
-                        top: section.offsetTop,
-                        height: section.offsetHeight,
-                    };
-                }
-                return acc;
-            }, {});
+    const updatePositions = () => {
+      positions = sections.reduce<Record<string, SectionPosition>>(
+        (acc, { id }) => {
+          const section = document.getElementById(id);
+          if (section) {
+            acc[id] = {
+              top: section.offsetTop,
+              height: section.offsetHeight,
+            };
+          }
+          return acc;
+        },
+        {},
+      );
+      worker.postMessage({ sections, positions });
+    };
 
-            worker.postMessage({
-                sections: currentSections,
-                scrollY: window.scrollY,
-                positions,
-            });
-        };
+    const handleScroll = () => {
+      worker.postMessage({ scrollY: window.scrollY });
+    };
 
-        worker.onmessage = (event) => {
-            const { currentSectionId } = event.data;
-            if (currentSectionId) {
-                scrollInView(currentSections);
-                addNewUrl(currentSectionId);
-                updateSectionClasses(currentSections, setActiveSection);
-            }
-        };
+    worker.onmessage = (event) => {
+      const { currentSectionId } = event.data;
+      if (currentSectionId) {
+        scrollInView(sections);
+        addNewUrl(currentSectionId);
+        updateSectionClasses(sections, setActiveSection);
+      }
+    };
 
-        handleScroll();
-        window.addEventListener("scroll", handleScroll);
+    updatePositions();
+    handleScroll();
+    window.addEventListener("scroll", handleScroll, addPassive());
+    window.addEventListener("resize", updatePositions);
 
-        return () => {
-            window.removeEventListener("scroll", handleScroll);
-            worker.terminate();
-        };
-    }, [setActiveSection]);
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+      window.removeEventListener("resize", updatePositions);
+      worker.terminate();
+    };
+  }, [setActiveSection]);
 };
