@@ -8,8 +8,8 @@ import { contactAnnouncements, contactDetails } from "./contact";
 import { Content } from "../interfaces/content";
 
 export const contentIndex: Record<string, Content[]> = {
-    "#slider": [...sliderContent, ...sliderInfo],
-    "#about": aboutContent,
-    "#services": serviceContent,
-    "#contact": [...contactAnnouncements, ...contactDetails],
+    "#s1": [...sliderContent, ...sliderInfo],
+    "#s2": aboutContent,
+    "#s3": serviceContent,
+    "#s4": [...contactAnnouncements, ...contactDetails],
 };

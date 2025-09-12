@@ -119,10 +119,10 @@
     "app\\useScrollAnchors.ts",
     "public\\workers\\scrollWorker.js",
     "src\\utils\\fnScrollUtils.ts",
+    "src\\components\\frames\\Frames.jsx",
     "src\\components\\header\\MenuOpen.tsx",
     "src\\components\\header\\NavLink.tsx",
     "src\\components\\header\\SubMenu.tsx",
-    "src\\components\\frames\\Frames.jsx",
     ".git\\logs\\refs\\remotes\\origin\\codex\\implement-css-pruning-tool-for-next.js"
   ],
   "keyframes": [
@@ -197,49 +197,14 @@
           "reason": "used"
         },
         {
-          "selector": ".announcement-wrapper",
-          "kept": false,
-          "reason": "unused"
-        },
-        {
-          "selector": ".avat",
-          "kept": false,
-          "reason": "unused"
-        },
-        {
-          "selector": ".blg-C_V",
-          "kept": false,
-          "reason": "unused"
-        },
-        {
-          "selector": ".flt-I",
-          "kept": false,
-          "reason": "unused"
-        },
-        {
           "selector": ".hidden",
           "kept": true,
           "reason": "used"
         },
         {
-          "selector": ".pst-ct .flt-I",
-          "kept": false,
-          "reason": "unused"
-        },
-        {
-          "selector": ".pst-ct .flt-I .vid-M",
-          "kept": false,
-          "reason": "unused"
-        },
-        {
           "selector": ".submenu_group .nav-link",
           "kept": true,
           "reason": "used"
-        },
-        {
-          "selector": ".vid-M",
-          "kept": false,
-          "reason": "unused"
         },
         {
           "selector": ".vid-M .loader",
@@ -312,19 +277,9 @@
           "reason": "no-class-or-id"
         },
         {
-          "selector": ".btn-SB",
-          "kept": false,
-          "reason": "unused"
-        },
-        {
           "selector": ".logo",
           "kept": true,
           "reason": "used"
-        },
-        {
-          "selector": ".sld-bg",
-          "kept": false,
-          "reason": "unused"
         },
         {
           "selector": "a",
@@ -537,11 +492,6 @@
           "reason": "used"
         },
         {
-          "selector": ".btn-SB",
-          "kept": false,
-          "reason": "unused"
-        },
-        {
           "selector": ".content-wrapper",
           "kept": true,
           "reason": "used"
@@ -555,16 +505,6 @@
           "selector": ".logo",
           "kept": true,
           "reason": "used"
-        },
-        {
-          "selector": ".sgm",
-          "kept": false,
-          "reason": "unused"
-        },
-        {
-          "selector": ".slider-bg",
-          "kept": false,
-          "reason": "unused"
         },
         {
           "selector": ".header",
@@ -702,11 +642,6 @@
           "reason": "used"
         },
         {
-          "selector": ".info",
-          "kept": false,
-          "reason": "unused"
-        },
-        {
           "selector": ".ld-frame",
           "kept": true,
           "reason": "used"
@@ -715,16 +650,6 @@
           "selector": ".loader",
           "kept": true,
           "reason": "used"
-        },
-        {
-          "selector": ".sld-CTA",
-          "kept": false,
-          "reason": "unused"
-        },
-        {
-          "selector": ".sld-info_ctn",
-          "kept": false,
-          "reason": "unused"
         },
         {
           "selector": ".loader",
@@ -797,19 +722,9 @@
           "reason": "used"
         },
         {
-          "selector": ".yt-pl",
-          "kept": false,
-          "reason": "unused"
-        },
-        {
           "selector": "option",
           "kept": true,
           "reason": "no-class-or-id"
-        },
-        {
-          "selector": ".pst-a_dt",
-          "kept": false,
-          "reason": "unused"
         },
         {
           "selector": "input.nav-link",
@@ -907,11 +822,6 @@
           "reason": "used"
         },
         {
-          "selector": ".pp a",
-          "kept": false,
-          "reason": "unused"
-        },
-        {
           "selector": ".head-link .submenu-arrow.open",
           "kept": true,
           "reason": "used"
@@ -945,11 +855,6 @@
           "selector": "#services-page .container > .fixed-menu",
           "kept": true,
           "reason": "used"
-        },
-        {
-          "selector": ".ctc-layout .ctc-form .cgu label",
-          "kept": false,
-          "reason": "unused"
         },
         {
           "selector": ".nav-link.display-none",
@@ -1027,24 +932,9 @@
           "reason": "used"
         },
         {
-          "selector": ".ctc-layout .ctc-form .form .error-message",
-          "kept": false,
-          "reason": "unused"
-        },
-        {
-          "selector": ".ctc-layout .ctc-form .valid-message p",
-          "kept": false,
-          "reason": "unused"
-        },
-        {
           "selector": ".nav-link",
           "kept": true,
           "reason": "used"
-        },
-        {
-          "selector": "#contact",
-          "kept": false,
-          "reason": "unused"
         },
         {
           "selector": ".contact svg .icon-color",
@@ -1152,16 +1042,6 @@
           "reason": "used"
         },
         {
-          "selector": "section#hs > h2",
-          "kept": false,
-          "reason": "unused"
-        },
-        {
-          "selector": "section#hs > p",
-          "kept": false,
-          "reason": "unused"
-        },
-        {
           "selector": ".section",
           "kept": true,
           "reason": "used"
@@ -1212,9 +1092,9 @@
           "reason": "used"
         }
       ],
-      "removed": 24,
+      "removed": 0,
       "kept": 187,
-      "total": 211,
+      "total": 187,
       "skipped": false
     },
     "public\\css\\mobileDefer.css": {
