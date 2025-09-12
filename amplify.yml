@@ -4,7 +4,12 @@ frontend:
         preBuild:
             commands:
                 - corepack enable
-                - yarn install --frozen-lockfile --ignore-scripts
+                # (facultatif mais utile pour le log)
+                - node -v
+                - yarn -v
+                # Si tu veux VRAIMENT ignorer les scripts (postinstall, etc.), utilises la var env ci-dessous
+                # - export YARN_ENABLE_SCRIPTS=0
+                - yarn install --immutable
         build:
             commands:
                 - yarn build
@@ -14,5 +19,9 @@ frontend:
             - "**/*"
     cache:
         paths:
-            - .yarn/**
-            - node_modules/**/*
+            - .yarn/cache/**
+            - .yarn/install-state.gz
+            - .pnp.cjs
+            - .pnp.loader.mjs
+            # (si tu utilises nodeLinker: node-modules dans .yarnrc.yml, ajoute aussi)
+            # - node_modules/**/*
