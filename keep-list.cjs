@@ -1,5 +1,6 @@
 module.exports = {
   classes: [],
   prefixes: [],
-  regex: []
+  regex: [],
+  ids: []
 };
