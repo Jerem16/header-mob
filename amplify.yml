@@ -26,8 +26,12 @@ frontend:
             - node_modules/**/*
             # (si tu utilises nodeLinker: node-modules dans .yarnrc.yml, ajoute aussi)
             # - node_modules/**/*
-    customHeaders: # ← une seule fois sous frontend
-        - pattern: "/img/**"
-          headers:
-              - key: "Cache-Control"
-                value: "public, max-age=31536000, immutable"
+customHeaders:
+    - pattern: "/img/**"
+      headers:
+          - key: Cache-Control
+            value: "public, max-age=31536000, immutable"
+    - pattern: "/css/**"
+      headers:
+          - key: Cache-Control
+            value: "public, max-age=31536000, immutable"
