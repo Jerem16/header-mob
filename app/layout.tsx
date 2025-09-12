@@ -3,7 +3,7 @@ import HeaderLazy from "../src/components/header/HeaderLazy";
 import ClientLayout from "./ClientLayout";
 export const dynamic = "force-dynamic";
 
-const Montserrat = localFont({
+/* const Montserrat = localFont({
     src: "./fonts/Montserrat.woff2",
     variable: "--montserrat",
     weight: "100 900",
@@ -20,7 +20,7 @@ const Nunito = localFont({
     variable: "--nunito",
     weight: "400",
     display: "swap",
-});
+}); */
 export default function RootLayout({
     children,
 }: Readonly<{
@@ -29,6 +29,12 @@ export default function RootLayout({
     return (
         <html lang="fr-FR">
             <head>
+                <link rel="preconnect" href="https://fonts.googleapis.com" />
+                <link
+                    rel="preconnect"
+                    href="https://fonts.gstatic.com"
+                    crossOrigin=""
+                />
                 <link rel="preload" href="/img/retroviseur.svg" as="image" />
 
                 <link rel="preload" href="/css/globals.css" as="style" />
@@ -46,7 +52,7 @@ export default function RootLayout({
                 />
             </head>
             <body
-                className={`${Montserrat.variable} ${Roboto.variable} ${Nunito.variable}`}
+                /* className={`${Montserrat.variable} ${Roboto.variable} ${Nunito.variable}`} */
                 id="top"
             >
                 {/* <DesktopRedirect /> */}

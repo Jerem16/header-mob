@@ -1,3 +1,79 @@
+@font-face {
+    font-family: Nunito;
+    font-style: normal;
+    font-weight: 700;
+    font-display: swap;
+    src: url(https://fonts.gstatic.com/s/nunito/v26/XRXV3I6Li01BKofINeaB.woff2)
+        format("woff2");
+    unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA,
+        U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191,
+        U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+    font-family: Roboto;
+    font-style: normal;
+    font-weight: 400;
+    font-stretch: 100%;
+    font-display: swap;
+    src: url(https://fonts.gstatic.com/s/roboto/v47/KFOMCnqEu92Fr1ME7kSn66aGLdTylUAMQXC89YmC2DPNWubEbVmUiAo.woff2)
+        format("woff2");
+    unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA,
+        U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191,
+        U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+:root {
+    --tr: transparent;
+    --bk1: #151515;
+    --bk2: #1e1e1e;
+    --gy2: #e5e7eb;
+    --g2: #ddd;
+    --w1: #f2f2f1;
+    --w2: #f5f5f5;
+    --bg1: #f1e7d1;
+    --bl2: #0d84e3;
+    --bl3: #009ee2;
+    --bl4: #0152c3;
+    --bll: #3b82f6;
+    --bll2: #2563eb;
+    --bll3: #60a5fa;
+    --bll4: #f0f9ff;
+    --bll6: #1d4ed8;
+    --bll7: #0369a1;
+    --bll8: #0f172a;
+    --bll9: #f1f5f9;
+    --y: #ffb121;
+    --y1: #ffff33;
+    --o: #ff611d;
+    --or: #f60;
+    --ol: #647d21;
+    --rd: red;
+    --rd2: #e11d48;
+    --rd3: #e0e7ef;
+    --bkR01: rgba(0, 0, 0, 0.1);
+    --bkR015: rgba(0, 0, 0, 0.15);
+    --bkR02: rgba(0, 0, 0, 0.2);
+    --bkR04: rgba(0, 0, 0, 0.4);
+    --bl1R05: rgba(26, 109, 229, 0.5);
+    --bl3R05: rgba(0, 158, 226, 0.5);
+    --yR035: rgba(255, 177, 33, 0.35);
+    --wR05: rgba(255, 255, 255, 0.5);
+    --S_444: 4px 4px 4px;
+    --S_442: 4px 4px 2px;
+    --S_446: 4px 4px 6px;
+    --S_464: 4px 6px 20px;
+    --S_246: 2px 4px 6px;
+    --S_223: 2px 2px 3px;
+    --S_224: 2px 2px 4px;
+    --S_044: 0px 4px 4px;
+    --S_0420: 0px 4px 20px;
+    --S_824: 8px 32px 4px;
+    --S_1924: 1px 2px 4px;
+    --S_10105010: 10px 10px 50px 10px;
+    --S_4620: 4px 6px 20px;
+    --S_2824: 2px 8px 24px;
+    --FtR: RobotoFlex, sans-serif;
+    --FtN: Nunito, sans-serif;
+}
 .hidden,
 .ld-frame img {
     opacity: 0;
