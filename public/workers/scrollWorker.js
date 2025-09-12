@@ -1,19 +1,34 @@
-self.onmessage = function(event) {
-    const { sections, scrollY } = event.data;
-    let currentSectionId = "";
+let sections = [];
+let positions = {};
 
-    // Déterminer la section visible
-    sections.forEach(({ id }) => {
-        const sectionTop = event.data.positions[id]?.top;
-        const sectionHeight = event.data.positions[id]?.height;
-        const isInView =
-            scrollY >= sectionTop - 100 && scrollY < sectionTop + sectionHeight;
+self.onmessage = function (event) {
+  const {
+    sections: incomingSections,
+    positions: incomingPositions,
+    scrollY,
+  } = event.data;
 
-        if (isInView) {
-            currentSectionId = id;
-        }
-    });
+  if (incomingSections && incomingPositions) {
+    sections = incomingSections;
+    positions = incomingPositions;
+  }
 
-    // Retourner la section active au main thread
-    self.postMessage({ currentSectionId });
+  if (typeof scrollY !== "number") return;
+
+  let currentSectionId = "";
+
+  // Déterminer la section visible
+  sections.forEach(({ id }) => {
+    const sectionTop = positions[id]?.top;
+    const sectionHeight = positions[id]?.height;
+    const isInView =
+      scrollY >= sectionTop - 100 && scrollY < sectionTop + sectionHeight;
+
+    if (isInView) {
+      currentSectionId = id;
+    }
+  });
+
+  // Retourner la section active au main thread
+  self.postMessage({ currentSectionId });
 };
