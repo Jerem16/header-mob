@@ -77,3 +77,573 @@ function writeFileIdempotent(filePath: string, content: string) {
         fs.writeFileSync(filePath, prev + `\n\n${START}\n${content}\n${END}\n`);
     }
 }
+/* CSS-PRUNE AUTOGEN START */
+import { execSync } from "node:child_process";
+import fg from "fast-glob";
+import { parse } from "@babel/parser";
+import traverse from "@babel/traverse";
+import postcss from "postcss";
+import postcssScss from "postcss-scss";
+import selectorParser from "postcss-selector-parser";
+import MagicString from "magic-string";
+
+interface PruneConfig {
+    include: string[];
+    exclude: string[];
+    keepBEMFamily: boolean;
+    pruneCssModules: boolean;
+    keep: {
+        classes: string[];
+        prefixes: string[];
+        regex: string[];
+    };
+}
+
+interface Options {
+    apply: boolean;
+    debug: boolean;
+    configPath: string;
+    include: string[];
+    exclude: string[];
+    keepBEMFamily: boolean | null;
+}
+
+const DEFAULT_CONFIG: PruneConfig = {
+    include: ["**/*.{ts,tsx,js,jsx,html,mdx,css,scss}"],
+    exclude: ["node_modules/**", ".next/**", "dist/**", "coverage/**", "reports/**"],
+    keepBEMFamily: true,
+    pruneCssModules: false,
+    keep: {
+        classes: [
+            "main-nav",
+            "active",
+            "open",
+            "is-open",
+            "hidden",
+            "active-section",
+            "nav-link",
+            "submenu",
+        ],
+        prefixes: ["btn-style_", "nav-", "main-nav"],
+        regex: [],
+    },
+};
+
+function parseArgs(argv: string[]): Options {
+    const opts: Options = {
+        apply: false,
+        debug: false,
+        configPath: path.join(process.cwd(), "css-prune.config.json"),
+        include: [],
+        exclude: [],
+        keepBEMFamily: null,
+    };
+    for (let i = 2; i < argv.length; i++) {
+        const a = argv[i];
+        if (a === "--apply") opts.apply = true;
+        else if (a === "--debug") opts.debug = true;
+        else if (a === "--config") opts.configPath = path.resolve(argv[++i]);
+        else if (a === "--include") opts.include = argv[++i].split(",").map((s) => s.trim());
+        else if (a === "--exclude") opts.exclude = argv[++i].split(",").map((s) => s.trim());
+        else if (a.startsWith("--keep-bem-family")) {
+            const [, v] = a.split("=");
+            opts.keepBEMFamily = v === undefined ? true : v !== "false";
+        }
+    }
+    return opts;
+}
+
+function loadConfig(opts: Options): PruneConfig {
+    const fileCfg = fs.existsSync(opts.configPath)
+        ? JSON.parse(fs.readFileSync(opts.configPath, "utf8"))
+        : {};
+    let cfg: PruneConfig = {
+        ...DEFAULT_CONFIG,
+        ...fileCfg,
+        keep: mergeKeep(DEFAULT_CONFIG.keep, fileCfg.keep),
+        include: mergeArrays(DEFAULT_CONFIG.include, fileCfg.include),
+        exclude: mergeArrays(DEFAULT_CONFIG.exclude, fileCfg.exclude),
+    };
+    if (opts.include.length) cfg.include = mergeArrays(cfg.include, opts.include);
+    if (opts.exclude.length) cfg.exclude = mergeArrays(cfg.exclude, opts.exclude);
+    if (opts.keepBEMFamily !== null) cfg.keepBEMFamily = opts.keepBEMFamily;
+    return cfg;
+}
+
+interface ScanResult {
+    usedClasses: Set<string>;
+    dynamicPrefixes: Set<string>;
+    dynamicFiles: Set<string>;
+    cssModuleUsage: Map<string, Set<string>>;
+    keyframes: Set<string>;
+}
+
+function splitClasses(str: string): string[] {
+    return str
+        .split(/\s+/)
+        .map((s) => s.trim())
+        .filter(Boolean);
+}
+
+function addClasses(res: ScanResult, classes: string[]) {
+    for (const c of classes) res.usedClasses.add(c);
+}
+
+function addPrefix(res: ScanResult, p: string, file: string) {
+    res.dynamicPrefixes.add(p);
+    res.dynamicFiles.add(file);
+}
+
+function resolveExpr(
+    node: any,
+    file: string,
+    res: ScanResult
+): string[] {
+    if (!node) return [];
+    const t = node.type;
+    if (t === "StringLiteral") {
+        return splitClasses(node.value);
+    }
+    if (t === "TemplateLiteral") {
+        const staticPart = node.quasis.map((q: any) => q.value.cooked || "").join("");
+        if (node.expressions.length > 0) {
+            res.dynamicFiles.add(file);
+            node.quasis.forEach((q: any) => {
+                const txt = q.value.cooked || "";
+                const m = txt.match(/([A-Za-z0-9_-]+-)$/);
+                if (m) res.dynamicPrefixes.add(m[1]);
+            });
+        }
+        return splitClasses(staticPart);
+    }
+    if (t === "BinaryExpression" && node.operator === "+") {
+        const left = resolveExpr(node.left, file, res);
+        const right = resolveExpr(node.right, file, res);
+        if (
+            node.left.type === "StringLiteral" &&
+            node.right.type !== "StringLiteral"
+        ) {
+            addPrefix(res, node.left.value, file);
+        }
+        if (
+            node.right.type === "StringLiteral" &&
+            node.left.type !== "StringLiteral"
+        ) {
+            addPrefix(res, node.right.value, file);
+        }
+        return [...left, ...right];
+    }
+    if (t === "ConditionalExpression") {
+        return [
+            ...resolveExpr(node.consequent, file, res),
+            ...resolveExpr(node.alternate, file, res),
+        ];
+    }
+    if (t === "LogicalExpression") {
+        return [
+            ...resolveExpr(node.left, file, res),
+            ...resolveExpr(node.right, file, res),
+        ];
+    }
+    if (t === "ArrayExpression") {
+        const out: string[] = [];
+        node.elements.forEach((el: any) => {
+            out.push(...resolveExpr(el, file, res));
+        });
+        return out;
+    }
+    if (t === "ObjectExpression") {
+        const out: string[] = [];
+        node.properties.forEach((prop: any) => {
+            if (prop.type === "ObjectProperty") {
+                if (prop.key.type === "Identifier")
+                    out.push(prop.key.name);
+                else if (prop.key.type === "StringLiteral")
+                    out.push(prop.key.value);
+            }
+        });
+        return out;
+    }
+    res.dynamicFiles.add(file);
+    return [];
+}
+
+function extractSelectors(str: string): string[] {
+    const out: string[] = [];
+    selectorParser((root: any) => {
+        root.walkClasses((c: any) => out.push(c.value));
+    }).processSync(str);
+    return out;
+}
+
+function matchRegex(cls: string, patterns: string[]): boolean {
+    return patterns.some((p) => {
+        try {
+            const re = new RegExp(p);
+            return re.test(cls);
+        } catch {
+            return false;
+        }
+    });
+}
+
+function buildBEMFamilies(used: Set<string>): Set<string> {
+    const fam = new Set<string>();
+    for (const cls of used) {
+        const [be] = cls.split("--");
+        const [block, el] = be.split("__");
+        fam.add(block);
+        if (el) fam.add(`${block}__${el}`);
+    }
+    return fam;
+}
+
+function inBEMFamily(candidate: string, fam: Set<string>): boolean {
+    for (const base of fam) {
+        if (candidate === base) return true;
+        if (candidate.startsWith(`${base}__`)) return true;
+        if (candidate.startsWith(`${base}--`)) return true;
+    }
+    return false;
+}
+
+function scanFile(file: string, res: ScanResult) {
+    const code = fs.readFileSync(file, "utf8");
+    const rel = path.relative(process.cwd(), file);
+    if (/\.(css|scss)$/.test(file)) {
+        const root = postcss.parse(code, {
+            from: file,
+            parser: file.endsWith(".scss") ? postcssScss : undefined,
+        });
+        root.walkDecls(/^(animation|animation-name)$/i, (decl: any) => {
+            splitClasses(decl.value.replace(/[,]/g, " ")).forEach((n) => {
+                if (n && !/^(none|inherit|initial|unset)$/i.test(n))
+                    res.keyframes.add(n);
+            });
+        });
+        return;
+    }
+    let ast: any;
+    try {
+        ast = parse(code, {
+            sourceType: "module",
+            plugins: ["typescript", "jsx"],
+        });
+    } catch {
+        res.dynamicFiles.add(rel);
+        return;
+    }
+    const moduleImports = new Map<string, string>();
+    traverse(ast, {
+        ImportDeclaration(p: any) {
+            const src = p.node.source.value;
+            if (/\.module\.(css|scss)$/.test(src)) {
+                const spec = p.node.specifiers.find((s: any) => s.type === "ImportDefaultSpecifier");
+                if (spec) {
+                    const modPath = path.resolve(path.dirname(file), src);
+                    moduleImports.set(spec.local.name, path.relative(process.cwd(), modPath));
+                }
+            }
+        },
+        JSXAttribute(p: any) {
+            const name = p.node.name.name;
+            if (name === "className" || name === "class") {
+                if (p.node.value?.type === "StringLiteral") {
+                    addClasses(res, splitClasses(p.node.value.value));
+                } else if (p.node.value?.type === "JSXExpressionContainer") {
+                    addClasses(res, resolveExpr(p.node.value.expression, rel, res));
+                }
+            }
+        },
+        CallExpression(p: any) {
+            const callee = p.node.callee;
+            if (
+                callee.type === "Identifier" &&
+                (callee.name === "clsx" || callee.name === "classnames")
+            ) {
+                p.node.arguments.forEach((arg: any) => {
+                    addClasses(res, resolveExpr(arg, rel, res));
+                });
+            }
+            if (
+                callee.type === "MemberExpression" &&
+                callee.property.type === "Identifier"
+            ) {
+                const method = callee.property.name;
+                if (
+                    callee.object.type === "MemberExpression" &&
+                    callee.object.property.type === "Identifier" &&
+                    callee.object.property.name === "classList" &&
+                    ["add", "remove", "toggle"].includes(method)
+                ) {
+                    p.node.arguments.forEach((arg: any) => {
+                        addClasses(res, resolveExpr(arg, rel, res));
+                    });
+                }
+                if (
+                    ["querySelector", "querySelectorAll", "matches", "closest"].includes(method)
+                ) {
+                    const arg = p.node.arguments[0];
+                    if (arg && arg.type === "StringLiteral") {
+                        extractSelectors(arg.value).forEach((c) => res.usedClasses.add(c));
+                    } else {
+                        res.dynamicFiles.add(rel);
+                    }
+                }
+            }
+        },
+        AssignmentExpression(p: any) {
+            if (
+                p.node.left.type === "MemberExpression" &&
+                p.node.left.property.type === "Identifier" &&
+                p.node.left.property.name === "className"
+            ) {
+                addClasses(res, resolveExpr(p.node.right, rel, res));
+            }
+        },
+        ObjectProperty(p: any) {
+            const key =
+                p.node.key.type === "Identifier"
+                    ? p.node.key.name
+                    : p.node.key.type === "StringLiteral"
+                    ? p.node.key.value
+                    : "";
+            if (key === "class" || key === "className") {
+                addClasses(res, resolveExpr(p.node.value, rel, res));
+            }
+            if (key === "animation" || key === "animationName") {
+                const names = resolveExpr(p.node.value, rel, res);
+                names.forEach((n) => res.keyframes.add(n));
+            }
+        },
+        MemberExpression(p: any) {
+            if (
+                p.node.object.type === "Identifier" &&
+                moduleImports.has(p.node.object.name)
+            ) {
+                const modPath = moduleImports.get(p.node.object.name)!;
+                const set = res.cssModuleUsage.get(modPath) || new Set<string>();
+                if (p.node.property.type === "Identifier") {
+                    set.add(p.node.property.name);
+                } else if (p.node.property.type === "StringLiteral") {
+                    set.add(p.node.property.value);
+                } else {
+                    res.dynamicFiles.add(rel);
+                }
+                res.cssModuleUsage.set(modPath, set);
+            }
+        },
+    });
+}
+
+function isCssModule(file: string) {
+    return /\.module\.(css|scss)$/.test(file);
+}
+
+function isCssModuleUsed(
+    file: string,
+    cls: string,
+    usage: Map<string, Set<string>>
+): boolean {
+    const set = usage.get(path.relative(process.cwd(), file));
+    if (!set) return false;
+    return set.has(cls);
+}
+
+function pruneCss(
+    files: string[],
+    res: ScanResult,
+    cfg: PruneConfig,
+    apply: boolean
+) {
+    const reports: Record<string, any> = {};
+    const fam = cfg.keepBEMFamily ? buildBEMFamilies(res.usedClasses) : new Set<string>();
+    for (const file of files) {
+        const rel = path.relative(process.cwd(), file);
+        const css = fs.readFileSync(file, "utf8");
+        const ms = new MagicString(css);
+        const parser = file.endsWith(".scss") ? postcssScss : undefined;
+        const root = postcss.parse(css, { from: file, parser });
+        const fileReport = {
+            path: rel,
+            selectors: [] as { selector: string; kept: boolean; reason: string }[],
+            removed: 0,
+            kept: 0,
+            total: 0,
+            skipped: false,
+        };
+        if (!cfg.pruneCssModules && isCssModule(file)) {
+            fileReport.skipped = true;
+            reports[rel] = fileReport;
+            continue;
+        }
+        root.walkRules((rule: any) => {
+            if (rule.parent && rule.parent.type === "atrule" && /keyframes/i.test((rule.parent as any).name)) return;
+            const selector = rule.selector;
+            const classes = extractSelectors(selector);
+            if (classes.length === 0) {
+                fileReport.selectors.push({ selector, kept: true, reason: "no-class" });
+                fileReport.kept++;
+                fileReport.total++;
+                return;
+            }
+            let keep = false;
+            let reason = "unused";
+            for (const cls of classes) {
+                if (res.usedClasses.has(cls)) {
+                    keep = true;
+                    reason = "used";
+                    break;
+                }
+                if ([...res.dynamicPrefixes].some((p) => cls.startsWith(p))) {
+                    keep = true;
+                    reason = "prefix";
+                    break;
+                }
+                if (
+                    cfg.keep.classes.includes(cls) ||
+                    cfg.keep.prefixes.some((p) => cls.startsWith(p)) ||
+                    matchRegex(cls, cfg.keep.regex)
+                ) {
+                    keep = true;
+                    reason = "safelist";
+                    break;
+                }
+                if (cfg.keepBEMFamily && inBEMFamily(cls, fam)) {
+                    keep = true;
+                    reason = "bem";
+                    break;
+                }
+                if (isCssModule(file) && isCssModuleUsed(file, cls, res.cssModuleUsage)) {
+                    keep = true;
+                    reason = "module";
+                    break;
+                }
+            }
+            if (keep) {
+                fileReport.selectors.push({ selector, kept: true, reason });
+                fileReport.kept++;
+            } else {
+                fileReport.selectors.push({ selector, kept: false, reason: "unused" });
+                fileReport.removed++;
+                const { start, end } = rule.source!;
+                ms.remove(start.offset, end.offset);
+            }
+            fileReport.total++;
+        });
+        root.walkAtRules((at: any) => {
+            if ((at.name === "media" || at.name === "supports") && !at.nodes?.length) {
+                const { start, end } = at.source!;
+                ms.remove(start.offset, end.offset);
+            }
+            if (at.name === "keyframes") {
+                const name = at.params.trim();
+                if (res.keyframes.has(name)) {
+                    // keep
+                }
+            }
+        });
+        reports[rel] = fileReport;
+        if (apply) fs.writeFileSync(file, ms.toString());
+    }
+    return reports;
+}
+
+function generateReports(data: any, jsonPath: string, mdPath: string) {
+    fs.mkdirSync(path.dirname(jsonPath), { recursive: true });
+    fs.writeFileSync(jsonPath, JSON.stringify(data, null, 2), "utf8");
+    const lines = [
+        `# Rapport CSS prune`,
+        ``,
+        `Total fichiers CSS: ${Object.keys(data.files).length}`,
+        `Total sélecteurs supprimés: ${Object.values(data.files).reduce((a: number, f: any) => a + f.removed, 0)}`,
+        ``,
+        `## Fichiers dynamiques (${data.dynamicFiles.length})`,
+        ...data.dynamicFiles.map((f: string) => `- ${f}`),
+        ``,
+        `## Préfixes dynamiques (${data.dynamicPrefixes.length})`,
+        ...data.dynamicPrefixes.map((p: string) => `- \`${p}\``),
+        ``,
+        `Voir le rapport JSON: ${jsonPath}`,
+    ];
+    fs.writeFileSync(mdPath, lines.join("\n"), "utf8");
+}
+
+async function main() {
+    const opts = parseArgs(process.argv);
+    const cfg = loadConfig(opts);
+    const keepList = loadKeepList(process.cwd());
+    const keepFn = await loadKeepFunctions(process.cwd());
+    cfg.keep = mergeKeep(cfg.keep, mergeKeep(keepList, keepFn));
+
+    const files = await fg(cfg.include, { ignore: cfg.exclude, dot: true });
+
+    const res: ScanResult = {
+        usedClasses: new Set(cfg.keep.classes),
+        dynamicPrefixes: new Set(cfg.keep.prefixes),
+        dynamicFiles: new Set<string>(),
+        cssModuleUsage: new Map(),
+        keyframes: new Set(),
+    };
+
+    const cssFiles: string[] = [];
+    for (const file of files) {
+        const abs = path.resolve(file);
+        if (/\.(ts|tsx|js|jsx|mdx|html|scss|css)$/.test(file)) {
+            scanFile(abs, res);
+        }
+        if (/\.(css|scss)$/.test(file)) cssFiles.push(abs);
+    }
+
+    const cssReport = pruneCss(cssFiles, res, cfg, opts.apply);
+
+    const timestamp = new Date();
+    const stamp = timestamp.toISOString().replace(/[-:]/g, "").slice(0, 13).replace("T", "-");
+
+    const jsonPath = path.join("reports", `css-prune-${stamp}.json`);
+    const mdPath = path.join("reports", `css-prune-${stamp}.md`);
+
+    const reportData = {
+        config: cfg,
+        usedClasses: [...res.usedClasses],
+        dynamicPrefixes: [...res.dynamicPrefixes],
+        dynamicFiles: [...res.dynamicFiles],
+        keyframes: [...res.keyframes],
+        files: cssReport,
+    };
+
+    generateReports(reportData, jsonPath, mdPath);
+
+    if (opts.debug) {
+        console.log("Classes utilisées:", reportData.usedClasses);
+        console.log("Préfixes dynamiques:", reportData.dynamicPrefixes);
+        console.log("Fichiers dynamiques:", reportData.dynamicFiles);
+    }
+
+    if (opts.apply) {
+        const branch = `chore/css-prune-${stamp.slice(0, 8)}`;
+        try {
+            execSync(`git checkout -b ${branch}`, { stdio: "inherit" });
+        } catch {}
+        try {
+            execSync("yarn build", { stdio: "inherit" });
+        } catch (e: any) {
+            fs.writeFileSync(path.join("reports", `css-prune-error-${stamp}.log`), e.stderr?.toString() || String(e));
+            execSync("git reset --hard", { stdio: "inherit" });
+            process.exit(1);
+        }
+        execSync("git add -A", { stdio: "inherit" });
+        const msg =
+            `chore(css): prune des sélecteurs non utilisés (outil auto)\n\n` +
+            `- Rapports: ./reports/css-prune-${stamp}.md\n` +
+            `- Safelists: keep-list.cjs + css-prune.config.json\n` +
+            `- Garanties: build Next.js OK`;
+        execSync(`git commit -m ${JSON.stringify(msg)}`, { stdio: "inherit" });
+    }
+}
+
+main().catch((e) => {
+    console.error(e);
+    process.exit(1);
+});
+/* CSS-PRUNE AUTOGEN END */
