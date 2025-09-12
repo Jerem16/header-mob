@@ -11,15 +11,8 @@ ul {
 .main-nav {
     filter: drop-shadow(var(--S_442) var(--bkR02));
 }
-.announcement-wrapper,
-.avat,
-.blg-C_V,
-.flt-I,
 .hidden,
-.pst-ct .flt-I,
-.pst-ct .flt-I .vid-M,
 .submenu_group .nav-link,
-.vid-M,
 .vid-M .loader {
     overflow: hidden;
 }
@@ -152,9 +145,7 @@ body,
 body * {
     box-sizing: border-box;
 }
-.btn-SB,
-.logo,
-.sld-bg {
+.logo {
     z-index: 1;
 }
 a,
@@ -263,12 +254,9 @@ textarea {
     margin: 0 auto;
     width: auto;
 }
-.btn-SB,
 .content-wrapper,
 .header button.menu,
-.logo,
-.sgm,
-.slider-bg {
+.logo {
     position: relative;
 }
 
@@ -388,11 +376,8 @@ header {
     opacity: 1 !important;
     transform: none !important;
 }
-.info,
 .ld-frame,
-.loader,
-.sld-CTA,
-.sld-info_ctn {
+.loader {
     display: flex;
 }
 .loader {
@@ -517,11 +502,9 @@ header {
     }
 }
 .head-link .nav-icon,
-.yt-pl,
 option {
     cursor: pointer;
 }
-.pst-a_dt,
 input.nav-link,
 option.nav-link {
     text-transform: capitalize;
@@ -615,8 +598,7 @@ ul {
     transition: transform 0.3s ease-in-out;
     color: var(--bk);
 }
-.head-link.active .submenu-arrow,
-.pp a {
+.head-link.active .submenu-arrow {
     color: var(--bl1);
 }
 .head-link .submenu-arrow.open {
@@ -646,7 +628,6 @@ ul {
 }
 #prices .container > .fixed-menu,
 #services-page .container > .fixed-menu,
-.ctc-layout .ctc-form .cgu label,
 .nav-link.display-none {
     display: none;
 }
@@ -704,18 +685,12 @@ nav .group_link-submenu:focus-visible .submenu {
     background: 0 0;
 }
 
-.ctc-layout .ctc-form .form .error-message,
-.ctc-layout .ctc-form .valid-message p,
 .nav-link {
     font-family: var(--FtR);
     font-size: 1rem;
     font-style: normal;
     font-weight: 400;
     line-height: 1.25rem;
-}
-#contact {
-    background-color: var(--bl3);
-    background: linear-gradient(#9951c2, #fff);
 }
 .contact svg .icon-color,
 .footer svg .icon-color,
@@ -874,14 +849,6 @@ main {
 section#hs > .loader {
     top: 0;
     z-index: -1;
-}
-section#hs > h2 {
-    padding-left: 2rem;
-    height: 90vh;
-}
-section#hs > p {
-    padding: 2.5rem;
-    height: 50vh;
 }
 .section {
     width: 100%;
