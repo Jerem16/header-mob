@@ -1,0 +1,710 @@
+{
+  "config": {
+    "include": [
+      "**/*.{ts,tsx,js,jsx,html,mdx,css,scss}"
+    ],
+    "exclude": [
+      "node_modules/**",
+      ".next/**",
+      "dist/**",
+      "coverage/**",
+      "reports/**"
+    ],
+    "keepBEMFamily": true,
+    "pruneCssModules": false,
+    "keep": {
+      "classes": [
+        "main-nav",
+        "active",
+        "open",
+        "is-open",
+        "hidden",
+        "active-section",
+        "nav-link",
+        "submenu"
+      ],
+      "prefixes": [
+        "btn-style_",
+        "nav-",
+        "main-nav"
+      ],
+      "regex": []
+    }
+  },
+  "usedClasses": [
+    "main-nav",
+    "active",
+    "open",
+    "is-open",
+    "hidden",
+    "active-section",
+    "nav-link",
+    "submenu",
+    "content-wrapper",
+    "section",
+    "s1-bg",
+    "s2-bg",
+    "fixed-menu",
+    "s1",
+    "menu",
+    "header",
+    "head-flex",
+    "absolute",
+    "logo-link",
+    "group_link-submenu",
+    "head-link",
+    "submenu-arrow",
+    "submenu_group",
+    "loader",
+    "ld-circleBG",
+    "ld-frame",
+    "ld-dot2",
+    "ld-dot1",
+    "ld-dot",
+    "nav-icon",
+    "icon-color",
+    "logo",
+    "logo-circle",
+    "logo-bg",
+    "mouth",
+    "logo-bg2",
+    "eyes",
+    "logo-fp",
+    "icon-color_secondary",
+    "lucide",
+    "lucide-menu"
+  ],
+  "dynamicPrefixes": [
+    "btn-style_",
+    "nav-",
+    "main-nav"
+  ],
+  "dynamicFiles": [
+    "app\\layout.tsx",
+    "src\\components\\frames\\Frames.jsx",
+    "src\\components\\header\\MenuOpen.tsx",
+    "src\\components\\header\\NavLink.tsx",
+    "src\\components\\header\\SubMenu.tsx",
+    ".git\\logs\\refs\\remotes\\origin\\codex\\implement-css-pruning-tool-for-next.js"
+  ],
+  "keyframes": [
+    "0.65s",
+    "ease-in-out",
+    "2s",
+    "forwards",
+    "grow",
+    "0.75s",
+    "1.25s",
+    "backwards",
+    "opacityAnimation",
+    "0.5s",
+    "1.9s",
+    "growWidth",
+    "4s",
+    "0.6s",
+    "infinite",
+    "rotateBackground",
+    "growImage",
+    "1.5s",
+    "pulse",
+    "0.3s",
+    "opacityWidthAnimationIn",
+    "ease-out",
+    "0.2s",
+    "reset"
+  ],
+  "files": {
+    "app\\globals.css": {
+      "path": "app\\globals.css",
+      "selectors": [
+        {
+          "selector": "*,\r\nbody,\r\nbody *,\r\nmenu,\r\nol,\r\nul",
+          "kept": true,
+          "reason": "no-class"
+        },
+        {
+          "selector": ".header button.menu,\r\n.main-nav",
+          "kept": true,
+          "reason": "used"
+        },
+        {
+          "selector": ".announcement-wrapper,\r\n.avat,\r\n.blg-C_V,\r\n.flt-I,\r\n.hidden,\r\n.pst-ct .flt-I,\r\n.pst-ct .flt-I .vid-M,\r\n.submenu_group .nav-link,\r\n.vid-M,\r\n.vid-M .loader",
+          "kept": true,
+          "reason": "used"
+        },
+        {
+          "selector": ":root",
+          "kept": true,
+          "reason": "no-class"
+        },
+        {
+          "selector": "#slider.active-section .sld-CTA,\r\n.header .absolute.open",
+          "kept": true,
+          "reason": "used"
+        },
+        {
+          "selector": "#slider.active-section .sld-info_ctn",
+          "kept": true,
+          "reason": "used"
+        },
+        {
+          "selector": "#slider.active-section .sld-info_ctn .locationP1",
+          "kept": true,
+          "reason": "used"
+        },
+        {
+          "selector": "#slider.active-section .sld-info_ctn .locationP2,\r\n#slider.active-section .sld-info_ctn p.p-info_ctn",
+          "kept": true,
+          "reason": "used"
+        },
+        {
+          "selector": "#slider.active-section .sld-info_ctn p.p-info_ctn",
+          "kept": true,
+          "reason": "used"
+        },
+        {
+          "selector": "#top",
+          "kept": true,
+          "reason": "no-class"
+        },
+        {
+          "selector": "*,\r\n.header,\r\nbody,\r\nbody *",
+          "kept": true,
+          "reason": "used"
+        },
+        {
+          "selector": ".btn-SB,\r\n.logo,\r\n.sld-bg",
+          "kept": true,
+          "reason": "used"
+        },
+        {
+          "selector": "a,\r\nhr",
+          "kept": true,
+          "reason": "no-class"
+        },
+        {
+          "selector": "*",
+          "kept": true,
+          "reason": "no-class"
+        },
+        {
+          "selector": ":after,\r\n:before",
+          "kept": true,
+          "reason": "no-class"
+        },
+        {
+          "selector": ":host,\r\nhtml",
+          "kept": true,
+          "reason": "no-class"
+        },
+        {
+          "selector": "h1,\r\nh2,\r\nh3,\r\nh4,\r\nh5,\r\nh6",
+          "kept": true,
+          "reason": "no-class"
+        },
+        {
+          "selector": "button,\r\ninput,\r\nselect,\r\ntextarea",
+          "kept": true,
+          "reason": "no-class"
+        },
+        {
+          "selector": "audio,\r\ncanvas,\r\nembed,\r\niframe,\r\nimg,\r\nobject,\r\nsvg,\r\nvideo",
+          "kept": true,
+          "reason": "no-class"
+        },
+        {
+          "selector": "img,\r\nvideo",
+          "kept": true,
+          "reason": "no-class"
+        },
+        {
+          "selector": "textarea",
+          "kept": true,
+          "reason": "no-class"
+        },
+        {
+          "selector": "body,\r\nhtml",
+          "kept": true,
+          "reason": "no-class"
+        },
+        {
+          "selector": "body",
+          "kept": true,
+          "reason": "no-class"
+        },
+        {
+          "selector": "a,\r\nbody *",
+          "kept": true,
+          "reason": "no-class"
+        },
+        {
+          "selector": "body svg",
+          "kept": true,
+          "reason": "no-class"
+        },
+        {
+          "selector": "p",
+          "kept": true,
+          "reason": "no-class"
+        },
+        {
+          "selector": "h2",
+          "kept": true,
+          "reason": "no-class"
+        },
+        {
+          "selector": "button,\r\ninput,\r\noption,\r\nselect,\r\ntextarea",
+          "kept": true,
+          "reason": "no-class"
+        },
+        {
+          "selector": ".content-wrapper",
+          "kept": true,
+          "reason": "used"
+        },
+        {
+          "selector": ".btn-SB,\r\n.content-wrapper,\r\n.header button.menu,\r\n.logo,\r\n.sgm,\r\n.slider-bg",
+          "kept": true,
+          "reason": "used"
+        },
+        {
+          "selector": ".header,\r\n.section",
+          "kept": true,
+          "reason": "used"
+        },
+        {
+          "selector": ".section .fixed-menu",
+          "kept": true,
+          "reason": "used"
+        },
+        {
+          "selector": "header",
+          "kept": true,
+          "reason": "no-class"
+        },
+        {
+          "selector": ".header",
+          "kept": true,
+          "reason": "used"
+        },
+        {
+          "selector": ".header button.menu",
+          "kept": true,
+          "reason": "used"
+        },
+        {
+          "selector": ".header .head-flex",
+          "kept": true,
+          "reason": "used"
+        },
+        {
+          "selector": ".header .absolute",
+          "kept": true,
+          "reason": "used"
+        },
+        {
+          "selector": ".logo,\r\n.slider .content-wrapper",
+          "kept": true,
+          "reason": "used"
+        },
+        {
+          "selector": ".icon-color,\r\n.nav-link",
+          "kept": true,
+          "reason": "used"
+        },
+        {
+          "selector": ".logo,\r\n.logo-link",
+          "kept": true,
+          "reason": "used"
+        },
+        {
+          "selector": ".logo",
+          "kept": true,
+          "reason": "used"
+        },
+        {
+          "selector": ".logo .eyes,\r\n.logo .mouth",
+          "kept": true,
+          "reason": "used"
+        },
+        {
+          "selector": ".logo .logo-fp",
+          "kept": true,
+          "reason": "used"
+        },
+        {
+          "selector": ".logo .logo-bg,\r\n.logo .logo-circle",
+          "kept": true,
+          "reason": "used"
+        },
+        {
+          "selector": ".slide.active",
+          "kept": true,
+          "reason": "used"
+        },
+        {
+          "selector": ".slide.active .sld-card_title",
+          "kept": true,
+          "reason": "used"
+        },
+        {
+          "selector": ".slide.active .banner-description p,\r\n.slide.active .sld-card_title h2",
+          "kept": true,
+          "reason": "used"
+        },
+        {
+          "selector": ".slide.active .banner-description",
+          "kept": true,
+          "reason": "used"
+        },
+        {
+          "selector": ".slide.active .banner-description,\r\n.slide.active .sld-card_title",
+          "kept": true,
+          "reason": "used"
+        },
+        {
+          "selector": ".info,\r\n.ld-frame,\r\n.loader,\r\n.sld-CTA,\r\n.sld-info_ctn",
+          "kept": true,
+          "reason": "used"
+        },
+        {
+          "selector": ".loader",
+          "kept": true,
+          "reason": "used"
+        },
+        {
+          "selector": "#slider.active-section .slide",
+          "kept": true,
+          "reason": "used"
+        },
+        {
+          "selector": ".loader p",
+          "kept": true,
+          "reason": "used"
+        },
+        {
+          "selector": ".ld-circleBG",
+          "kept": true,
+          "reason": "used"
+        },
+        {
+          "selector": ".ld-frame",
+          "kept": true,
+          "reason": "used"
+        },
+        {
+          "selector": ".ld-frame img",
+          "kept": true,
+          "reason": "used"
+        },
+        {
+          "selector": ".ld-dot,\r\n.ld-dot1,\r\n.ld-dot2",
+          "kept": true,
+          "reason": "used"
+        },
+        {
+          "selector": ".ld-dot",
+          "kept": true,
+          "reason": "used"
+        },
+        {
+          "selector": ".ld-dot1",
+          "kept": true,
+          "reason": "used"
+        },
+        {
+          "selector": ".ld-dot2",
+          "kept": true,
+          "reason": "used"
+        },
+        {
+          "selector": ".ld-frame img",
+          "kept": true,
+          "reason": "used"
+        },
+        {
+          "selector": ".head-link .nav-icon,\r\n.yt-pl,\r\noption",
+          "kept": true,
+          "reason": "used"
+        },
+        {
+          "selector": ".pst-a_dt,\r\ninput.nav-link,\r\noption.nav-link",
+          "kept": true,
+          "reason": "used"
+        },
+        {
+          "selector": "table",
+          "kept": true,
+          "reason": "no-class"
+        },
+        {
+          "selector": "hr",
+          "kept": true,
+          "reason": "no-class"
+        },
+        {
+          "selector": "menu,\r\nol,\r\nul",
+          "kept": true,
+          "reason": "no-class"
+        },
+        {
+          "selector": ".header .absolute.closing",
+          "kept": true,
+          "reason": "used"
+        },
+        {
+          "selector": ".main-nav",
+          "kept": true,
+          "reason": "used"
+        },
+        {
+          "selector": ".main-nav .group_link-submenu",
+          "kept": true,
+          "reason": "used"
+        },
+        {
+          "selector": ".main-nav .group_link-submenu .submenu",
+          "kept": true,
+          "reason": "used"
+        },
+        {
+          "selector": ".main-nav .group_link-submenu .submenu.open",
+          "kept": true,
+          "reason": "used"
+        },
+        {
+          "selector": ".main-nav .group_link-submenu .submenu .submenu_group",
+          "kept": true,
+          "reason": "used"
+        },
+        {
+          "selector": ".main-nav .icon-color_secondary",
+          "kept": true,
+          "reason": "used"
+        },
+        {
+          "selector": ".head-link",
+          "kept": true,
+          "reason": "used"
+        },
+        {
+          "selector": ".head-link .nav-icon",
+          "kept": true,
+          "reason": "used"
+        },
+        {
+          "selector": ".head-link .nav-link",
+          "kept": true,
+          "reason": "used"
+        },
+        {
+          "selector": ".head-link .submenu-arrow",
+          "kept": true,
+          "reason": "used"
+        },
+        {
+          "selector": ".head-link.active .submenu-arrow,\r\n.pp a",
+          "kept": true,
+          "reason": "used"
+        },
+        {
+          "selector": ".head-link .submenu-arrow.open",
+          "kept": true,
+          "reason": "used"
+        },
+        {
+          "selector": ".head-link .submenu-arrow.closed",
+          "kept": true,
+          "reason": "used"
+        },
+        {
+          "selector": ".hidden",
+          "kept": true,
+          "reason": "used"
+        },
+        {
+          "selector": ".nav-link",
+          "kept": true,
+          "reason": "used"
+        },
+        {
+          "selector": ".group_link-submenu .nav-link.show-link",
+          "kept": true,
+          "reason": "used"
+        },
+        {
+          "selector": "#prices .container > .fixed-menu,\r\n#services-page .container > .fixed-menu,\r\n.ctc-layout .ctc-form .cgu label,\r\n.nav-link.display-none",
+          "kept": true,
+          "reason": "used"
+        },
+        {
+          "selector": ".submenu.open,\r\nnav .group_link-submenu:focus .submenu,\r\nnav .group_link-submenu:focus-visible .submenu",
+          "kept": true,
+          "reason": "used"
+        },
+        {
+          "selector": ".submenu_group .nav-link",
+          "kept": true,
+          "reason": "used"
+        },
+        {
+          "selector": ".submenu_group .nav-link:after,\r\n.submenu_group .nav-link:before",
+          "kept": true,
+          "reason": "used"
+        },
+        {
+          "selector": ".submenu_group .nav-link:before",
+          "kept": true,
+          "reason": "used"
+        },
+        {
+          "selector": ".submenu_group .nav-link:after",
+          "kept": true,
+          "reason": "used"
+        },
+        {
+          "selector": ".submenu_group .nav-link:focus,\r\n.submenu_group .nav-link:focus-visible",
+          "kept": true,
+          "reason": "used"
+        },
+        {
+          "selector": ".head-link.active .icon-color,\r\n.head-link.active .nav-icon,\r\n.head-link.active .nav-link,\r\n.submenu_group .nav-link.active",
+          "kept": true,
+          "reason": "used"
+        },
+        {
+          "selector": ".ctc-layout .ctc-form .form .error-message,\r\n.ctc-layout .ctc-form .valid-message p,\r\n.nav-link",
+          "kept": true,
+          "reason": "used"
+        },
+        {
+          "selector": "#contact",
+          "kept": true,
+          "reason": "no-class"
+        },
+        {
+          "selector": ".contact svg .icon-color,\r\n.footer svg .icon-color,\r\n.pp svg .icon-color",
+          "kept": true,
+          "reason": "used"
+        },
+        {
+          "selector": ".page-tle .nav-icon",
+          "kept": true,
+          "reason": "used"
+        },
+        {
+          "selector": ".page-tle .icon-color",
+          "kept": true,
+          "reason": "used"
+        },
+        {
+          "selector": "thead tr th",
+          "kept": true,
+          "reason": "no-class"
+        },
+        {
+          "selector": "thead tr th:first-child,\r\nthead tr th:last-child",
+          "kept": true,
+          "reason": "no-class"
+        },
+        {
+          "selector": "#prices .active-section .sct-C-hd,\r\n#services-page .active-section .sct-C-hd",
+          "kept": true,
+          "reason": "used"
+        },
+        {
+          "selector": "#services-page .page-tle .icon-color,\r\n#services-page .page-tle .nav-icon",
+          "kept": true,
+          "reason": "used"
+        },
+        {
+          "selector": "#blog .page-tle .nav-icon",
+          "kept": true,
+          "reason": "used"
+        },
+        {
+          "selector": ".loader",
+          "kept": true,
+          "reason": "used"
+        },
+        {
+          "selector": ".vid-M .loader",
+          "kept": true,
+          "reason": "used"
+        },
+        {
+          "selector": ".blg-C_V .vid-M .loader .ld-frame",
+          "kept": true,
+          "reason": "used"
+        },
+        {
+          "selector": ".blg-C_V .vid-M .loader .ld-dot,\r\n.blg-C_V .vid-M .loader .ld-dot1,\r\n.blg-C_V .vid-M .loader .ld-dot2",
+          "kept": true,
+          "reason": "used"
+        },
+        {
+          "selector": "main",
+          "kept": true,
+          "reason": "no-class"
+        },
+        {
+          "selector": "section#hs > .loader",
+          "kept": true,
+          "reason": "used"
+        },
+        {
+          "selector": "section#hs > h2",
+          "kept": true,
+          "reason": "no-class"
+        },
+        {
+          "selector": "section#hs > p",
+          "kept": true,
+          "reason": "no-class"
+        },
+        {
+          "selector": ".section",
+          "kept": true,
+          "reason": "used"
+        },
+        {
+          "selector": "#expert,\r\n#s1",
+          "kept": true,
+          "reason": "no-class"
+        },
+        {
+          "selector": "#s2",
+          "kept": true,
+          "reason": "no-class"
+        },
+        {
+          "selector": "#novice,\r\n#s3",
+          "kept": true,
+          "reason": "no-class"
+        },
+        {
+          "selector": "#sans-permis,\r\n#s4",
+          "kept": true,
+          "reason": "no-class"
+        },
+        {
+          "selector": "#avec-permis,\r\n#expert",
+          "kept": true,
+          "reason": "no-class"
+        }
+      ],
+      "removed": 0,
+      "kept": 115,
+      "total": 115,
+      "skipped": false
+    },
+    "public\\css\\mobileDefer.css": {
+      "path": "public\\css\\mobileDefer.css",
+      "selectors": [],
+      "removed": 0,
+      "kept": 0,
+      "total": 0,
+      "skipped": false
+    }
+  }
+}
