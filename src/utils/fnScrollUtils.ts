@@ -99,37 +99,38 @@ function elseNav({
 }
 /* eslint-disable-next-line */
 export let currentSectionId = "";
-export function scrollInView(sections: { id: string }[]) {
+
+export interface SectionMeta {
+    id: string;
+    top: number;
+    height: number;
+    element: HTMLElement;
+}
+
+export function scrollInView(
+    sections: SectionMeta[],
+    scrollPosition: number
+) {
     currentSectionId = "";
-    const scrollPosition = window.scrollY;
-    sections.forEach(({ id }) => {
-        const section = document.getElementById(id);
-        if (section) {
-            const sectionTop = section.offsetTop;
-            const sectionHeight = section.offsetHeight;
-            const isInView =
-                scrollPosition >= sectionTop - 100 &&
-                scrollPosition < sectionTop + sectionHeight;
-            if (isInView) {
-                currentSectionId = id;
-            }
+    sections.forEach(({ id, top, height }) => {
+        const isInView =
+            scrollPosition >= top - 100 && scrollPosition < top + height;
+        if (isInView) {
+            currentSectionId = id;
         }
     });
 }
 
 export function updateSectionClasses(
-    sections: { id: string }[],
+    sections: SectionMeta[],
     setActiveSection: (id: string) => void
 ) {
-    sections.forEach(({ id }) => {
-        const section = document.getElementById(id);
-        if (section) {
-            if (id === currentSectionId) {
-                section.classList.add("active-section");
-                setActiveSection(id);
-            } else {
-                section.classList.remove("active-section");
-            }
+    sections.forEach(({ id, element }) => {
+        if (id === currentSectionId) {
+            element.classList.add("active-section");
+            setActiveSection(id);
+        } else {
+            element.classList.remove("active-section");
         }
     });
 }

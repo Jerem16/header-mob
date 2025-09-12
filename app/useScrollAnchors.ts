@@ -5,12 +5,9 @@ import {
     scrollInView,
     addNewUrl,
     updateSectionClasses,
+    currentSectionId,
+    SectionMeta,
 } from "../src/utils/fnScrollUtils";
-
-interface SectionPosition {
-    top: number;
-    height: number;
-}
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 export const useScrollAnchors = (_sections: { id: string }[]) => {
@@ -19,44 +16,20 @@ export const useScrollAnchors = (_sections: { id: string }[]) => {
     useEffect(() => {
         if (typeof window === "undefined") return;
 
-        const worker = new Worker(
-            new URL("../public/workers/scrollWorker.js", import.meta.url)
-        );
-
-        let currentSections: { id: string }[] = [];
-
         const handleScroll = () => {
             const nodes = Array.from(
                 document.querySelectorAll<HTMLElement>("section[id]")
             );
-            currentSections = nodes.map((el) => ({ id: el.id }));
-            const positions = currentSections.reduce<
-                Record<string, SectionPosition>
-            >((acc, { id }) => {
-                const section = document.getElementById(id);
-                if (section) {
-                    acc[id] = {
-                        top: section.offsetTop,
-                        height: section.offsetHeight,
-                    };
-                }
-                return acc;
-            }, {});
-
-            worker.postMessage({
-                sections: currentSections,
-                scrollY: window.scrollY,
-                positions,
-            });
-        };
-
-        worker.onmessage = (event) => {
-            const { currentSectionId } = event.data;
-            if (currentSectionId) {
-                scrollInView(currentSections);
-                addNewUrl(currentSectionId);
-                updateSectionClasses(currentSections, setActiveSection);
-            }
+            const sections: SectionMeta[] = nodes.map((el) => ({
+                id: el.id,
+                top: el.offsetTop,
+                height: el.offsetHeight,
+                element: el,
+            }));
+            const scrollY = window.scrollY;
+            scrollInView(sections, scrollY);
+            addNewUrl(currentSectionId);
+            updateSectionClasses(sections, setActiveSection);
         };
 
         handleScroll();
@@ -64,7 +37,6 @@ export const useScrollAnchors = (_sections: { id: string }[]) => {
 
         return () => {
             window.removeEventListener("scroll", handleScroll);
-            worker.terminate();
         };
     }, [setActiveSection]);
 };
