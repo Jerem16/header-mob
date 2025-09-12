@@ -21,10 +21,12 @@
             "@amplify/*": ["amplify/*"],
             "@components/*": ["src/components/*"],
             "@hooks/*": ["src/hooks/*"],
-            "@assets/*": ["src/assets/*"],
             "@context/*": ["src/context/*"],
             "@utils/*": ["src/utils/*"],
-            "@types/*": ["src/types/*"],
+            "@assets/*": ["src/assets/*"],
+            "@services/*": ["src/services/*"],
+            "@myTypes/*": ["src/types/*"],
+            "@entities/*": ["src/entities/*"],
             "@public/*": ["public/*"]
         },
         "plugins": [
@@ -34,6 +36,14 @@
         ],
         "strictNullChecks": true
     },
-    "include": ["next-env.d.ts", ".next/types/**/*.ts", "**/*.ts", "**/*.tsx"],
-    "exclude": ["node_modules"]
+    "include": [
+        "next-env.d.ts",
+        "app/**/*.ts",
+        "app/**/*.tsx",
+        "src/**/*.ts",
+        "src/**/*.tsx",
+        "public/**/*.json",
+        ".next/types/**/*.ts"
+    ],
+    "exclude": ["node_modules", ".next", "dist"]
 }

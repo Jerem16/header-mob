@@ -1,55 +1,45 @@
 {
-  "name": "peur-de-la-conduite",
-  "version": "0.1.0",
-  "private": true,
-  "scripts": {
-    "dev": "next dev",
-    "build": "next build",
-    "start": "next start",
-    "lint": "next lint",
-    "generate:sitemap": "node /tools/scripts/generate-sitemap.js",
-    "keep:list": "node /tools/scripts/keep-list.cjs",
-    "keep": "yarn lint && node ./tools/scripts/keep-list.cjs && node ./tools/scripts/keep-functions.cjs",
-    "keep:fn": "node /tools/scripts/keep-functions.cjs",
-    "css:prune": "tsx tools/scripts/css-prune.ts",
-    "css:prune:apply": "tsx tools/scripts/css-prune.ts --apply"
-  },
-  "dependencies": {
-    "@formspree/react": "^2.5.1",
-    "next": "15.0.3",
-    "react": "^18.0.0",
-    "react-dom": "^18.0.0",
-    "react-markdown": "^10.1.0",
-    "remark-gfm": "^4.0.1",
-    "sass": "1.60.0",
-    "sitemap": "^8.0.0"
-  },
-  "devDependencies": {
-    "@babel/parser": "^7.25.0",
-    "@babel/traverse": "^7.25.0",
-    "@types/node": "^20",
-    "@types/react": "^18",
-    "@types/react-dom": "^18",
-    "constructs": "^10.3.0",
-    "esbuild": "^0.23.1",
-    "eslint": "^9.15.0",
-    "eslint-config-next": "15.0.3",
-    "fast-glob": "^3.3.3",
-    "madge": "^8.0.0",
-    "magic-string": "^0.30.10",
-    "postcss": "^8.4.38",
-    "postcss-scss": "^4.0.8",
-    "postcss-selector-parser": "^6.0.13",
-    "sass-graph": "^4.0.1",
-    "ts-prune": "^0.10.3",
-    "tsx": "^4.19.0",
-    "typescript": "^5.6.2"
-  },
-  "browserslist": [
-    "chrome >= 115",
-    "firefox >= 115",
-    "edge >= 115",
-    "safari >= 16"
-  ],
-  "packageManager": "yarn@4.9.2"
+    "name": "peur-de-la-conduite",
+    "version": "0.1.0",
+    "private": true,
+    "scripts": {
+        "dev": "next dev",
+        "build": "next build",
+        "start": "next start",
+        "lint": "next lint",
+        "generate:sitemap": "node /tools/scripts/generate-sitemap.js",
+        "keep:list": "node /tools/scripts/keep-list.cjs",
+        "keep": "yarn lint && node ./tools/scripts/keep-list.cjs && node ./tools/scripts/keep-functions.cjs",
+        "keep:fn": "node /tools/scripts/keep-functions.cjs",
+        "css:prune": "tsx tools/scripts/css-prune.ts",
+        "css:prune:apply": "tsx tools/scripts/css-prune.ts --apply"
+    },
+    "dependencies": {
+        "@formspree/react": "^2.5.1",
+        "next": "15.0.3",
+        "react": "^18.0.0",
+        "react-dom": "^18.0.0",
+        "react-markdown": "^10.1.0",
+        "remark-gfm": "^4.0.1",
+        "sass": "1.60.0",
+        "sitemap": "^8.0.0"
+    },
+    "devDependencies": {
+        "@types/node": "^20",
+        "@types/react": "^18",
+        "@types/react-dom": "^18",
+        "constructs": "^10.3.0",
+        "esbuild": "^0.23.1",
+        "eslint": "^9.15.0",
+        "eslint-config-next": "15.0.3",
+        "tsx": "^4.19.0",
+        "typescript": "^5.6.2"
+    },
+    "browserslist": [
+        "chrome >= 115",
+        "firefox >= 115",
+        "edge >= 115",
+        "safari >= 16"
+    ],
+    "packageManager": "yarn@4.9.2"
 }

@@ -1,7 +1,7 @@
 import localFont from "next/font/local";
 import HeaderLazy from "../src/components/header/HeaderLazy";
 import ClientLayout from "./ClientLayout";
-import "./globals.css";
+// import "./keep.css";
 const Montserrat = localFont({
     src: "./fonts/Montserrat.woff2",
     variable: "--montserrat",
@@ -30,19 +30,19 @@ export default function RootLayout({
             <head>
                 <link rel="preload" href="/img/retroviseur.svg" as="image" />
 
-                {/* <link rel="preload" href="/css/globals.css" as="style" />
+                <link rel="preload" href="/css/globals.css" as="style" />
                 <link
                     rel="stylesheet"
                     href="/css/globals.css"
                     fetchPriority="high"
-                /> */}
+                />
 
-                {/* <link rel="preload" href="/css/mobileDefer.css" as="style" />
+                <link rel="preload" href="/css/mobileDefer.css" as="style" />
                 <link
                     rel="stylesheet"
                     href="/css/mobileDefer.css"
                     fetchPriority="low"
-                /> */}
+                />
             </head>
             <body
                 className={`${Montserrat.variable} ${Roboto.variable} ${Nunito.variable}`}
