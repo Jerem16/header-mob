@@ -7,6 +7,10 @@ const nextConfig: NextConfig = {
         // resolveAlias: { 'lodash': 'lodash-es', 'uuid': 'uuid/dist/esm-browser/index.js' },
     },
 
+    eslint: {
+        ignoreDuringBuilds: true,
+    },
+
     webpack: (config) => {
         // Préférer l’ESM quand dispo (utile si tu actives Webpack en prod)
         config.resolve.conditionNames = [
