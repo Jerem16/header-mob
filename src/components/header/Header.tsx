@@ -1,3 +1,4 @@
+"use client";
 import React from "react";
 import LogoLink from "./LogoLink";
 import { usePathname } from "next/navigation";

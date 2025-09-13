@@ -1,7 +1,7 @@
 "use client";
 import React, { useState, lazy, Suspense } from "react";
 import useT from "../../hook/useTimeoutWorker";
-export const dynamic = "force-dynamic";
+// export const dynamic = "force-dynamic";
 import HeaderGhost from "./HeaderGhost";
 const HeaderWarpProvider = lazy(() => import("./HeaderWarpProvider"));
 const HeaderLazy = () => {
