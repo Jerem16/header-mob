@@ -34,7 +34,7 @@ const Header: React.FC<NavProps> = () => {
     );
 
     return (
-        <div className="header">
+        <div className="ha header ">
             <LogoLink
                 onClick={(e: React.MouseEvent<HTMLAnchorElement>) => {
                     e.preventDefault();
