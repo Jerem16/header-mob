@@ -1,5 +1,5 @@
 import React from "react";
-import { MenuItem } from "../../assets/data/menuItems";
+import type { MenuItem } from "../../assets/data/menuItems";
 import NavLink from "./NavLink";
 
 interface MenuListProps {

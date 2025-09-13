@@ -1,7 +1,7 @@
 {
     "compilerOptions": {
         "target": "ES2022",
-        "lib": ["DOM", "DOM.Iterable", "ES2022"],
+        "lib": ["ES2023", "DOM", "DOM.Iterable"],
         "allowJs": true,
         "skipLibCheck": true,
         "strict": true,
@@ -9,9 +9,11 @@
         "incremental": true,
         "module": "ESNext",
         "esModuleInterop": true,
-        "moduleResolution": "node",
+        "moduleResolution": "Bundler",
         "resolveJsonModule": true,
         "isolatedModules": true,
+        "useDefineForClassFields": true,
+        "verbatimModuleSyntax": true,
         "jsx": "preserve",
         "baseUrl": ".",
         "paths": {

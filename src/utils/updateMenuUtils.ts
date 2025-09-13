@@ -1,5 +1,5 @@
-import { MenuItem } from "../assets/data/menuItems";
-import { SubItem } from "../assets/data/interfaces/menu";
+import type { MenuItem } from "../assets/data/menuItems";
+import type { SubItem } from "../assets/data/interfaces/menu";
 
 export const isMainItemActive = (
     itemPath: string,
