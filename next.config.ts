@@ -1,3 +1,4 @@
+import path from "node:path";
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
@@ -28,6 +29,33 @@ const nextConfig: NextConfig = {
                 ],
             },
         ];
+    },
+    turbopack: {
+        resolveAlias: {
+            "@next/polyfill-module": path.resolve(
+                __dirname,
+                "src/shims/next-polyfills-empty.js",
+            ),
+            "next/dist/build/polyfills/polyfill-module.js": path.resolve(
+                __dirname,
+                "src/shims/next-polyfills-empty.js",
+            ),
+        },
+    },
+    webpack: (config) => {
+        config.resolve = config.resolve || {};
+        config.resolve.alias = {
+            ...(config.resolve.alias || {}),
+            "@next/polyfill-module": path.resolve(
+                __dirname,
+                "src/shims/next-polyfills-empty.js",
+            ),
+            "next/dist/build/polyfills/polyfill-module.js": path.resolve(
+                __dirname,
+                "src/shims/next-polyfills-empty.js",
+            ),
+        };
+        return config;
     },
 };
 
