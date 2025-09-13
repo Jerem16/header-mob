@@ -1,4 +1,4 @@
-self.onmessage = async function(event) {
+self.onmessage = async function (event) {
     const { url } = event.data;
     try {
         const res = await fetch(url);

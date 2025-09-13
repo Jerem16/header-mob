@@ -1,5 +1,5 @@
 "use client";
-import { useScrollAnchors } from "./useScrollAnchors";
+import { useScrollAnchors } from "../src/hook/useScrollAnchors";
 import { sections } from "../src/assets/data/sections";
 
 const ScrollSectionsWrapper = ({ children }) => {
