@@ -26,9 +26,8 @@ src/components/frames/Frames.jsx
 src/components/frames/frames.css
 src/components/header/ButtonOpen.tsx
 src/components/header/Header.tsx
+src/components/header/HeaderClient.tsx
 src/components/header/HeaderGhost.jsx
-src/components/header/HeaderLazy.jsx
-src/components/header/HeaderWarpProvider.jsx
 src/components/header/LogoLink.jsx
 src/components/header/MenuList.tsx
 src/components/header/MenuOpen.tsx

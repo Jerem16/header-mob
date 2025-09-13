@@ -1,7 +1,17 @@
+"use client";
 // import localFont from "next/font/local";
-import HeaderLazy from "../src/components/header/HeaderLazy";
+import NextDynamic from "next/dynamic";
+import HeaderGhost from "@/src/components/header/HeaderGhost";
 import ClientLayout from "./ClientLayout";
 export const dynamic = "force-dynamic";
+
+const HeaderClient = NextDynamic(
+    () => import("@/src/components/header/HeaderClient"),
+    {
+        ssr: false,
+        loading: () => <HeaderGhost />,
+    }
+);
 
 /* const Montserrat = localFont({
     src: "./fonts/Montserrat.woff2",
@@ -59,7 +69,7 @@ export default function RootLayout({
                 <ClientLayout>
                     <header>
                         <div className="content-wrapper">
-                            <HeaderLazy />
+                            <HeaderClient />
                         </div>
                     </header>
                     <main>{children}</main>
