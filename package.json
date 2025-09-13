@@ -6,7 +6,7 @@
         "dev": "next dev",
         "build": "next build",
         "start": "next start",
-        "lint": "next lint",
+        "lint": "eslint .",
         "generate:sitemap": "node /tools/scripts/generate-sitemap.js",
         "keep:list": "node /tools/scripts/keep-list.cjs",
         "keep": "yarn lint && node ./tools/scripts/keep-list.cjs && node ./tools/scripts/keep-functions.cjs",
