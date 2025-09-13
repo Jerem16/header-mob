@@ -23,11 +23,13 @@ export const useScrollAnchors = () => {
         const worker = new Worker("/workers/scrollWorker.js");
         let positions: Record<string, SectionPosition> = {};
 
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
         const updatePositions = (_evt?: Event) => {
             positions = computePositions(sections);
             postPositions(worker, sections, positions);
         };
 
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
         const handleScroll = (_evt?: Event) => {
             postScrollY(worker);
         };

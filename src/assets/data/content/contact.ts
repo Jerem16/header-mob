@@ -1,4 +1,4 @@
-import { ContactAnnouncement, ContactDetail } from "../interfaces/content";
+import type { ContactAnnouncement, ContactDetail } from "../interfaces/content";
 
 export const contactAnnouncements: ContactAnnouncement[] = [
     {

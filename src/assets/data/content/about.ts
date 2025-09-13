@@ -1,5 +1,5 @@
 // @assets/data/content/about.ts
-import { AboutContent } from "../interfaces/content";
+import type { AboutContent } from "../interfaces/content";
 
 export const aboutContent: AboutContent[] = [
     {

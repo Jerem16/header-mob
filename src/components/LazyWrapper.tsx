@@ -1,6 +1,6 @@
 // "use client";
 
-import React, { Suspense, ReactNode } from "react";
+import React, { Suspense, type ReactNode } from "react";
 import Loader from "@/src/components/loader/Loader";
 
 type LazyWrapperProps = {
