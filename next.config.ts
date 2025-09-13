@@ -1,9 +1,23 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-    experimental: {},
-    images: {
-        minimumCacheTTL: 60 * 60 * 24 * 365, // 365 jours
+    // ⚠️ Remplace experimental.turbo → turbopack (clé officielle)
+    turbopack: {
+        // Laisse vide tant que tu n’as pas de libs à ré-aliaser
+        // resolveAlias: { 'lodash': 'lodash-es', 'uuid': 'uuid/dist/esm-browser/index.js' },
+    },
+
+    webpack: (config) => {
+        // Préférer l’ESM quand dispo (utile si tu actives Webpack en prod)
+        config.resolve.conditionNames = [
+            "import",
+            "module",
+            "browser",
+            "require",
+            "default",
+        ];
+        // Pas d’alias tant que les libs ne sont pas installées
+        return config;
     },
 
     async headers() {
