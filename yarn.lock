@@ -2314,7 +2314,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"eslint@npm:^9.15.0":
+"eslint@npm:^9.35.0":
   version: 9.35.0
   resolution: "eslint@npm:9.35.0"
   dependencies:
@@ -3768,7 +3768,7 @@ __metadata:
     "@types/react-dom": "npm:19.1.9"
     constructs: "npm:^10.3.0"
     esbuild: "npm:^0.23.1"
-    eslint: "npm:^9.15.0"
+    eslint: "npm:^9.35.0"
     eslint-config-next: "npm:15.5.3"
     next: "npm:15.5.3"
     react: "npm:19.1.1"
