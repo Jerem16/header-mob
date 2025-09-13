@@ -283,3 +283,11 @@ main {
 #expert {
     background: linear-gradient(#51c264, #fff);
 }
+@media (pointer: coarse) {
+    html {
+        scroll-behavior: smooth;
+    }
+    [id] {
+        scroll-margin-top: 96px;
+    }
+}

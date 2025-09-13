@@ -1,34 +1,49 @@
-export const handleScrollClick = (targetId: string): void => {
-    const element = document.getElementById(targetId);
-    if (!element) return;
-    const start = window.scrollY;
-    const end = element.getBoundingClientRect().top + window.scrollY;
-    const duration = 750;
-    const startTime = performance.now();
+let smoothWorker: Worker | null = null;
+const isCoarse = () => matchMedia("(pointer: coarse)").matches;
 
-    const worker = new Worker(
-        new URL("/public/workers/scrollSmoothWorker.js", import.meta.url)
+const getSmoothWorker = () => {
+  if (!smoothWorker) {
+    smoothWorker = new Worker(
+      new URL("/public/workers/scrollSmoothWorker.js", import.meta.url)
     );
+  }
+  return smoothWorker;
+};
 
-    // ✏️ On précise que currentTime est un number et que la fonction ne renvoie rien
-    const animateScroll = (currentTime: number): void => {
-        worker.postMessage({ start, end, duration, startTime, currentTime });
-    };
+export const handleScrollClick = (targetId: string): void => {
+  const element = document.getElementById(targetId);
+  if (!element) return;
 
-    // Optionnel : typer aussi l’event qu’on reçoit du worker
-    worker.onmessage = (
-        event: MessageEvent<{ newScrollY: number; progress: number }>
-    ): void => {
-        const { newScrollY, progress } = event.data;
-        window.scrollTo(0, newScrollY);
-        if (progress < 1) {
-            window.requestAnimationFrame(animateScroll);
-        } else {
-            worker.terminate();
-        }
-    };
+  // Mobile/coarse → scroll natif (zéro JS par frame)
+  if (isCoarse()) {
+    element.scrollIntoView({ behavior: "smooth", block: "start" });
+    return;
+  }
 
-    window.requestAnimationFrame(animateScroll);
+  const start = window.scrollY;
+  const end = element.getBoundingClientRect().top + window.scrollY;
+  const duration = 750;
+  const startTime = performance.now();
+  const worker = getSmoothWorker();
+
+  const animateScroll = (currentTime: number): void => {
+    worker.postMessage({ start, end, duration, startTime, currentTime });
+  };
+
+  const onMsg = (
+    event: MessageEvent<{ newScrollY: number; progress: number }>
+  ) => {
+    const { newScrollY, progress } = event.data;
+    window.scrollTo(0, newScrollY);
+    if (progress < 1) {
+      window.requestAnimationFrame(animateScroll);
+    } else {
+      worker.removeEventListener("message", onMsg); // garder le worker vivant
+    }
+  };
+
+  worker.addEventListener("message", onMsg);
+  window.requestAnimationFrame(animateScroll);
 };
 
 interface NavParams {
