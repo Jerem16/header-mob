@@ -1,5 +1,5 @@
 import React from "react";
-import { MenuItem } from "../../assets/data/menuItems";
+import type { MenuItem } from "../../assets/data/menuItems";
 import { useNavigation } from "../../utils/context/NavigationContext";
 import SubMenu from "./SubMenu";
 import { svgComponents } from "./svgComponents";

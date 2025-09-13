@@ -1,4 +1,4 @@
-import { ServiceContent } from "../interfaces/content";
+import type { ServiceContent } from "../interfaces/content";
 
 export const serviceContent: ServiceContent[] = [
     {

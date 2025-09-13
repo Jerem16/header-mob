@@ -1,4 +1,4 @@
-import { MenuLinks } from "./interfaces/menu";
+import type { MenuLinks } from "./interfaces/menu";
 import { contentIndex } from "./content/index";
 export const menuItems: MenuLinks = {
     mainLink: [

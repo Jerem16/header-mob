@@ -1,5 +1,5 @@
 // @assets/data/content/slider.ts
-import { SliderContent } from "../interfaces/content";
+import type { SliderContent } from "../interfaces/content";
 
 export const sliderContent: SliderContent[] = [
     {
