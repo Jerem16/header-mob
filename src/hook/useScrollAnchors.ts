@@ -1,52 +1,82 @@
 // src/hooks/useScrollAnchors.ts
 "use client";
 
-import { useEffect } from "react";
-import { useScrollContext } from "../utils/context/ScrollContext";
+import { useEffect, useMemo, useRef } from "react";
 import {
-    computePositions,
+    SCROLL_OFFSET,
+    type Section,
+    type SectionPosition,
+} from "@utils/scroll/types";
+import { computePositions } from "@utils/scroll/positions";
+import { addPassive, rafThrottle } from "@utils/scroll/dom";
+import {
+    createScrollWorker,
+    onWorkerMessage,
+    postInit,
     postPositions,
     postScrollY,
-    onScrollWorkerMessage,
-    addWindowListeners,
-} from "../utils/fnScrollUtils";
-import type { SectionPosition } from "../utils/fnScrollUtils";
-import { sections } from "@assets/data/sections";
-import addPassive from "@utils/addPassive";
+} from "@utils/scroll/workerClient";
+import { scrollToId } from "@utils/scroll/smoothScroll";
+// import { useScrollContext } from "@/contexts/ScrollContext"; // si tu as un contexte
 
-export const useScrollAnchors = () => {
-    const { setActiveSection } = useScrollContext();
+type UseScrollAnchorsOpts = {
+    sections: Section[];
+    offset?: number;
+    onActiveChange?: (id: string | null) => void; // e.g. maj menu
+};
+
+export const useScrollAnchors = ({
+    sections,
+    offset = SCROLL_OFFSET,
+    onActiveChange,
+}: UseScrollAnchorsOpts) => {
+    const workerRef = useRef<ReturnType<typeof createScrollWorker> | null>(
+        null
+    );
+    // const { setActiveSection } = useScrollContext(); // optionnel
 
     useEffect(() => {
         if (typeof window === "undefined") return;
+        const controller = new AbortController();
 
-        const worker = new Worker("/workers/scrollWorker.js");
-        let positions: Record<string, SectionPosition> = {};
-        // eslint-disable-next-line @typescript-eslint/no-unused-vars
-        const updatePositions = (_evt?: Event) => {
-            positions = computePositions(sections);
-            postPositions(worker, sections, positions);
+        const worker = createScrollWorker();
+        workerRef.current = worker;
+
+        const stopMsg = onWorkerMessage(worker, (msg) => {
+            if (msg.type === "active") {
+                onActiveChange?.(msg.id);
+                // setActiveSection?.(msg.id);
+            }
+        });
+
+        // init + positions
+        postInit(worker, sections);
+        const pushPositions = () => {
+            const positions: Record<string, SectionPosition> =
+                computePositions(sections);
+            postPositions(worker, positions);
         };
-        // eslint-disable-next-line @typescript-eslint/no-unused-vars
-        const handleScroll = (_evt?: Event) => {
-            postScrollY(worker);
-        };
+        // 1) au montage + au load/resize
+        pushPositions();
+        addPassive(window, "load", pushPositions);
+        addPassive(window, "resize", rafThrottle(pushPositions));
 
-        // Handler factorisé
-        worker.onmessage = onScrollWorkerMessage(sections, setActiveSection);
-
-        updatePositions();
-        handleScroll();
-
-        // Listeners factorisés (+ passive pour scroll)
-        const off = addWindowListeners([
-            ["scroll", handleScroll as EventListener, addPassive()],
-            ["resize", updatePositions as EventListener],
-        ]);
+        // 2) scroll
+        const onScroll = rafThrottle(() => postScrollY(worker, window.scrollY));
+        addPassive(window, "scroll", onScroll);
 
         return () => {
-            off();
+            stopMsg();
             worker.terminate();
+            controller.abort();
         };
-    }, [setActiveSection]);
+    }, [sections, offset, onActiveChange]);
+
+    // API de scroll
+    const goTo = useMemo(
+        () => (id: string) => scrollToId(id, { offset }),
+        [offset]
+    );
+
+    return { scrollToId: goTo };
 };
