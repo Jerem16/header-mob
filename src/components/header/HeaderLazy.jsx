@@ -1,10 +1,10 @@
 "use client";
 import dynamic from "next/dynamic";
-import HeaderGhost from "./HeaderGhost";
+// import HeaderGhost from "./HeaderGhost";
 
 const HeaderWarpProvider = dynamic(() => import("./HeaderWarpProvider"), {
     ssr: false,
-    loading: () => <HeaderGhost />,
+    // loading: () => <HeaderGhost />,
 });
 
 const HeaderLazy = () => {

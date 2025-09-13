@@ -4,67 +4,81 @@
 import { useEffect } from "react";
 import { useScrollContext } from "../utils/context/ScrollContext";
 import {
-    scrollInView,
-    addNewUrl,
-    updateSectionClasses,
-    forEachSectionEl,
-    getPos,
-    setCurrentSectionId,
+    computePositions,
+    postPositions,
+    postScrollY,
+    onScrollWorkerMessage,
+    addWindowListeners,
 } from "../utils/fnScrollUtils";
 import type { SectionPosition } from "../utils/fnScrollUtils";
 import { sections } from "@assets/data/sections";
 import addPassive from "@utils/addPassive";
+import { requestIdle } from "@utils/idle";
 
-// Hook principal
 export const useScrollAnchors = () => {
     const { setActiveSection } = useScrollContext();
 
     useEffect(() => {
         if (typeof window === "undefined") return;
 
-        const worker = new Worker("/workers/scrollWorker.js");
+        // Création paresseuse du worker (au premier idle / premier scroll)
+        let w: Worker | null = null;
         let positions: Record<string, SectionPosition> = {};
 
-        // Recalcule les positions (compact + lisible)
-        const updatePositions = () => {
-            const next: Record<string, SectionPosition> = {};
-            forEachSectionEl(sections, (id, el) => {
-                next[id] = getPos(el);
-            });
-            positions = next;
-            worker.postMessage({ sections, positions });
+        const ensureWorker = () =>
+            (w ??= new Worker("/workers/scrollWorker.js"));
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
+        const updatePositions = (_evt?: Event) => {
+            const worker = ensureWorker();
+            positions = computePositions(sections);
+            postPositions(worker, sections, positions);
+        };
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
+        const handleScroll = (_evt?: Event) => {
+            if (!w) return; // pas d'allocation / pas de post tant que non nécessaire
+            postScrollY(w);
         };
 
-        const handleScroll = () => {
-            worker.postMessage({ scrollY: window.scrollY });
+        const attachWorkerHandler = () => {
+            if (!w) return;
+            w.onmessage = onScrollWorkerMessage(sections, setActiveSection);
         };
 
-        worker.onmessage = (
-            event: MessageEvent<{ currentSectionId?: string }>
-        ) => {
-            const { currentSectionId } = event.data || {};
+        // Listeners légers dès le départ
+        const off = addWindowListeners([
+            ["scroll", handleScroll as EventListener, addPassive()],
+            ["resize", updatePositions as EventListener],
+        ]);
 
-            if (currentSectionId) {
-                // Utilise directement l'ID du worker (évite un parcours DOM)
-                setCurrentSectionId(currentSectionId);
-                addNewUrl(currentSectionId);
-                updateSectionClasses(sections, setActiveSection);
-            } else {
-                // Fallback local (au cas où le worker ne renvoie pas d'ID)
-                scrollInView(sections);
-                updateSectionClasses(sections, setActiveSection);
+        // Init après l'idle (idéal pour protéger FCP/LCP)
+        requestIdle(() => {
+            ensureWorker();
+            attachWorkerHandler();
+            updatePositions();
+            postScrollY(w!);
+        });
+
+        // Filet de sécurité : au premier scroll, on initialise si besoin
+        const onFirstScroll = () => {
+            if (!w) {
+                ensureWorker();
+                attachWorkerHandler();
+                updatePositions();
+                postScrollY(w!);
             }
+            window.removeEventListener("scroll", onFirstScroll, {
+                capture: false,
+            });
         };
-
-        updatePositions();
-        handleScroll();
-        window.addEventListener("scroll", handleScroll, addPassive());
-        window.addEventListener("resize", updatePositions);
+        window.addEventListener("scroll", onFirstScroll, {
+            capture: false,
+            passive: true,
+        });
 
         return () => {
-            window.removeEventListener("scroll", handleScroll);
-            window.removeEventListener("resize", updatePositions);
-            worker.terminate();
+            off();
+            window.removeEventListener("scroll", onFirstScroll);
+            if (w) w.terminate();
         };
     }, [setActiveSection]);
 };
