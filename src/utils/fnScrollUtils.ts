@@ -52,9 +52,8 @@ const isCoarse = () => matchMedia("(pointer: coarse)").matches;
 
 const getSmoothWorker = () => {
     if (!smoothWorker) {
-        smoothWorker = new Worker(
-            new URL("/public/workers/scrollSmoothWorker.js", import.meta.url)
-        );
+        // Servi depuis /public/workers => pas de bundling dans le chunk initial
+        smoothWorker = new Worker("/workers/scrollSmoothWorker.js");
     }
     return smoothWorker;
 };
