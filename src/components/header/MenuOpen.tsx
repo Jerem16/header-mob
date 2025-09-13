@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useNavigation } from "../../utils/context/NavigationContext";
 import MenuList from "./MenuList";
-import type { MenuItem } from "../../assets/data/menuItems";
+import { MenuItem } from "../../assets/data/menuItems";
 interface NavProps {
     menuItems: {
         mainLink?: MenuItem[];

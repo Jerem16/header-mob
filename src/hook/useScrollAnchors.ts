@@ -4,18 +4,16 @@
 import { useEffect } from "react";
 import { useScrollContext } from "../utils/context/ScrollContext";
 import {
-    scrollInView,
-    addNewUrl,
-    updateSectionClasses,
-    forEachSectionEl,
-    getPos,
-    setCurrentSectionId,
+    computePositions,
+    postPositions,
+    postScrollY,
+    onScrollWorkerMessage,
+    addWindowListeners,
 } from "../utils/fnScrollUtils";
 import type { SectionPosition } from "../utils/fnScrollUtils";
 import { sections } from "@assets/data/sections";
 import addPassive from "@utils/addPassive";
 
-// Hook principal
 export const useScrollAnchors = () => {
     const { setActiveSection } = useScrollContext();
 
@@ -25,45 +23,29 @@ export const useScrollAnchors = () => {
         const worker = new Worker("/workers/scrollWorker.js");
         let positions: Record<string, SectionPosition> = {};
 
-        // Recalcule les positions (compact + lisible)
-        const updatePositions = () => {
-            const next: Record<string, SectionPosition> = {};
-            forEachSectionEl(sections, (id, el) => {
-                next[id] = getPos(el);
-            });
-            positions = next;
-            worker.postMessage({ sections, positions });
+        const updatePositions = (_evt?: Event) => {
+            positions = computePositions(sections);
+            postPositions(worker, sections, positions);
         };
 
-        const handleScroll = () => {
-            worker.postMessage({ scrollY: window.scrollY });
+        const handleScroll = (_evt?: Event) => {
+            postScrollY(worker);
         };
 
-        worker.onmessage = (
-            event: MessageEvent<{ currentSectionId?: string }>
-        ) => {
-            const { currentSectionId } = event.data || {};
-
-            if (currentSectionId) {
-                // Utilise directement l'ID du worker (évite un parcours DOM)
-                setCurrentSectionId(currentSectionId);
-                addNewUrl(currentSectionId);
-                updateSectionClasses(sections, setActiveSection);
-            } else {
-                // Fallback local (au cas où le worker ne renvoie pas d'ID)
-                scrollInView(sections);
-                updateSectionClasses(sections, setActiveSection);
-            }
-        };
+        // Handler factorisé
+        worker.onmessage = onScrollWorkerMessage(sections, setActiveSection);
 
         updatePositions();
         handleScroll();
-        window.addEventListener("scroll", handleScroll, addPassive());
-        window.addEventListener("resize", updatePositions);
+
+        // Listeners factorisés (+ passive pour scroll)
+        const off = addWindowListeners([
+            ["scroll", handleScroll as EventListener, addPassive()],
+            ["resize", updatePositions as EventListener],
+        ]);
 
         return () => {
-            window.removeEventListener("scroll", handleScroll);
-            window.removeEventListener("resize", updatePositions);
+            off();
             worker.terminate();
         };
     }, [setActiveSection]);

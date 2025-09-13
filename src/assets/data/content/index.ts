@@ -5,7 +5,7 @@ import { aboutContent } from "./about";
 import { serviceContent } from "./services";
 import { contactAnnouncements, contactDetails } from "./contact";
 
-import type { Content } from "../interfaces/content";
+import { Content } from "../interfaces/content";
 
 export const contentIndex: Record<string, Content[]> = {
     "#s1": [...sliderContent, ...sliderInfo],

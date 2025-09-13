@@ -4,7 +4,7 @@ import {
     createContext,
     useState,
     useMemo,
-    type ReactNode,
+    ReactNode,
 } from "react";
 import { createUseContext } from "./utils/createUseContext";
 

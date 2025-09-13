@@ -30,6 +30,12 @@
         "tsx": "^4.19.0",
         "typescript": "^5.6.2"
     },
+    "browserslist": [
+        "chrome >= 115",
+        "firefox >= 115",
+        "edge >= 115",
+        "safari >= 16"
+    ],
     "packageManager": "yarn@4.9.2",
     "resolutions": {
         "@types/react": "19.1.12",
