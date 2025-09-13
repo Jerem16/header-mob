@@ -1,12 +1,60 @@
 // src/utils/fnScrollUtils.ts
+export type Section = { id: string };
+export type SectionPosition = { top: number; height: number };
 
-/* ---------- Smooth scroll (worker) : spécifique à ce fichier ---------- */
+export const SCROLL_OFFSET = 100;
+
+/* ---------- DOM helpers ---------- */
+export const getEl = (id: string) =>
+    document.getElementById(id) as HTMLElement | null;
+
+export const getPos = (el: HTMLElement): SectionPosition => ({
+    top: el.offsetTop,
+    height: el.offsetHeight,
+});
+
+export const forEachSectionEl = (
+    sections: Section[],
+    fn: (id: string, el: HTMLElement) => void
+): void => {
+    for (const { id } of sections) {
+        const el = getEl(id);
+        if (el) fn(id, el);
+    }
+};
+
+/* ---------- Positions + worker posts ---------- */
+export const computePositions = (
+    sections: Section[]
+): Record<string, SectionPosition> => {
+    const map: Record<string, SectionPosition> = {};
+    forEachSectionEl(sections, (id, el) => {
+        map[id] = getPos(el);
+    });
+    return map;
+};
+
+export const postPositions = (
+    worker: Worker,
+    sections: Section[],
+    positions: Record<string, SectionPosition>
+) => {
+    worker.postMessage({ sections, positions });
+};
+
+export const postScrollY = (worker: Worker, y: number = window.scrollY) => {
+    worker.postMessage({ scrollY: y });
+};
+
+/* ---------- Smooth scroll (worker) ---------- */
 let smoothWorker: Worker | null = null;
 const isCoarse = () => matchMedia("(pointer: coarse)").matches;
 
 const getSmoothWorker = () => {
     if (!smoothWorker) {
-        smoothWorker = new Worker("/workers/scrollSmoothWorker.js");
+        smoothWorker = new Worker(
+            new URL("/public/workers/scrollSmoothWorker.js", import.meta.url)
+        );
     }
     return smoothWorker;
 };
@@ -46,7 +94,7 @@ export const handleScrollClick = (targetId: string): void => {
     window.requestAnimationFrame(animateScroll);
 };
 
-/* ---------- Navigation helpers : spécifique à ce fichier ---------- */
+/* ---------- Navigation helpers ---------- */
 interface NavParams {
     currentPath: string;
     targetPath: string;
@@ -113,4 +161,87 @@ function elseNav({
             updateRoute(`${targetPath}#${targetHash}`);
         }
     }
+}
+
+/* ---------- Section in-view / classes ---------- */
+/* eslint-disable-next-line */
+export let currentSectionId = "";
+
+export const setCurrentSectionId = (id: string): void => {
+    currentSectionId = id;
+};
+
+export function scrollInView(sections: Section[]): void {
+    currentSectionId = "";
+    const y = window.scrollY;
+
+    forEachSectionEl(sections, (id, el) => {
+        const { top, height } = getPos(el);
+        const inView = y >= top - SCROLL_OFFSET && y < top + height;
+        if (inView) currentSectionId = id; // "dernier match gagne"
+    });
+}
+
+export function updateSectionClasses(
+    sections: Section[],
+    setActiveSection: (id: string) => void
+): void {
+    forEachSectionEl(sections, (id, el) => {
+        const isActive = id === currentSectionId;
+        el.classList.toggle("active-section", isActive);
+        if (isActive) setActiveSection(id);
+    });
+}
+
+export function addNewUrl(id: string): void {
+    if (!id) return;
+    const newHash = `#${id}`;
+    if (window.location.hash !== newHash) {
+        window.history.replaceState(null, "", newHash);
+    }
+}
+
+/* ---------- Pipeline d’activation + handler worker ---------- */
+export const applyActiveSection = (
+    id: string | undefined,
+    sections: Section[],
+    setActiveSection: (id: string) => void
+) => {
+    if (!id) return;
+    setCurrentSectionId(id);
+    addNewUrl(id);
+    updateSectionClasses(sections, setActiveSection);
+};
+
+export const onScrollWorkerMessage =
+    (sections: Section[], setActiveSection: (id: string) => void) =>
+    (event: MessageEvent<{ currentSectionId?: string }>) => {
+        const { currentSectionId } = event.data || {};
+        if (currentSectionId) {
+            applyActiveSection(currentSectionId, sections, setActiveSection);
+        } else {
+            // Fallback local
+            scrollInView(sections);
+            updateSectionClasses(sections, setActiveSection);
+        }
+    };
+
+/* ---------- Multi-listeners (sans any) ---------- */
+export type ListenerDef = Readonly<
+    [
+        type: keyof WindowEventMap,
+        handler: EventListenerOrEventListenerObject,
+        options?: boolean | AddEventListenerOptions
+    ]
+>;
+
+export function addWindowListeners(defs: ReadonlyArray<ListenerDef>) {
+    defs.forEach(([type, handler, options]) => {
+        window.addEventListener(type, handler, options);
+    });
+    return () => {
+        defs.forEach(([type, handler, options]) => {
+            window.removeEventListener(type, handler, options);
+        });
+    };
 }
