@@ -1,15 +1,24 @@
 "use client";
-import dynamic from "next/dynamic";
+import React, { useState, lazy, Suspense } from "react";
+import useT from "../../hook/useTimeoutWorker";
+// export const dynamic = "force-dynamic";
 import HeaderGhost from "./HeaderGhost";
-
-const HeaderWarpProvider = dynamic(() => import("./HeaderWarpProvider"), {
-    ssr: false,
-    loading: () => <HeaderGhost />,
-});
-
+const HeaderWarpProvider = lazy(() => import("./HeaderWarpProvider"));
 const HeaderLazy = () => {
-    return <HeaderWarpProvider />;
+    const [showHeader, setShowHeader] = useState(false);
+
+    useT(() => {
+        setShowHeader(true);
+    }, 600);
+
+    if (!showHeader) {
+        return <HeaderGhost />;
+    }
+    return (
+        <Suspense fallback={<HeaderGhost />}>
+            <HeaderWarpProvider />
+        </Suspense>
+    );
 };
 
-export default HeaderLazy;
-
+export default React.memo(HeaderLazy);
