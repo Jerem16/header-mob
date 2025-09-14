@@ -38,21 +38,7 @@ export const updateMenuItems = (
 export const updateMenuClasses = (
     mainLink?: MenuItem[],
     activeSection = "",
-    currentRoute = ""
+    currentRoute = "",
 ) => ({
     mainLink: updateMenuItems(mainLink || [], activeSection, currentRoute),
 });
-export const resetActiveMenuClasses = () => {
-    const activeLinks = document.querySelectorAll(".nav-link.active");
-    activeLinks.forEach((link) => {
-        if (link instanceof HTMLElement) {
-            link.classList.remove("active");
-        }
-    });
-    const submenus = document.querySelectorAll(".submenu.open");
-    submenus.forEach((submenu) => {
-        if (submenu instanceof HTMLElement) {
-            submenu.style.display = "";
-        }
-    });
-};

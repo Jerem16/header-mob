@@ -1,7 +1,7 @@
 "use client";
 import { useEffect } from "react";
 import { useScrollContext } from "../utils/context/ScrollContext";
-import { scrollInView, addNewUrl, updateSectionClasses } from "../utils/fnScrollUtils";
+import { addNewUrl } from "../utils/urlUtils";
 
 interface SectionPosition {
     top: number;
@@ -46,9 +46,8 @@ export const useScrollAnchors = (_sections: { id: string }[]) => {
         worker.onmessage = (event) => {
             const { currentSectionId } = event.data;
             if (currentSectionId) {
-                scrollInView(currentSections);
+                setActiveSection(currentSectionId);
                 addNewUrl(currentSectionId);
-                updateSectionClasses(currentSections, setActiveSection);
             }
         };
 

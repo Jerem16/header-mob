@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useCallback, useMemo } from "react";
 import LogoLink from "./LogoLink";
 import { usePathname } from "next/navigation";
 import Nav from "./Nav";
@@ -6,7 +6,7 @@ import { useScrollContext } from "../../utils/context/ScrollContext";
 import { useNavigation } from "../../utils/context/NavigationContext";
 import { MenuItem, menuItems } from "../../assets/data/menuItems";
 import { updateMenuClasses } from "../../utils/updateMenuUtils";
-import { handleScrollClick, handleNavClick } from "../../utils/fnScrollUtils";
+import { handleScrollClick, handleNavClick } from "../../utils/navigationUtils";
 import { useInitialScroll } from "../../utils/scrollUtils";
 
 interface NavProps {
@@ -21,26 +21,36 @@ const Header: React.FC<NavProps> = () => {
 
     useInitialScroll(pathname);
 
-    const handleNavigationClick = (path: string) => {
-        handleNavClick(path, currentRoute, updateRoute, handleScrollClick);
-    };
+    const handleNavigationClick = useCallback(
+        (path: string) => {
+            handleNavClick(path, currentRoute, updateRoute, handleScrollClick);
+        },
+        [currentRoute, updateRoute]
+    );
 
-    const updatedMenuItems = updateMenuClasses(
-        menuItems.mainLink,
-        activeSection,
-        currentRoute
+    const handleLogoClick = useCallback(
+        (e: React.MouseEvent<HTMLAnchorElement>) => {
+            e.preventDefault();
+            closeHamburgerMenu(200);
+            handleNavigationClick("/#top");
+            e.stopPropagation();
+        },
+        [closeHamburgerMenu, handleNavigationClick]
+    );
+
+    const updatedMenuItems = useMemo(
+        () =>
+            updateMenuClasses(
+                menuItems.mainLink,
+                activeSection,
+                currentRoute
+            ),
+        [activeSection, currentRoute]
     );
 
     return (
         <div className="ha header">
-            <LogoLink
-                onClick={(e: React.MouseEvent<HTMLAnchorElement>) => {
-                    e.preventDefault();
-                    closeHamburgerMenu(200);
-                    handleNavigationClick("/#top");
-                    e.stopPropagation();
-                }}
-            />
+            <LogoLink onClick={handleLogoClick} />
             <Nav
                 menuItems={updatedMenuItems}
                 onNavigationClick={handleNavigationClick}

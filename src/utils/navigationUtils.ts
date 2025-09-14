@@ -10,12 +10,10 @@ export const handleScrollClick = (targetId: string): void => {
         new URL("/public/workers/scrollSmoothWorker.js", import.meta.url)
     );
 
-    // ✏️ On précise que currentTime est un number et que la fonction ne renvoie rien
     const animateScroll = (currentTime: number): void => {
         worker.postMessage({ start, end, duration, startTime, currentTime });
     };
 
-    // Optionnel : typer aussi l’event qu’on reçoit du worker
     worker.onmessage = (
         event: MessageEvent<{ newScrollY: number; progress: number }>
     ): void => {
@@ -39,6 +37,7 @@ interface NavParams {
     updateRoute: (route: string) => void;
     handleScrollClick?: (hash: string) => void;
 }
+
 export const handleNavClick = (
     path: string,
     currentRoute: string | undefined,
@@ -60,6 +59,7 @@ export const handleNavClick = (
         handleScrollClick,
     });
 };
+
 function ifNav({
     currentPath,
     targetPath,
@@ -77,6 +77,7 @@ function ifNav({
         }
     }
 }
+
 function elseNav({
     currentPath,
     targetPath,
@@ -94,50 +95,6 @@ function elseNav({
             updateRoute(`${targetPath}#${targetHash}`);
         } else if (targetHash === currentHash) {
             updateRoute(`${targetPath}#${targetHash}`);
-        }
-    }
-}
-/* eslint-disable-next-line */
-export let currentSectionId = "";
-export function scrollInView(sections: { id: string }[]) {
-    currentSectionId = "";
-    const scrollPosition = window.scrollY;
-    sections.forEach(({ id }) => {
-        const section = document.getElementById(id);
-        if (section) {
-            const sectionTop = section.offsetTop;
-            const sectionHeight = section.offsetHeight;
-            const isInView =
-                scrollPosition >= sectionTop - 100 &&
-                scrollPosition < sectionTop + sectionHeight;
-            if (isInView) {
-                currentSectionId = id;
-            }
-        }
-    });
-}
-
-export function updateSectionClasses(
-    sections: { id: string }[],
-    setActiveSection: (id: string) => void
-) {
-    sections.forEach(({ id }) => {
-        const section = document.getElementById(id);
-        if (section) {
-            if (id === currentSectionId) {
-                section.classList.add("active-section");
-                setActiveSection(id);
-            } else {
-                section.classList.remove("active-section");
-            }
-        }
-    });
-}
-export function addNewUrl(currentSectionId: string) {
-    if (currentSectionId) {
-        const newUrl = `#${currentSectionId}`;
-        if (window.location.hash !== newUrl) {
-            window.history.replaceState(null, "", newUrl);
         }
     }
 }
