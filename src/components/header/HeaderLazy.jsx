@@ -1,20 +1,19 @@
 "use client";
 import React, { useState, lazy, Suspense } from "react";
 import useT from "../../hook/useTimeoutWorker";
-import HeaderGhost from "./HeaderGhost";
 const HeaderWarpProvider = lazy(() => import("./HeaderWarpProvider"));
 const HeaderLazy = () => {
     const [showHeader, setShowHeader] = useState(false);
 
     useT(() => {
         setShowHeader(true);
-    }, 600);
+    }, 300);
 
     if (!showHeader) {
-        return <HeaderGhost />;
+        return;
     }
     return (
-        <Suspense fallback={<HeaderGhost />}>
+        <Suspense fallback={null}>
             <HeaderWarpProvider />
         </Suspense>
     );
