@@ -1,4 +1,4 @@
-import HeaderLazy from "../src/components/header/HeaderLazy";
+import HeaderWarpProvider from "../src/components/header/HeaderWarpProvider";
 import ClientLayout from "./ClientLayout";
 
 export default function RootLayout({
@@ -24,7 +24,7 @@ export default function RootLayout({
                 <ClientLayout>
                     <header>
                         <div className="content-wrapper">
-                            <HeaderLazy />
+                            <HeaderWarpProvider />
                         </div>
                     </header>
                     <main>{children}</main>

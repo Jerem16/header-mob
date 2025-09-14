@@ -1,8 +1,17 @@
+"use client";
 import dynamic from "next/dynamic";
-const LazyClientLayout = dynamic(() => import("./ClientLayout2"));
+import LazyWrapper from "@/src/components/LazyWrapper";
+
+const ScrollProviderWrapper = dynamic(() => import("./ScrollProviderWrapper"), {
+    ssr: false,
+});
 
 const ClientLayout = ({ children }: { children: React.ReactNode }) => {
-    return <LazyClientLayout>{children}</LazyClientLayout>;
+    return (
+        <LazyWrapper>
+            <ScrollProviderWrapper>{children}</ScrollProviderWrapper>
+        </LazyWrapper>
+    );
 };
 
 export default ClientLayout;

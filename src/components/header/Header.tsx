@@ -1,3 +1,4 @@
+"use client";
 // Header.tsx
 import React, { useCallback, useMemo } from "react";
 import LogoLink from "./LogoLink";
