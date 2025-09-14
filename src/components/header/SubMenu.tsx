@@ -1,8 +1,10 @@
+// SubMenu.tsx
 "use client";
 
-import React, { useCallback } from "react";
+import React, { useMemo } from "react";
 import { MenuItem } from "../../assets/data/menuItems";
 import { useNavigation } from "../../utils/context/NavigationContext";
+import { makePayloadClickHandler, makeActivationHandler } from "@utils/handlers";
 
 interface SubMenuProps {
     menuItem: MenuItem;
@@ -12,23 +14,18 @@ interface SubMenuProps {
 
 const SubMenu: React.FC<SubMenuProps> = ({ menuItem, isOpen, onSubItemClick }) => {
     const { closeHamburgerMenu } = useNavigation();
-    const handleSubItemClick = useCallback(
-        (path: string, e: React.MouseEvent | React.KeyboardEvent) => {
-            e.stopPropagation();
-            e.preventDefault();
-            onSubItemClick(path);
-            closeHamburgerMenu(650);
-        },
+
+    const handleSubItemClick = useMemo(
+        () =>
+            makePayloadClickHandler<string>(onSubItemClick, {
+                close: closeHamburgerMenu,
+                delay: 650,
+            }),
         [onSubItemClick, closeHamburgerMenu]
     );
 
-    const handleKeyDown = useCallback(
-        (path: string, e: React.KeyboardEvent<HTMLElement>) => {
-            if (["Enter", " "].includes(e.key)) {
-                e.preventDefault();
-                onSubItemClick(path);
-            }
-        },
+    const handleKeyDown = useMemo(
+        () => makeActivationHandler<string>(onSubItemClick),
         [onSubItemClick]
     );
 

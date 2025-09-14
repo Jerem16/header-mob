@@ -1,8 +1,11 @@
-import React, { useCallback, useMemo } from "react";
+// NavLink.tsx
+import React, { useMemo } from "react";
 import { MenuItem } from "../../assets/data/menuItems";
 import { useNavigation } from "../../utils/context/NavigationContext";
 import SubMenu from "./SubMenu";
 import { svgComponents } from "./svgComponents";
+import { makeClickHandler } from "@utils/handlers";
+
 interface NavLinkProps {
     menuItem: MenuItem;
     onNavigationClick: (path: string) => void;
@@ -19,19 +22,26 @@ const NavLink: React.FC<NavLinkProps> = ({
     const { closeHamburgerMenu } = useNavigation();
     const SvgIcon = useMemo(() => svgComponents[menuItem.svg], [menuItem.svg]);
 
-    const handleClick = useCallback(
-        (e: React.MouseEvent<HTMLAnchorElement>) => {
-            e.preventDefault();
-            onNavigationClick(menuItem.path);
-            const wasOpen = isOpen;
-            handleMenuClick(menuItem.id);
-            e.stopPropagation();
+    const handleClick = useMemo(
+        () =>
+            makeClickHandler(() => {
+                onNavigationClick(menuItem.path);
+                const wasOpen = isOpen;
+                handleMenuClick(menuItem.id);
 
-            if (!menuItem.subItems || menuItem.subItems.length === 0 || wasOpen) {
-                closeHamburgerMenu(500);
-            }
-        },
-        [onNavigationClick, menuItem, isOpen, handleMenuClick, closeHamburgerMenu]
+                if (!menuItem.subItems?.length || wasOpen) {
+                    closeHamburgerMenu(500);
+                }
+            }),
+        [
+            onNavigationClick,
+            menuItem.path,
+            menuItem.id,
+            menuItem.subItems?.length,
+            isOpen,
+            handleMenuClick,
+            closeHamburgerMenu,
+        ]
     );
 
     return (
@@ -45,7 +55,6 @@ const NavLink: React.FC<NavLinkProps> = ({
             >
                 {SvgIcon && <SvgIcon />}
                 <span className="nav-link">{menuItem.title}</span>
-
                 {menuItem.subItems && menuItem.subItems.length > 0 && (
                     <span className={`submenu-arrow ${isOpen ? "open" : "closed"}`}>
                         {isOpen ? "▲" : "▼"}

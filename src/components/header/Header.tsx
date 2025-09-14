@@ -1,3 +1,4 @@
+// Header.tsx
 import React, { useCallback, useMemo } from "react";
 import LogoLink from "./LogoLink";
 import { usePathname } from "next/navigation";
@@ -8,6 +9,7 @@ import { MenuItem, menuItems } from "@assets/data/menuItems";
 import { updateMenuClasses } from "@utils/updateMenuUtils";
 import { handleScrollClick, handleNavClick } from "@utils/fnScrollUtils";
 import { useInitialScroll } from "@utils/scrollUtils";
+import { makeClickHandler } from "@utils/handlers";
 
 interface NavProps {
     menuItems: MenuItem[];
@@ -28,13 +30,12 @@ const Header: React.FC<NavProps> = () => {
         [currentRoute, updateRoute]
     );
 
-    const handleLogoClick = useCallback(
-        (e: React.MouseEvent<HTMLAnchorElement>) => {
-            e.preventDefault();
-            closeHamburgerMenu(200);
-            handleNavigationClick("/#top");
-            e.stopPropagation();
-        },
+    const handleLogoClick = useMemo(
+        () =>
+            makeClickHandler(() => {
+                closeHamburgerMenu(200);
+                handleNavigationClick("/#top");
+            }),
         [closeHamburgerMenu, handleNavigationClick]
     );
 
