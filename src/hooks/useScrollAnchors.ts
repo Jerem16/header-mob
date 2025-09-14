@@ -1,11 +1,7 @@
 "use client";
 import { useEffect } from "react";
-import { useScrollContext } from "../src/utils/context/ScrollContext";
-import {
-    scrollInView,
-    addNewUrl,
-    updateSectionClasses,
-} from "../src/utils/fnScrollUtils";
+import { useScrollContext } from "../utils/context/ScrollContext";
+import { scrollInView, addNewUrl, updateSectionClasses } from "../utils/fnScrollUtils";
 
 interface SectionPosition {
     top: number;
@@ -19,29 +15,26 @@ export const useScrollAnchors = (_sections: { id: string }[]) => {
     useEffect(() => {
         if (typeof window === "undefined") return;
 
-        const worker = new Worker(
-            new URL("../public/workers/scrollWorker.js", import.meta.url)
-        );
+        const worker = new Worker(new URL("/public/workers/scrollWorker.js", import.meta.url));
 
         let currentSections: { id: string }[] = [];
 
         const handleScroll = () => {
-            const nodes = Array.from(
-                document.querySelectorAll<HTMLElement>("section[id]")
-            );
+            const nodes = Array.from(document.querySelectorAll<HTMLElement>("section[id]"));
             currentSections = nodes.map((el) => ({ id: el.id }));
-            const positions = currentSections.reduce<
-                Record<string, SectionPosition>
-            >((acc, { id }) => {
-                const section = document.getElementById(id);
-                if (section) {
-                    acc[id] = {
-                        top: section.offsetTop,
-                        height: section.offsetHeight,
-                    };
-                }
-                return acc;
-            }, {});
+            const positions = currentSections.reduce<Record<string, SectionPosition>>(
+                (acc, { id }) => {
+                    const section = document.getElementById(id);
+                    if (section) {
+                        acc[id] = {
+                            top: section.offsetTop,
+                            height: section.offsetHeight,
+                        };
+                    }
+                    return acc;
+                },
+                {}
+            );
 
             worker.postMessage({
                 sections: currentSections,

@@ -1,24 +1,16 @@
 import React from "react";
 import { useNavigation } from "../../utils/context/NavigationContext";
-import MenuIcon from "@components/svg_Icon/utils/MenuIcon";
-import XIcon from "@components/svg_Icon/utils/XIcon";
+import OpenMenuIcon from "@components/svg_Icon/utils/OpenMenuIcon";
+import CloseMenuIcon from "@components/svg_Icon/utils/CloseMenuIcon";
 const ButtonOpen = () => {
-    const {
-        hamburgerMenuIsOpen,
-        openHamburgerMenu,
-        closeHamburgerMenu,
-    } = useNavigation();
+    const { hamburgerMenuIsOpen, openHamburgerMenu, closeHamburgerMenu } = useNavigation();
     return (
         <button
             aria-label="ouvrir le menu"
-            onClick={
-                hamburgerMenuIsOpen
-                    ? () => closeHamburgerMenu(1)
-                    : openHamburgerMenu
-            }
+            onClick={hamburgerMenuIsOpen ? () => closeHamburgerMenu(1) : openHamburgerMenu}
             className="menu"
         >
-            {hamburgerMenuIsOpen ? <XIcon /> : <MenuIcon />}
+            {hamburgerMenuIsOpen ? <CloseMenuIcon /> : <OpenMenuIcon />}
         </button>
     );
 };

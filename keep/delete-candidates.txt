@@ -1,6 +1,0 @@
-src/components/svg_Icon/social/Facebook.jsx
-src/components/svg_Icon/social/Instagram.jsx
-src/components/svg_Icon/social/Linkedin.jsx
-src/components/svg_Icon/social/TikTok.jsx
-src/components/svg_Icon/social/WhatsApp.jsx
-src/components/svg_Icon/social/Youtube.jsx
