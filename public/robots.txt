@@ -151,8 +151,6 @@ Disallow: /public/css/
 
 # 3 Bloquer les pages sans contenu ou à exclure
 
-Disallow: /reservation
-Disallow: /connection
 Disallow: /search
 Disallow: /*/loading
 Disallow: /*/error
