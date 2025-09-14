@@ -101,26 +101,6 @@ export const menuItems: MenuLinks = {
             svg: "Contact",
         },
     ],
-    reservation: [
-        {
-            id: "reservationId",
-            title: "Réservation",
-            class: "",
-            path: "/p1",
-            AnchorId: "#top",
-            svg: "Reservation",
-        },
-    ],
-    connection: [
-        {
-            id: "connexion",
-            title: "Connexion",
-            class: "",
-            path: "/p2",
-            AnchorId: "#top",
-            svg: "Connection",
-        },
-    ],
 };
 
 export type { MenuItem } from "./interfaces/menu";
