@@ -1,5 +1,4 @@
 import Frames from "@/src/components/frames/Frames";
-// export const revalidate = 3600;
 
 export default function Page() {
     return (
