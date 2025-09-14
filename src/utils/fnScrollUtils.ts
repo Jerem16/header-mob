@@ -4,7 +4,6 @@ export type SectionPosition = { top: number; height: number };
 
 export const SCROLL_OFFSET = 100;
 
-/* ---------- DOM helpers ---------- */
 export const getEl = (id: string) =>
     document.getElementById(id) as HTMLElement | null;
 
@@ -23,30 +22,7 @@ export const forEachSectionEl = (
     }
 };
 
-/* ---------- Positions + worker posts ---------- */
-export const computePositions = (
-    sections: Section[]
-): Record<string, SectionPosition> => {
-    const map: Record<string, SectionPosition> = {};
-    forEachSectionEl(sections, (id, el) => {
-        map[id] = getPos(el);
-    });
-    return map;
-};
-
-export const postPositions = (
-    worker: Worker,
-    sections: Section[],
-    positions: Record<string, SectionPosition>
-) => {
-    worker.postMessage({ sections, positions });
-};
-
-export const postScrollY = (worker: Worker, y: number = window.scrollY) => {
-    worker.postMessage({ scrollY: y });
-};
-
-/* ---------- Smooth scroll (worker) ---------- */
+// ---------- Smooth scroll (worker) ----------
 let smoothWorker: Worker | null = null;
 const isCoarse = () => matchMedia("(pointer: coarse)").matches;
 
@@ -63,6 +39,7 @@ export const handleScrollClick = (targetId: string): void => {
     const element = document.getElementById(targetId);
     if (!element) return;
 
+    // Mobile / pointeur “coarse” → scroll natif
     if (isCoarse()) {
         element.scrollIntoView({ behavior: "smooth", block: "start" });
         return;
@@ -94,7 +71,7 @@ export const handleScrollClick = (targetId: string): void => {
     window.requestAnimationFrame(animateScroll);
 };
 
-/* ---------- Navigation helpers ---------- */
+// ---------- Navigation helpers ----------
 interface NavParams {
     currentPath: string;
     targetPath: string;
@@ -163,7 +140,7 @@ function elseNav({
     }
 }
 
-/* ---------- Section in-view / classes ---------- */
+// ---------- Section in-view / classes ----------
 /* eslint-disable-next-line */
 export let currentSectionId = "";
 
@@ -178,7 +155,10 @@ export function scrollInView(sections: Section[]): void {
     forEachSectionEl(sections, (id, el) => {
         const { top, height } = getPos(el);
         const inView = y >= top - SCROLL_OFFSET && y < top + height;
-        if (inView) currentSectionId = id; // "dernier match gagne"
+        if (inView) {
+            // "Dernier match gagne"
+            currentSectionId = id;
+        }
     });
 }
 
@@ -199,49 +179,4 @@ export function addNewUrl(id: string): void {
     if (window.location.hash !== newHash) {
         window.history.replaceState(null, "", newHash);
     }
-}
-
-/* ---------- Pipeline d’activation + handler worker ---------- */
-export const applyActiveSection = (
-    id: string | undefined,
-    sections: Section[],
-    setActiveSection: (id: string) => void
-) => {
-    if (!id) return;
-    setCurrentSectionId(id);
-    addNewUrl(id);
-    updateSectionClasses(sections, setActiveSection);
-};
-
-export const onScrollWorkerMessage =
-    (sections: Section[], setActiveSection: (id: string) => void) =>
-    (event: MessageEvent<{ currentSectionId?: string }>) => {
-        const { currentSectionId } = event.data || {};
-        if (currentSectionId) {
-            applyActiveSection(currentSectionId, sections, setActiveSection);
-        } else {
-            // Fallback local
-            scrollInView(sections);
-            updateSectionClasses(sections, setActiveSection);
-        }
-    };
-
-/* ---------- Multi-listeners (sans any) ---------- */
-export type ListenerDef = Readonly<
-    [
-        type: keyof WindowEventMap,
-        handler: EventListenerOrEventListenerObject,
-        options?: boolean | AddEventListenerOptions
-    ]
->;
-
-export function addWindowListeners(defs: ReadonlyArray<ListenerDef>) {
-    defs.forEach(([type, handler, options]) => {
-        window.addEventListener(type, handler, options);
-    });
-    return () => {
-        defs.forEach(([type, handler, options]) => {
-            window.removeEventListener(type, handler, options);
-        });
-    };
 }

@@ -8,7 +8,7 @@ const Frames = ({ className, id, children, ...rest }) => {
             <div className="fixed-menu"></div>
             <h2>Welcome !</h2>
             <p>Hello, World !</p>
-            <Loader />
+            {/* <Loader /> */}
         </section>
     );
 };

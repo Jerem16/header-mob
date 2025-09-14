@@ -1,7 +1,7 @@
 // src/interfaces/menu.ts
-import type React from "react";
-import type { Content } from "../interfaces/content";
-import type { SvgIconName } from "@components/header/svgComponents";
+import React from "react";
+import { Content } from "../interfaces/content";
+import { SvgIconName } from "@components/header/svgComponents";
 
 export interface SubItem {
     id: string;
