@@ -1,25 +1,7 @@
 import HeaderLazy from "../src/components/header/HeaderLazy";
 import ClientLayout from "./ClientLayout";
 import { NavigationProvider } from "../src/utils/context/NavigationContext";
-import localFont from "next/font/local";
 
-const montserrat = localFont({
-    src: "./fonts/Montserrat.woff2",
-    display: "swap",
-    variable: "--font-montserrat",
-});
-
-const roboto = localFont({
-    src: "./fonts/Roboto.woff2",
-    display: "swap",
-    variable: "--font-roboto",
-});
-
-const nunito = localFont({
-    src: "./fonts/Nunito.woff2",
-    display: "swap",
-    variable: "--font-nunito",
-});
 
 export default function RootLayout({
     children,
@@ -27,11 +9,10 @@ export default function RootLayout({
     children: React.ReactNode;
 }>) {
     return (
-        <html
-            lang="fr-FR"
-            className={`${montserrat.variable} ${roboto.variable} ${nunito.variable}`}
-        >
+        <html lang="fr-FR">
             <head>
+                <link rel="preconnect" href="https://fonts.googleapis.com" />
+                <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="" />
                 <link rel="preload" href="/img/retroviseur.svg" as="image" />
 
                 <link rel="preload" href="/css/globals.css" as="style" />
