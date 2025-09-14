@@ -14,4 +14,4 @@ const HeaderWarpProvider = () => {
     );
 };
 
-export default React.memo(HeaderWarpProvider);
+export default dynamic(() => Promise.resolve(React.memo(HeaderWarpProvider)));

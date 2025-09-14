@@ -1,5 +1,5 @@
 import Frames from "@/src/components/frames/Frames";
-export const revalidate = 3600;
+export const dynamic = "force-dynamic";
 
 export default function Home() {
     return (

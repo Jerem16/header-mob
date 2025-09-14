@@ -1,77 +1,36 @@
-// src/utils/fnScrollUtils.ts
-export type Section = { id: string };
-export type SectionPosition = { top: number; height: number };
-
-export const SCROLL_OFFSET = 100;
-
-export const getEl = (id: string) =>
-    document.getElementById(id) as HTMLElement | null;
-
-export const getPos = (el: HTMLElement): SectionPosition => ({
-    top: el.offsetTop,
-    height: el.offsetHeight,
-});
-
-export const forEachSectionEl = (
-    sections: Section[],
-    fn: (id: string, el: HTMLElement) => void
-): void => {
-    for (const { id } of sections) {
-        const el = getEl(id);
-        if (el) fn(id, el);
-    }
-};
-
-// ---------- Smooth scroll (worker) ----------
-let smoothWorker: Worker | null = null;
-const isCoarse = () => matchMedia("(pointer: coarse)").matches;
-
-const getSmoothWorker = () => {
-    if (!smoothWorker) {
-        smoothWorker = new Worker(
-            new URL("/public/workers/scrollSmoothWorker.js", import.meta.url)
-        );
-    }
-    return smoothWorker;
-};
-
 export const handleScrollClick = (targetId: string): void => {
     const element = document.getElementById(targetId);
     if (!element) return;
-
-    // Mobile / pointeur “coarse” → scroll natif
-    if (isCoarse()) {
-        element.scrollIntoView({ behavior: "smooth", block: "start" });
-        return;
-    }
-
     const start = window.scrollY;
     const end = element.getBoundingClientRect().top + window.scrollY;
     const duration = 750;
     const startTime = performance.now();
-    const worker = getSmoothWorker();
 
+    const worker = new Worker(
+        new URL("/public/workers/scrollSmoothWorker.js", import.meta.url)
+    );
+
+    // ✏️ On précise que currentTime est un number et que la fonction ne renvoie rien
     const animateScroll = (currentTime: number): void => {
         worker.postMessage({ start, end, duration, startTime, currentTime });
     };
 
-    const onMsg = (
+    // Optionnel : typer aussi l’event qu’on reçoit du worker
+    worker.onmessage = (
         event: MessageEvent<{ newScrollY: number; progress: number }>
-    ) => {
+    ): void => {
         const { newScrollY, progress } = event.data;
         window.scrollTo(0, newScrollY);
         if (progress < 1) {
             window.requestAnimationFrame(animateScroll);
         } else {
-            worker.removeEventListener("message", onMsg);
+            worker.terminate();
         }
     };
 
-    worker.addEventListener("message", onMsg);
     window.requestAnimationFrame(animateScroll);
 };
 
-// ---------- Navigation helpers ----------
 interface NavParams {
     currentPath: string;
     targetPath: string;
@@ -80,18 +39,17 @@ interface NavParams {
     updateRoute: (route: string) => void;
     handleScrollClick?: (hash: string) => void;
 }
-
 export const handleNavClick = (
     path: string,
     currentRoute: string | undefined,
     updateRoute: (route: string) => void,
     handleScrollClick?: (hash: string) => void
 ): void => {
-    if (!currentRoute) return;
-
+    if (!currentRoute) {
+        return;
+    }
     const [currentPath, currentHash] = currentRoute.split("#");
     const [targetPath, targetHash] = path.split("#");
-
     ifNav({ currentPath, targetPath, targetHash, currentHash, updateRoute });
     elseNav({
         currentPath,
@@ -102,7 +60,6 @@ export const handleNavClick = (
         handleScrollClick,
     });
 };
-
 function ifNav({
     currentPath,
     targetPath,
@@ -112,13 +69,14 @@ function ifNav({
 }: NavParams): void {
     if (currentPath !== targetPath) {
         updateRoute(targetPath);
-        if (typeof targetHash === "undefined") return;
+        if (targetHash === undefined) {
+            return;
+        }
         if (targetHash !== currentHash) {
             updateRoute(`${targetPath}#${targetHash}`);
         }
     }
 }
-
 function elseNav({
     currentPath,
     targetPath,
@@ -129,54 +87,57 @@ function elseNav({
 }: NavParams): void {
     if (currentPath === targetPath) {
         updateRoute(targetPath);
-        if (typeof targetHash === "undefined") {
+        if (targetHash === undefined) {
             handleScrollClick?.(`scroll-start`);
         } else if (targetHash !== currentHash) {
             handleScrollClick?.(targetHash);
             updateRoute(`${targetPath}#${targetHash}`);
-        } else {
+        } else if (targetHash === currentHash) {
             updateRoute(`${targetPath}#${targetHash}`);
         }
     }
 }
-
-// ---------- Section in-view / classes ----------
 /* eslint-disable-next-line */
 export let currentSectionId = "";
-
-export const setCurrentSectionId = (id: string): void => {
-    currentSectionId = id;
-};
-
-export function scrollInView(sections: Section[]): void {
+export function scrollInView(sections: { id: string }[]) {
     currentSectionId = "";
-    const y = window.scrollY;
-
-    forEachSectionEl(sections, (id, el) => {
-        const { top, height } = getPos(el);
-        const inView = y >= top - SCROLL_OFFSET && y < top + height;
-        if (inView) {
-            // "Dernier match gagne"
-            currentSectionId = id;
+    const scrollPosition = window.scrollY;
+    sections.forEach(({ id }) => {
+        const section = document.getElementById(id);
+        if (section) {
+            const sectionTop = section.offsetTop;
+            const sectionHeight = section.offsetHeight;
+            const isInView =
+                scrollPosition >= sectionTop - 100 &&
+                scrollPosition < sectionTop + sectionHeight;
+            if (isInView) {
+                currentSectionId = id;
+            }
         }
     });
 }
 
 export function updateSectionClasses(
-    sections: Section[],
+    sections: { id: string }[],
     setActiveSection: (id: string) => void
-): void {
-    forEachSectionEl(sections, (id, el) => {
-        const isActive = id === currentSectionId;
-        el.classList.toggle("active-section", isActive);
-        if (isActive) setActiveSection(id);
+) {
+    sections.forEach(({ id }) => {
+        const section = document.getElementById(id);
+        if (section) {
+            if (id === currentSectionId) {
+                section.classList.add("active-section");
+                setActiveSection(id);
+            } else {
+                section.classList.remove("active-section");
+            }
+        }
     });
 }
-
-export function addNewUrl(id: string): void {
-    if (!id) return;
-    const newHash = `#${id}`;
-    if (window.location.hash !== newHash) {
-        window.history.replaceState(null, "", newHash);
+export function addNewUrl(currentSectionId: string) {
+    if (currentSectionId) {
+        const newUrl = `#${currentSectionId}`;
+        if (window.location.hash !== newUrl) {
+            window.history.replaceState(null, "", newUrl);
+        }
     }
 }

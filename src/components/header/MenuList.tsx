@@ -1,5 +1,5 @@
 import React from "react";
-import type { MenuItem } from "../../assets/data/menuItems";
+import { MenuItem } from "../../assets/data/menuItems";
 import NavLink from "./NavLink";
 
 interface MenuListProps {
@@ -22,7 +22,7 @@ const MenuList: React.FC<MenuListProps> = ({
                     key={menuItem.id}
                     menuItem={menuItem}
                     onNavigationClick={onNavigationClick}
-                    openSubMenu={openSubMenu}
+                    isOpen={openSubMenu === menuItem.id}
                     handleMenuClick={handleMenuClick}
                 />
             ))}

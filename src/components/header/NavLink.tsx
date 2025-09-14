@@ -1,24 +1,23 @@
 import React from "react";
-import type { MenuItem } from "../../assets/data/menuItems";
+import { MenuItem } from "../../assets/data/menuItems";
 import { useNavigation } from "../../utils/context/NavigationContext";
 import SubMenu from "./SubMenu";
 import { svgComponents } from "./svgComponents";
 interface NavLinkProps {
     menuItem: MenuItem;
-    openSubMenu: string | null;
     onNavigationClick: (path: string) => void;
+    isOpen: boolean;
     handleMenuClick: (menuItemId: string) => void;
 }
 
 const NavLink: React.FC<NavLinkProps> = ({
     menuItem,
-    openSubMenu,
     onNavigationClick,
+    isOpen,
     handleMenuClick,
 }) => {
     const { closeHamburgerMenu } = useNavigation();
     const SvgIcon = svgComponents[menuItem.svg];
-    const isOpen = openSubMenu === menuItem.id;
 
     return (
         <div className={`group_link-submenu ${menuItem.id}`}>
@@ -28,12 +27,18 @@ const NavLink: React.FC<NavLinkProps> = ({
                 href={menuItem.path + menuItem.AnchorId}
                 onClick={(e) => {
                     e.preventDefault();
-                    e.stopPropagation();
-                    const hasSub = !!menuItem.subItems?.length;
-                    const isCurrentlyOpen = openSubMenu === menuItem.id;
                     onNavigationClick(menuItem.path);
-                    handleMenuClick(menuItem.id);
-                    if (!hasSub || isCurrentlyOpen) closeHamburgerMenu(500);
+                    const isSubMenuOpen = handleMenuClick(menuItem.id); // Vérifier si le sous-menu est ouvert
+                    e.stopPropagation();
+
+                    // Si le menu a des sous-items et n'est pas ouvert, on ferme le hamburger menu
+                    if (
+                        !menuItem.subItems ||
+                        menuItem.subItems.length === 0 ||
+                        isSubMenuOpen
+                    ) {
+                        closeHamburgerMenu(500);
+                    }
                 }}
                 tabIndex={0}
             >

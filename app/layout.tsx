@@ -1,7 +1,7 @@
-/* eslint-disable @next/next/no-css-tags */
 // import localFont from "next/font/local";
 import HeaderLazy from "../src/components/header/HeaderLazy";
 import ClientLayout from "./ClientLayout";
+// export const dynamic = "force-dynamic";
 
 /* const Montserrat = localFont({
     src: "./fonts/Montserrat.woff2",
@@ -35,12 +35,7 @@ export default function RootLayout({
                     href="https://fonts.gstatic.com"
                     crossOrigin=""
                 />
-                <link
-                    rel="preload"
-                    href="/img/retroviseur.svg"
-                    as="image"
-                    fetchPriority="high"
-                />
+                <link rel="preload" href="/img/retroviseur.svg" as="image" />
 
                 <link rel="preload" href="/css/globals.css" as="style" />
                 <link

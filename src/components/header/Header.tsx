@@ -1,12 +1,10 @@
-"use client";
 import React from "react";
 import LogoLink from "./LogoLink";
 import { usePathname } from "next/navigation";
 import Nav from "./Nav";
 import { useScrollContext } from "../../utils/context/ScrollContext";
 import { useNavigation } from "../../utils/context/NavigationContext";
-import { menuItems } from "../../assets/data/menuItems";
-import type { MenuItem } from "../../assets/data/menuItems";
+import { MenuItem, menuItems } from "../../assets/data/menuItems";
 import { updateMenuClasses } from "../../utils/updateMenuUtils";
 import { handleScrollClick, handleNavClick } from "../../utils/fnScrollUtils";
 import { useInitialScroll } from "../../utils/scrollUtils";
@@ -34,7 +32,7 @@ const Header: React.FC<NavProps> = () => {
     );
 
     return (
-        <div className="ha header ">
+        <div className="header">
             <LogoLink
                 onClick={(e: React.MouseEvent<HTMLAnchorElement>) => {
                     e.preventDefault();
