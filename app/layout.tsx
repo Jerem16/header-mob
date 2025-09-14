@@ -1,7 +1,7 @@
 // import localFont from "next/font/local";
 import HeaderLazy from "../src/components/header/HeaderLazy";
 import ClientLayout from "./ClientLayout";
-// export const dynamic = "force-dynamic";
+// export const revalidate = 3600;
 
 /* const Montserrat = localFont({
     src: "./fonts/Montserrat.woff2",
