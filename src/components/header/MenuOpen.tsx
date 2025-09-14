@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useCallback, useMemo } from "react";
 import { useNavigation } from "../../utils/context/NavigationContext";
 import MenuList from "./MenuList";
 import { MenuItem } from "../../assets/data/menuItems";
@@ -10,19 +10,22 @@ interface NavProps {
 }
 
 const MenuOpen: React.FC<NavProps> = ({ menuItems, onNavigationClick }) => {
-    const { hamburgerMenuIsOpen } = useNavigation();
-    const [openSubMenu, setOpenSubMenu] = useState<string | null>(null);
+    const { hamburgerMenuIsOpen, openSubMenu, setOpenSubMenu } = useNavigation();
 
-    const handleMenuClick = (menuItemId: string) => {
-        setOpenSubMenu(openSubMenu === menuItemId ? null : menuItemId);
-    };
+    const handleMenuClick = useCallback(
+        (menuItemId: string) => {
+            setOpenSubMenu(openSubMenu === menuItemId ? null : menuItemId);
+        },
+        [openSubMenu, setOpenSubMenu]
+    );
+
+    const containerClass = useMemo(
+        () => `head-flex absolute ${hamburgerMenuIsOpen ? "open" : ""}`,
+        [hamburgerMenuIsOpen]
+    );
 
     return (
-        <div
-            className={`head-flex absolute ${
-                hamburgerMenuIsOpen ? "open" : ""
-            }`}
-        >
+        <div className={containerClass}>
             {hamburgerMenuIsOpen && menuItems.mainLink && (
                 <MenuList
                     menuItems={menuItems.mainLink}

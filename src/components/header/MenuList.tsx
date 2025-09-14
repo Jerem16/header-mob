@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useMemo } from "react";
 import { MenuItem } from "../../assets/data/menuItems";
 import NavLink from "./NavLink";
 
@@ -15,9 +15,9 @@ const MenuList: React.FC<MenuListProps> = ({
     onNavigationClick,
     handleMenuClick,
 }) => {
-    return (
-        <nav className="main-nav">
-            {menuItems.map((menuItem) => (
+    const renderedMenuItems = useMemo(
+        () =>
+            menuItems.map((menuItem) => (
                 <NavLink
                     key={menuItem.id}
                     menuItem={menuItem}
@@ -25,9 +25,11 @@ const MenuList: React.FC<MenuListProps> = ({
                     isOpen={openSubMenu === menuItem.id}
                     handleMenuClick={handleMenuClick}
                 />
-            ))}
-        </nav>
+            )),
+        [menuItems, openSubMenu, onNavigationClick, handleMenuClick]
     );
+
+    return <nav className="main-nav">{renderedMenuItems}</nav>;
 };
 
 export default React.memo(MenuList);

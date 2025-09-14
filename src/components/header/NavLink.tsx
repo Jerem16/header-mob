@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useCallback, useMemo } from "react";
 import { MenuItem } from "../../assets/data/menuItems";
 import { useNavigation } from "../../utils/context/NavigationContext";
 import SubMenu from "./SubMenu";
@@ -17,7 +17,22 @@ const NavLink: React.FC<NavLinkProps> = ({
     handleMenuClick,
 }) => {
     const { closeHamburgerMenu } = useNavigation();
-    const SvgIcon = svgComponents[menuItem.svg];
+    const SvgIcon = useMemo(() => svgComponents[menuItem.svg], [menuItem.svg]);
+
+    const handleClick = useCallback(
+        (e: React.MouseEvent<HTMLAnchorElement>) => {
+            e.preventDefault();
+            onNavigationClick(menuItem.path);
+            const wasOpen = isOpen;
+            handleMenuClick(menuItem.id);
+            e.stopPropagation();
+
+            if (!menuItem.subItems || menuItem.subItems.length === 0 || wasOpen) {
+                closeHamburgerMenu(500);
+            }
+        },
+        [onNavigationClick, menuItem, isOpen, handleMenuClick, closeHamburgerMenu]
+    );
 
     return (
         <div className={`group_link-submenu ${menuItem.id}`}>
@@ -25,44 +40,21 @@ const NavLink: React.FC<NavLinkProps> = ({
                 aria-label={`Page ${menuItem.title}`}
                 className={`head-link ${menuItem.class}`}
                 href={menuItem.path + menuItem.AnchorId}
-                onClick={(e) => {
-                    e.preventDefault();
-                    onNavigationClick(menuItem.path);
-                    const isSubMenuOpen = handleMenuClick(menuItem.id); // Vérifier si le sous-menu est ouvert
-                    e.stopPropagation();
-
-                    // Si le menu a des sous-items et n'est pas ouvert, on ferme le hamburger menu
-                    if (
-                        !menuItem.subItems ||
-                        menuItem.subItems.length === 0 ||
-                        isSubMenuOpen
-                    ) {
-                        closeHamburgerMenu(500);
-                    }
-                }}
+                onClick={handleClick}
                 tabIndex={0}
             >
                 {SvgIcon && <SvgIcon />}
                 <span className="nav-link">{menuItem.title}</span>
 
                 {menuItem.subItems && menuItem.subItems.length > 0 && (
-                    <span
-                        className={`submenu-arrow ${
-                            isOpen ? "open" : "closed"
-                        }`}
-                    >
+                    <span className={`submenu-arrow ${isOpen ? "open" : "closed"}`}>
                         {isOpen ? "▲" : "▼"}
                     </span>
                 )}
             </a>
 
-            {/* Si le menu contient des sous-items, afficher le SubMenu */}
             {menuItem.subItems && menuItem.subItems.length > 0 && (
-                <SubMenu
-                    menuItem={menuItem}
-                    isOpen={isOpen}
-                    onSubItemClick={onNavigationClick}
-                />
+                <SubMenu menuItem={menuItem} isOpen={isOpen} onSubItemClick={onNavigationClick} />
             )}
         </div>
     );
