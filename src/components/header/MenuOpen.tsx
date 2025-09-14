@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { useNavigation } from "../../utils/context/NavigationContext";
 import MenuList from "./MenuList";
 import { MenuItem } from "../../assets/data/menuItems";
@@ -11,11 +11,6 @@ interface NavProps {
 
 const MenuOpen: React.FC<NavProps> = ({ menuItems, onNavigationClick }) => {
     const { hamburgerMenuIsOpen } = useNavigation();
-    const [openSubMenu, setOpenSubMenu] = useState<string | null>(null);
-
-    const handleMenuClick = (menuItemId: string) => {
-        setOpenSubMenu(openSubMenu === menuItemId ? null : menuItemId);
-    };
 
     return (
         <div
@@ -26,9 +21,7 @@ const MenuOpen: React.FC<NavProps> = ({ menuItems, onNavigationClick }) => {
             {hamburgerMenuIsOpen && menuItems.mainLink && (
                 <MenuList
                     menuItems={menuItems.mainLink}
-                    openSubMenu={openSubMenu}
                     onNavigationClick={onNavigationClick}
-                    handleMenuClick={handleMenuClick}
                 />
             )}
         </div>

@@ -1,5 +1,6 @@
 import HeaderLazy from "../src/components/header/HeaderLazy";
 import ClientLayout from "./ClientLayout";
+import { NavigationProvider } from "../src/utils/context/NavigationContext";
 import localFont from "next/font/local";
 
 const montserrat = localFont({
@@ -41,14 +42,16 @@ export default function RootLayout({
             </head>
             <body id="top">
                 {/* <DesktopRedirect /> */}
-                <ClientLayout>
-                    <header>
-                        <div className="content-wrapper">
-                            <HeaderLazy />
-                        </div>
-                    </header>
-                    <main>{children}</main>
-                </ClientLayout>
+                <NavigationProvider>
+                    <ClientLayout>
+                        <header>
+                            <div className="content-wrapper">
+                                <HeaderLazy />
+                            </div>
+                        </header>
+                        <main>{children}</main>
+                    </ClientLayout>
+                </NavigationProvider>
             </body>
         </html>
     );

@@ -1,3 +1,4 @@
+"use client";
 import React, { createContext, useState, useEffect } from "react";
 import { useRouter, usePathname } from "next/navigation";
 interface NavigationContextType {
@@ -5,6 +6,7 @@ interface NavigationContextType {
     updateRoute: (path: string) => void;
     openSubMenu: string | null;
     setOpenSubMenu: (subMenuId: string | null) => void;
+    toggleSubMenu: (menuItemId: string) => boolean;
     showNavLinks: boolean;
     setShowNavLinks: (showNavLinks: boolean) => void;
     resetDisplayStyles: () => void;
@@ -32,11 +34,17 @@ const useNavigationState = () => {
     const closeHamburgerMenu = (delay: number = 0) => {
         setTimeout(() => setHamburgerMenuIsOpen(false), delay);
     };
+    const toggleSubMenu = (menuItemId: string) => {
+        const isOpen = openSubMenu === menuItemId;
+        setOpenSubMenu(isOpen ? null : menuItemId);
+        return !isOpen;
+    };
     return {
         currentRoute,
         updateRoute,
         openSubMenu,
         setOpenSubMenu,
+        toggleSubMenu,
         resetDisplayStyles,
         showNavLinks,
         setShowNavLinks,

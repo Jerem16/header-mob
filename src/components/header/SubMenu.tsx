@@ -6,16 +6,12 @@ import { useNavigation } from "../../utils/context/NavigationContext";
 
 interface SubMenuProps {
     menuItem: MenuItem;
-    isOpen: boolean;
     onSubItemClick: (path: string) => void;
 }
 
-const SubMenu: React.FC<SubMenuProps> = ({
-    menuItem,
-    isOpen,
-    onSubItemClick,
-}) => {
-    const { closeHamburgerMenu } = useNavigation();
+const SubMenu: React.FC<SubMenuProps> = ({ menuItem, onSubItemClick }) => {
+    const { closeHamburgerMenu, openSubMenu } = useNavigation();
+    const isOpen = openSubMenu === menuItem.id;
     const handleSubItemClick = (
         path: string,
         e: React.MouseEvent | React.KeyboardEvent

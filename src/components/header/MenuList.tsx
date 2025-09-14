@@ -4,17 +4,10 @@ import NavLink from "./NavLink";
 
 interface MenuListProps {
     menuItems: MenuItem[];
-    openSubMenu: string | null;
     onNavigationClick: (path: string) => void;
-    handleMenuClick: (menuItemId: string) => void;
 }
 
-const MenuList: React.FC<MenuListProps> = ({
-    menuItems,
-    openSubMenu,
-    onNavigationClick,
-    handleMenuClick,
-}) => {
+const MenuList: React.FC<MenuListProps> = ({ menuItems, onNavigationClick }) => {
     return (
         <nav className="main-nav">
             {menuItems.map((menuItem) => (
@@ -22,8 +15,6 @@ const MenuList: React.FC<MenuListProps> = ({
                     key={menuItem.id}
                     menuItem={menuItem}
                     onNavigationClick={onNavigationClick}
-                    isOpen={openSubMenu === menuItem.id}
-                    handleMenuClick={handleMenuClick}
                 />
             ))}
         </nav>

@@ -1,8 +1,15 @@
-import dynamic from "next/dynamic";
-const LazyClientLayout = dynamic(() => import("./ClientLayout2"));
-
+import { lazy } from "react";
+import LazyWrapper from "@/src/components/LazyWrapper";
+const ScrollSectionsWrapper = lazy(() => import("./ScrollSectionsWrapper"));
+const ScrollProvider = lazy(() => import("../src/utils/context/ScrollContext"));
 const ClientLayout = ({ children }: { children: React.ReactNode }) => {
-    return <LazyClientLayout>{children}</LazyClientLayout>;
+    return (
+        <LazyWrapper>
+            <ScrollProvider>
+                <ScrollSectionsWrapper>{children}</ScrollSectionsWrapper>
+            </ScrollProvider>
+        </LazyWrapper>
+    );
 };
 
 export default ClientLayout;

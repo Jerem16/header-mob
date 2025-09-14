@@ -1,3 +1,5 @@
+import { SCROLL_SMOOTH_WORKER } from "../workers";
+
 export const handleScrollClick = (targetId: string): void => {
     const element = document.getElementById(targetId);
     if (!element) return;
@@ -7,7 +9,7 @@ export const handleScrollClick = (targetId: string): void => {
     const startTime = performance.now();
 
     const worker = new Worker(
-        new URL("/public/workers/scrollSmoothWorker.js", import.meta.url)
+        new URL(SCROLL_SMOOTH_WORKER, import.meta.url)
     );
 
     // ✏️ On précise que currentTime est un number et que la fonction ne renvoie rien

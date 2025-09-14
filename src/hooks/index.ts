@@ -1,0 +1,1 @@
+export { useScrollAnchors } from "./useScrollAnchors";

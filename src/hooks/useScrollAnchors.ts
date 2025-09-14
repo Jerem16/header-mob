@@ -2,6 +2,7 @@
 import { useEffect } from "react";
 import { useScrollContext } from "../utils/context/ScrollContext";
 import { scrollInView, addNewUrl, updateSectionClasses } from "../utils/fnScrollUtils";
+import { SCROLL_WORKER } from "../workers";
 
 interface SectionPosition {
     top: number;
@@ -15,7 +16,7 @@ export const useScrollAnchors = (_sections: { id: string }[]) => {
     useEffect(() => {
         if (typeof window === "undefined") return;
 
-        const worker = new Worker(new URL("/public/workers/scrollWorker.js", import.meta.url));
+        const worker = new Worker(new URL(SCROLL_WORKER, import.meta.url));
 
         let currentSections: { id: string }[] = [];
 

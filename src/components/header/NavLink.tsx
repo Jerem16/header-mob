@@ -6,18 +6,12 @@ import { svgComponents } from "./svgComponents";
 interface NavLinkProps {
     menuItem: MenuItem;
     onNavigationClick: (path: string) => void;
-    isOpen: boolean;
-    handleMenuClick: (menuItemId: string) => void;
 }
 
-const NavLink: React.FC<NavLinkProps> = ({
-    menuItem,
-    onNavigationClick,
-    isOpen,
-    handleMenuClick,
-}) => {
-    const { closeHamburgerMenu } = useNavigation();
+const NavLink: React.FC<NavLinkProps> = ({ menuItem, onNavigationClick }) => {
+    const { closeHamburgerMenu, toggleSubMenu, openSubMenu } = useNavigation();
     const SvgIcon = svgComponents[menuItem.svg];
+    const isOpen = openSubMenu === menuItem.id;
 
     return (
         <div className={`group_link-submenu ${menuItem.id}`}>
@@ -28,14 +22,14 @@ const NavLink: React.FC<NavLinkProps> = ({
                 onClick={(e) => {
                     e.preventDefault();
                     onNavigationClick(menuItem.path);
-                    const isSubMenuOpen = handleMenuClick(menuItem.id); // Vérifier si le sous-menu est ouvert
+                    const opened = toggleSubMenu(menuItem.id);
                     e.stopPropagation();
 
                     // Si le menu a des sous-items et n'est pas ouvert, on ferme le hamburger menu
                     if (
                         !menuItem.subItems ||
                         menuItem.subItems.length === 0 ||
-                        isSubMenuOpen
+                        opened
                     ) {
                         closeHamburgerMenu(500);
                     }
@@ -60,7 +54,6 @@ const NavLink: React.FC<NavLinkProps> = ({
             {menuItem.subItems && menuItem.subItems.length > 0 && (
                 <SubMenu
                     menuItem={menuItem}
-                    isOpen={isOpen}
                     onSubItemClick={onNavigationClick}
                 />
             )}
