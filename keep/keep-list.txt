@@ -48,7 +48,6 @@ src/components/svg_Icon/Services.jsx
 src/components/svg_Icon/Tarifs.jsx
 src/components/svg_Icon/utils/MenuIcon.jsx
 src/components/svg_Icon/utils/XIcon.jsx
-src/hook/useTimeoutWorker.ts
 src/utils/context/NavigationContext.tsx
 src/utils/context/ScrollContext.tsx
 src/utils/context/utils/createUseContext.tsx
