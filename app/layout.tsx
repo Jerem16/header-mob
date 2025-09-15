@@ -20,7 +20,6 @@ export default function RootLayout({
                 <link rel="stylesheet" href="/css/mobileDefer.css" fetchPriority="low" />
             </head>
             <body id="top">
-                {/* <DesktopRedirect /> */}
                 <ClientLayout>
                     <header>
                         <div className="content-wrapper">
