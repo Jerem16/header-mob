@@ -1,5 +1,5 @@
 // Header.tsx
-import { useCallback, useMemo, memo } from "react";
+import { useMemo, memo } from "react";
 import LogoLink from "./LogoLink";
 import { usePathname } from "next/navigation";
 import Nav from "./Nav";
@@ -7,7 +7,7 @@ import { useScrollContext } from "@utils/context/ScrollContext";
 import { useNavigation } from "@utils/context/NavigationContext";
 import { MenuItem, menuItems } from "@assets/data/menuItems";
 import { updateMenuClasses } from "@utils/updateMenuUtils";
-import { handleScrollClick, handleNavClick } from "@utils/fnScrollUtils";
+import { useSmoothScroll } from "@utils/useSmoothScroll";
 import { useInitialScroll } from "@utils/scrollUtils";
 import { makeClickHandler } from "@utils/handlers";
 
@@ -23,12 +23,7 @@ const Header: React.FC<NavProps> = () => {
 
     useInitialScroll(pathname);
 
-    const handleNavigationClick = useCallback(
-        (path: string) => {
-            handleNavClick(path, currentRoute, updateRoute, handleScrollClick);
-        },
-        [currentRoute, updateRoute]
-    );
+    const handleNavigationClick = useSmoothScroll(currentRoute, updateRoute);
 
     const handleLogoClick = useMemo(
         () =>

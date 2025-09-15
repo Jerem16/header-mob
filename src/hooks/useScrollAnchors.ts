@@ -1,13 +1,13 @@
 "use client";
 import { useEffect } from "react";
 import { useScrollContext } from "../utils/context/ScrollContext";
-import { scrollInView, addNewUrl, updateSectionClasses } from "../utils/fnScrollUtils";
+import { scrollInView, addNewUrl, updateSectionClasses } from "../utils/sections";
 import { rafThrottle } from "../utils/rafThrottle";
-
-interface SectionPosition {
-    top: number;
-    height: number;
-}
+import type {
+    ScrollWorkerData,
+    ScrollWorkerResponse,
+    SectionPosition,
+} from "../workers/scrollWorker";
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 export const useScrollAnchors = (_sections: { id: string }[]) => {
@@ -16,7 +16,7 @@ export const useScrollAnchors = (_sections: { id: string }[]) => {
     useEffect(() => {
         if (typeof window === "undefined") return;
 
-        const worker = new Worker(new URL("/public/workers/scrollWorker.js", import.meta.url));
+        const worker = new Worker(new URL("../workers/scrollWorker.js", import.meta.url));
 
         let currentSections: { id: string }[] = [];
 
@@ -37,14 +37,15 @@ export const useScrollAnchors = (_sections: { id: string }[]) => {
                 {}
             );
 
-            worker.postMessage({
+            const data: ScrollWorkerData = {
                 sections: currentSections,
                 scrollY: window.scrollY,
                 positions,
-            });
+            };
+            worker.postMessage(data);
         };
 
-        worker.onmessage = (event) => {
+        worker.onmessage = (event: MessageEvent<ScrollWorkerResponse>) => {
             const { currentSectionId } = event.data;
             if (currentSectionId) {
                 scrollInView(currentSections);
