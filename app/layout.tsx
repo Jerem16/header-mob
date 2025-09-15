@@ -1,5 +1,12 @@
 import HeaderLazy from "../src/components/header/HeaderLazy";
 import ClientLayout from "./ClientLayout";
+import dynamic from "next/dynamic";
+
+const NavigationProvider = dynamic(() =>
+    import("../src/utils/context/NavigationContext").then(
+        (mod) => mod.NavigationProvider
+    )
+);
 
 export default function RootLayout({
     children,
@@ -20,14 +27,16 @@ export default function RootLayout({
                 <link rel="stylesheet" href="/css/mobileDefer.css" fetchPriority="low" />
             </head>
             <body id="top">
-                <ClientLayout>
-                    <header>
-                        <div className="content-wrapper">
-                            <HeaderLazy />
-                        </div>
-                    </header>
-                    <main>{children}</main>
-                </ClientLayout>
+                <NavigationProvider>
+                    <ClientLayout>
+                        <header>
+                            <div className="content-wrapper">
+                                <HeaderLazy />
+                            </div>
+                        </header>
+                        <main>{children}</main>
+                    </ClientLayout>
+                </NavigationProvider>
             </body>
         </html>
     );
