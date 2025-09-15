@@ -1,7 +1,9 @@
+// ButtonOpen.tsx
 import React, { useCallback } from "react";
 import { useNavigation } from "../../utils/context/NavigationContext";
 import OpenMenuIcon from "@components/svg_Icon/utils/OpenMenuIcon";
 import CloseMenuIcon from "@components/svg_Icon/utils/CloseMenuIcon";
+
 const ButtonOpen = () => {
     const { hamburgerMenuIsOpen, openHamburgerMenu, closeHamburgerMenu } = useNavigation();
     const handleClick = useCallback(() => {
@@ -11,8 +13,15 @@ const ButtonOpen = () => {
             openHamburgerMenu();
         }
     }, [hamburgerMenuIsOpen, openHamburgerMenu, closeHamburgerMenu]);
+
     return (
-        <button aria-label="ouvrir le menu" onClick={handleClick} className="menu">
+        <button
+            aria-label={hamburgerMenuIsOpen ? "fermer le menu" : "ouvrir le menu"}
+            aria-expanded={hamburgerMenuIsOpen}
+            aria-controls="main-nav"
+            onClick={handleClick}
+            className="menu"
+        >
             {hamburgerMenuIsOpen ? <CloseMenuIcon /> : <OpenMenuIcon />}
         </button>
     );

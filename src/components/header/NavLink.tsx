@@ -1,10 +1,17 @@
 // NavLink.tsx
+"use client";
 import React, { useMemo } from "react";
-import { MenuItem } from "../../assets/data/menuItems";
+import dynamic from "next/dynamic";
+import type { MenuItem } from "../../assets/data/menuItems";
 import { useNavigation } from "../../utils/context/NavigationContext";
-import SubMenu from "./SubMenu";
 import { svgComponents } from "./svgComponents";
 import { makeClickHandler } from "@utils/handlers";
+
+const LazySubMenu = dynamic<{
+    menuItem: MenuItem;
+    isOpen: boolean;
+    onSubItemClick: (path: string) => void;
+}>(() => import("./SubMenu"), { ssr: false, loading: () => null });
 
 interface NavLinkProps {
     menuItem: MenuItem;
@@ -25,10 +32,11 @@ const NavLink: React.FC<NavLinkProps> = ({
     const handleClick = useMemo(
         () =>
             makeClickHandler(() => {
+                // 1er clic : on va sur /pX, on ouvre le sous-menu, le hamburger reste ouvert
                 onNavigationClick(menuItem.path);
                 const wasOpen = isOpen;
                 handleMenuClick(menuItem.id);
-
+                // Si pas de sous-items OU si c'était déjà ouvert, on ferme le hamburger
                 if (!menuItem.subItems?.length || wasOpen) {
                     closeHamburgerMenu(500);
                 }
@@ -44,6 +52,8 @@ const NavLink: React.FC<NavLinkProps> = ({
         ]
     );
 
+    const hasSub = !!menuItem.subItems && menuItem.subItems.length > 0;
+
     return (
         <div className={`group_link-submenu ${menuItem.id}`}>
             <a
@@ -52,18 +62,26 @@ const NavLink: React.FC<NavLinkProps> = ({
                 href={menuItem.path + menuItem.AnchorId}
                 onClick={handleClick}
                 tabIndex={0}
+                aria-haspopup={hasSub ? "menu" : undefined}
+                aria-expanded={hasSub ? isOpen : undefined}
+                aria-controls={hasSub ? `submenu-${menuItem.id}` : undefined}
             >
                 {SvgIcon && <SvgIcon />}
                 <span className="nav-link">{menuItem.title}</span>
-                {menuItem.subItems && menuItem.subItems.length > 0 && (
+                {hasSub && (
                     <span className={`submenu-arrow ${isOpen ? "open" : "closed"}`}>
                         {isOpen ? "▲" : "▼"}
                     </span>
                 )}
             </a>
 
-            {menuItem.subItems && menuItem.subItems.length > 0 && (
-                <SubMenu menuItem={menuItem} isOpen={isOpen} onSubItemClick={onNavigationClick} />
+            {/* Sous-menu chargé seulement quand c’est ouvert */}
+            {hasSub && isOpen && (
+                <LazySubMenu
+                    menuItem={menuItem}
+                    isOpen={isOpen}
+                    onSubItemClick={onNavigationClick}
+                />
             )}
         </div>
     );

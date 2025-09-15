@@ -1,12 +1,14 @@
 // src/components/header/svgComponents.ts
 import React from "react";
 
-import TarifsIcon from "../svg_Icon/Tarifs";
-import HomeIcon from "../svg_Icon/Home";
-import LogoIcon from "../svg_Icon/Logo";
-import ServicesIcon from "../svg_Icon/Services";
-import BlogIcon from "../svg_Icon/Blog";
-import ContactIcon from "../svg_Icon/Contact";
+import {
+    Tarifs as TarifsIcon,
+    Home as HomeIcon,
+    Logo as LogoIcon,
+    Services as ServicesIcon,
+    Blog as BlogIcon,
+    Contact as ContactIcon,
+} from "../svg_Icon";
 
 export const svgComponents = {
     Home: React.memo(HomeIcon),
