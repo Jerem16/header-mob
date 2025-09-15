@@ -22,7 +22,7 @@ const NavLink: React.FC<NavLinkProps> = ({
     const { closeHamburgerMenu } = useNavigation();
     const SvgIcon = useMemo(() => svgComponents[menuItem.svg], [menuItem.svg]);
 
-    const handleClick = useMemo(
+    const handlePointerDown = useMemo(
         () =>
             makeClickHandler(() => {
                 onNavigationClick(menuItem.path);
@@ -50,7 +50,7 @@ const NavLink: React.FC<NavLinkProps> = ({
                 aria-label={`Page ${menuItem.title}`}
                 className={`head-link ${menuItem.class}`}
                 href={menuItem.path + menuItem.AnchorId}
-                onClick={handleClick}
+                onPointerDown={handlePointerDown}
                 tabIndex={0}
             >
                 {SvgIcon && <SvgIcon />}

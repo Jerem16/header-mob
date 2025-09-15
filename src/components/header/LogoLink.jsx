@@ -2,13 +2,13 @@ import React from "react";
 import Link from "next/link";
 import Logo from "../svg_Icon/Logo";
 
-const LogoLink = ({ onClick }) => {
+const LogoLink = ({ onPointerDown }) => {
     return (
         <Link
             href="/#top"
             aria-label="Vers home page "
             className="logo-link"
-            onClick={onClick}
+            onPointerDown={onPointerDown}
         >
             <Logo />
         </Link>

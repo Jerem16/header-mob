@@ -46,7 +46,7 @@ const Header: React.FC<NavProps> = () => {
 
     return (
         <div className="ha header">
-            <LogoLink onClick={handleLogoClick} />
+            <LogoLink onPointerDown={handleLogoClick} />
             <Nav menuItems={updatedMenuItems} onNavigationClick={handleNavigationClick} />
         </div>
     );

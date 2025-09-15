@@ -4,7 +4,7 @@ import OpenMenuIcon from "@components/svg_Icon/utils/OpenMenuIcon";
 import CloseMenuIcon from "@components/svg_Icon/utils/CloseMenuIcon";
 const ButtonOpen = () => {
     const { hamburgerMenuIsOpen, openHamburgerMenu, closeHamburgerMenu } = useNavigation();
-    const handleClick = useCallback(() => {
+    const handlePointerDown = useCallback(() => {
         if (hamburgerMenuIsOpen) {
             closeHamburgerMenu(1);
         } else {
@@ -12,7 +12,7 @@ const ButtonOpen = () => {
         }
     }, [hamburgerMenuIsOpen, openHamburgerMenu, closeHamburgerMenu]);
     return (
-        <button aria-label="ouvrir le menu" onClick={handleClick} className="menu">
+        <button aria-label="ouvrir le menu" onPointerDown={handlePointerDown} className="menu">
             {hamburgerMenuIsOpen ? <CloseMenuIcon /> : <OpenMenuIcon />}
         </button>
     );

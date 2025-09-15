@@ -44,7 +44,7 @@ const SubMenu: React.FC<SubMenuProps> = ({ menuItem, isOpen, onSubItemClick }) =
                                 href={fullPath}
                                 className={`nav-link ${subItem.class}`}
                                 tabIndex={0}
-                                onClick={(e) => handleSubItemClick(fullPath, e)}
+                                onPointerDown={(e) => handleSubItemClick(fullPath, e)}
                                 onKeyDown={(e) => handleKeyDown(fullPath, e)}
                             >
                                 {subItem.title}
