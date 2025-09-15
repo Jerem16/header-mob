@@ -1,5 +1,4 @@
 import { MenuLinks } from "./interfaces/menu";
-import { contentIndex } from "./content/index";
 export const menuItems: MenuLinks = {
     mainLink: [
         {
@@ -15,28 +14,24 @@ export const menuItems: MenuLinks = {
                     title: "Slider",
                     AnchorId: "#s1",
                     class: "",
-                    content: contentIndex["#s1"],
                 },
                 {
                     id: "menu-about",
                     title: "À propos",
                     AnchorId: "#s2",
                     class: "",
-                    content: contentIndex["#s2"],
                 },
                 {
                     id: "menu-services",
                     title: "Services",
                     AnchorId: "#s3",
                     class: "",
-                    content: contentIndex["#s3"],
                 },
                 {
                     id: "menu-contact",
                     title: "Contact",
                     AnchorId: "#s4",
                     class: "",
-                    content: contentIndex["#s4"],
                 },
             ],
         },

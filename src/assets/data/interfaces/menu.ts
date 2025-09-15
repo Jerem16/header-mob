@@ -1,6 +1,4 @@
 // src/interfaces/menu.ts
-import React from "react";
-import { Content } from "../interfaces/content";
 import { SvgIconName } from "@components/header/svgComponents";
 
 export interface SubItem {
@@ -8,7 +6,6 @@ export interface SubItem {
     title: string;
     AnchorId: string;
     class: string;
-    content?: Content[]; // contenu typé Content[]
 }
 
 export interface MenuItem {
@@ -19,7 +16,6 @@ export interface MenuItem {
     svg: SvgIconName; // <-- on passe de string à SvgIconName
     subItems?: SubItem[];
     AnchorId?: string;
-    content?: string | React.ReactNode;
 }
 
 export interface MenuLinks {
