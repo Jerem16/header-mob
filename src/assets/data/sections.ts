@@ -8,5 +8,4 @@ export const sections = [
     { id: "expert" },
     { id: "sans-permis" },
     { id: "avec-permis" },
-    { id: "profile" },
 ];
