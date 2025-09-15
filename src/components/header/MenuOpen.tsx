@@ -6,10 +6,9 @@ interface NavProps {
     menuItems: {
         mainLink?: MenuItem[];
     };
-    onNavigationClick: (path: string) => void;
 }
 
-const MenuOpen: React.FC<NavProps> = ({ menuItems, onNavigationClick }) => {
+const MenuOpen: React.FC<NavProps> = ({ menuItems }) => {
     const { hamburgerMenuIsOpen, openSubMenu, setOpenSubMenu } = useNavigation();
 
     const handleMenuClick = useCallback(
@@ -30,7 +29,6 @@ const MenuOpen: React.FC<NavProps> = ({ menuItems, onNavigationClick }) => {
                 <MenuList
                     menuItems={menuItems.mainLink}
                     openSubMenu={openSubMenu}
-                    onNavigationClick={onNavigationClick}
                     handleMenuClick={handleMenuClick}
                 />
             )}

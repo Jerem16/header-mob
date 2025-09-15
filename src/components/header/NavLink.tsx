@@ -6,27 +6,22 @@ import type { MenuItem } from "../../assets/data/menuItems";
 import { useNavigation } from "../../utils/context/NavigationContext";
 import { svgComponents } from "./svgComponents";
 import { makeClickHandler } from "@utils/handlers";
+import { useNavigationHandler } from "@utils/context/NavigationHandlerContext";
 
 const LazySubMenu = dynamic<{
     menuItem: MenuItem;
     isOpen: boolean;
-    onSubItemClick: (path: string) => void;
 }>(() => import("./SubMenu"), { ssr: false, loading: () => null });
 
 interface NavLinkProps {
     menuItem: MenuItem;
-    onNavigationClick: (path: string) => void;
     isOpen: boolean;
     handleMenuClick: (menuItemId: string) => void;
 }
 
-const NavLink: React.FC<NavLinkProps> = ({
-    menuItem,
-    onNavigationClick,
-    isOpen,
-    handleMenuClick,
-}) => {
+const NavLink: React.FC<NavLinkProps> = ({ menuItem, isOpen, handleMenuClick }) => {
     const { closeHamburgerMenu } = useNavigation();
+    const { onNavigationClick } = useNavigationHandler();
     const SvgIcon = useMemo(() => svgComponents[menuItem.svg], [menuItem.svg]);
 
     const handleClick = useMemo(
@@ -42,13 +37,13 @@ const NavLink: React.FC<NavLinkProps> = ({
                 }
             }),
         [
-            onNavigationClick,
             menuItem.path,
             menuItem.id,
             menuItem.subItems?.length,
             isOpen,
             handleMenuClick,
             closeHamburgerMenu,
+            onNavigationClick,
         ]
     );
 
@@ -76,13 +71,7 @@ const NavLink: React.FC<NavLinkProps> = ({
             </a>
 
             {/* Sous-menu chargé seulement quand c’est ouvert */}
-            {hasSub && isOpen && (
-                <LazySubMenu
-                    menuItem={menuItem}
-                    isOpen={isOpen}
-                    onSubItemClick={onNavigationClick}
-                />
-            )}
+            {hasSub && isOpen && <LazySubMenu menuItem={menuItem} isOpen={isOpen} />}
         </div>
     );
 };

@@ -5,34 +5,20 @@ import { usePathname } from "next/navigation";
 import Nav from "./Nav";
 import { useScrollContext } from "@utils/context/ScrollContext";
 import { useNavigation } from "@utils/context/NavigationContext";
-import { MenuItem, menuItems } from "@assets/data/menuItems";
+import { menuItems } from "@assets/data/menuItems";
 import { updateMenuClasses } from "@utils/updateMenuUtils";
-import { useSmoothScroll } from "@utils/useSmoothScroll";
 import { useInitialScroll } from "@utils/scrollUtils";
-import { makeClickHandler } from "@utils/handlers";
+import { useNavigationHandlers } from "@hooks/useNavigationHandlers";
+import { NavigationHandlerProvider } from "@utils/context/NavigationHandlerContext";
 
-interface NavProps {
-    menuItems: MenuItem[];
-    onNavigationClick: (path: string) => void;
-}
-
-const Header: React.FC<NavProps> = () => {
+const Header: React.FC = () => {
     const pathname = usePathname();
-    const { currentRoute, updateRoute, closeHamburgerMenu } = useNavigation();
+    const { currentRoute } = useNavigation();
     const { activeSection } = useScrollContext();
 
     useInitialScroll(pathname);
 
-    const handleNavigationClick = useSmoothScroll(currentRoute, updateRoute);
-
-    const handleLogoClick = useMemo(
-        () =>
-            makeClickHandler(() => {
-                closeHamburgerMenu(200);
-                handleNavigationClick("/#top");
-            }),
-        [closeHamburgerMenu, handleNavigationClick]
-    );
+    const { handleNavigationClick, handleLogoClick } = useNavigationHandlers();
 
     const updatedMenuItems = useMemo(
         () => updateMenuClasses(menuItems.mainLink, activeSection, currentRoute),
@@ -40,10 +26,12 @@ const Header: React.FC<NavProps> = () => {
     );
 
     return (
-        <div className="ha header">
-            <LogoLink onClick={handleLogoClick} />
-            <Nav menuItems={updatedMenuItems} onNavigationClick={handleNavigationClick} />
-        </div>
+        <NavigationHandlerProvider value={{ onNavigationClick: handleNavigationClick }}>
+            <div className="ha header">
+                <LogoLink onClick={handleLogoClick} />
+                <Nav menuItems={updatedMenuItems} />
+            </div>
+        </NavigationHandlerProvider>
     );
 };
 

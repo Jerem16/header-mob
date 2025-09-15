@@ -6,14 +6,13 @@ interface NavProps {
     menuItems: {
         mainLink?: MenuItem[];
     };
-    onNavigationClick: (path: string) => void;
 }
 
-const Nav: React.FC<NavProps> = ({ menuItems, onNavigationClick }) => {
+const Nav: React.FC<NavProps> = ({ menuItems }) => {
     return (
         <>
             <ButtonOpen />
-            <MenuOpen menuItems={menuItems} onNavigationClick={onNavigationClick} />
+            <MenuOpen menuItems={menuItems} />
         </>
     );
 };

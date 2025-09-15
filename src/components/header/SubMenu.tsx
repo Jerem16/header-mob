@@ -5,28 +5,29 @@ import { useMemo, memo } from "react";
 import { MenuItem } from "../../assets/data/menuItems";
 import { useNavigation } from "../../utils/context/NavigationContext";
 import { makePayloadClickHandler, makeActivationHandler } from "@utils/handlers";
+import { useNavigationHandler } from "@utils/context/NavigationHandlerContext";
 
 interface SubMenuProps {
     menuItem: MenuItem;
     isOpen: boolean;
-    onSubItemClick: (path: string) => void;
 }
 
-const SubMenu: React.FC<SubMenuProps> = ({ menuItem, isOpen, onSubItemClick }) => {
+const SubMenu: React.FC<SubMenuProps> = ({ menuItem, isOpen }) => {
     const { closeHamburgerMenu } = useNavigation();
+    const { onNavigationClick } = useNavigationHandler();
 
     const handleSubItemClick = useMemo(
         () =>
-            makePayloadClickHandler<string>(onSubItemClick, {
+            makePayloadClickHandler<string>(onNavigationClick, {
                 close: closeHamburgerMenu,
                 delay: 650,
             }),
-        [onSubItemClick, closeHamburgerMenu]
+        [onNavigationClick, closeHamburgerMenu]
     );
 
     const handleKeyDown = useMemo(
-        () => makeActivationHandler<string>(onSubItemClick),
-        [onSubItemClick]
+        () => makeActivationHandler<string>(onNavigationClick),
+        [onNavigationClick]
     );
 
     if (!menuItem.subItems || menuItem.subItems.length === 0) return null;
