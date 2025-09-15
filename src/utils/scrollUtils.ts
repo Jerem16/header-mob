@@ -1,7 +1,6 @@
 "use client";
 import { useEffect } from "react";
-import { resetActiveMenuClasses } from "./updateMenuUtils";
-import { handleScrollClick } from "./fnScrollUtils";
+import { handleScrollClick } from "./scrollSmooth";
 export const useInitialScroll = (pathname: string | null) => {
     useEffect(() => {
         if (typeof window === "undefined") return;
@@ -9,6 +8,5 @@ export const useInitialScroll = (pathname: string | null) => {
             window.scrollTo({ top: 0 });
             handleScrollClick(window.location.hash.substring(1));
         }
-        resetActiveMenuClasses();
     }, [pathname]);
 };
