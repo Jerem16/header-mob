@@ -2,6 +2,7 @@
 import { useEffect } from "react";
 import { useScrollContext } from "../utils/context/ScrollContext";
 import { scrollInView, addNewUrl, updateSectionClasses } from "../utils/fnScrollUtils";
+import { rafThrottle } from "../utils/rafThrottle";
 
 interface SectionPosition {
     top: number;
@@ -52,11 +53,18 @@ export const useScrollAnchors = (_sections: { id: string }[]) => {
             }
         };
 
+        const controller = new AbortController();
+        const throttledScroll = rafThrottle(handleScroll);
+
         handleScroll();
-        window.addEventListener("scroll", handleScroll);
+        window.addEventListener("scroll", throttledScroll, {
+            passive: true,
+            signal: controller.signal,
+        });
 
         return () => {
-            window.removeEventListener("scroll", handleScroll);
+            controller.abort();
+            throttledScroll.cancel();
             worker.terminate();
         };
     }, [setActiveSection]);
