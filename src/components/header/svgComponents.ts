@@ -18,4 +18,3 @@ export const svgComponents = {
 } as const;
 
 export type SvgIconName = keyof typeof svgComponents;
-// => "Home" | "Logo" | "Services" | "Blog" | "Tarifs" | "Contact"
