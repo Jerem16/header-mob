@@ -1,15 +1,9 @@
-import React from "react";
+import { memo } from "react";
 
 const Home = () => {
     return (
         <div className="nav-icon">
-            <svg
-                width="18"
-                height="18"
-                fill="none"
-                aria-hidden="true"
-                viewBox="0 0 18 18"
-            >
+            <svg width="18" height="18" fill="none" aria-hidden="true" viewBox="0 0 18 18">
                 <path
                     d="M8.8,5.3L3,10.1v5.7c0,0.3,0.3,0.5,0.5,0.5H7c0.3,0,0.5-0.3,0.5-0.5v-3.3c0-0.3,0.3-0.5,0.5-0.5h2c0.3,0,0.5,0.3,0.5,0.5
 	v3.3c0,0.3,0.3,0.5,0.5,0.5l0,0h3.5c0.3,0,0.5-0.3,0.5-0.5v-5.7l-6-4.8C9.1,5.2,8.9,5.2,8.8,5.3z"
@@ -25,4 +19,4 @@ const Home = () => {
         </div>
     );
 };
-export default React.memo(Home);
+export default memo(Home);

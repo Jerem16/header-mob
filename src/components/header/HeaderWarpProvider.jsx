@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import { memo } from "react";
 import { NavigationProvider } from "../../utils/context/NavigationContext";
 import dynamic from "next/dynamic";
 const Header = dynamic(() => import("./Header"), {
@@ -14,4 +14,4 @@ const HeaderWarpProvider = () => {
     );
 };
 
-export default React.memo(HeaderWarpProvider);
+export default memo(HeaderWarpProvider);

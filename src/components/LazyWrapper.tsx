@@ -1,15 +1,13 @@
 // "use client";
 
-import React, { Suspense, ReactNode } from "react";
+import { Suspense, ReactNode, memo } from "react";
 import Loader from "@/src/components/loader/Loader";
 
 type LazyWrapperProps = {
     children: ReactNode;
 };
 
-const LazyWrapper = React.memo(function LazyWrapper({
-    children,
-}: LazyWrapperProps) {
+const LazyWrapper = memo(function LazyWrapper({ children }: LazyWrapperProps) {
     return <Suspense fallback={<Loader />}>{children}</Suspense>;
 });
 

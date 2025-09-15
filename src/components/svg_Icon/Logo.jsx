@@ -1,12 +1,9 @@
-import React from "react";
+import { memo } from "react";
 
 const Logo = () => {
     return (
         <div className="logo">
-            <svg
-                viewBox="0 0 90 90"
-                aria-label="Logo et lien vers la page d'accueil"
-            >
+            <svg viewBox="0 0 90 90" aria-label="Logo et lien vers la page d'accueil">
                 <linearGradient
                     id="Alogo"
                     gradientUnits="userSpaceOnUse"
@@ -18,13 +15,7 @@ const Logo = () => {
                     <stop offset="0" stopColor="#39a7df" />
                     <stop offset="1" stopColor="#1a6de5" />
                 </linearGradient>
-                <circle
-                    className="logo-circle"
-                    cx="45"
-                    cy="45"
-                    r="45"
-                    fill="url(#Alogo)"
-                />
+                <circle className="logo-circle" cx="45" cy="45" r="45" fill="url(#Alogo)" />
                 <linearGradient
                     id="A"
                     gradientUnits="userSpaceOnUse"
@@ -123,4 +114,4 @@ const Logo = () => {
         </div>
     );
 };
-export default React.memo(Logo);
+export default memo(Logo);

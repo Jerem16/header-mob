@@ -1,5 +1,5 @@
 // src/components/header/svgComponents.ts
-import React from "react";
+import { memo } from "react";
 
 import {
     Tarifs as TarifsIcon,
@@ -11,12 +11,12 @@ import {
 } from "../svg_Icon";
 
 export const svgComponents = {
-    Home: React.memo(HomeIcon),
-    Logo: React.memo(LogoIcon),
-    Services: React.memo(ServicesIcon),
-    Blog: React.memo(BlogIcon),
-    Tarifs: React.memo(TarifsIcon),
-    Contact: React.memo(ContactIcon),
+    Home: memo(HomeIcon),
+    Logo: memo(LogoIcon),
+    Services: memo(ServicesIcon),
+    Blog: memo(BlogIcon),
+    Tarifs: memo(TarifsIcon),
+    Contact: memo(ContactIcon),
 } as const;
 
 export type SvgIconName = keyof typeof svgComponents;

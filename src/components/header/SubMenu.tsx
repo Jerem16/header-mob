@@ -1,7 +1,7 @@
 // SubMenu.tsx
 "use client";
 
-import React, { useMemo } from "react";
+import { useMemo, memo } from "react";
 import { MenuItem } from "../../assets/data/menuItems";
 import { useNavigation } from "../../utils/context/NavigationContext";
 import { makePayloadClickHandler, makeActivationHandler } from "@utils/handlers";
@@ -56,4 +56,4 @@ const SubMenu: React.FC<SubMenuProps> = ({ menuItem, isOpen, onSubItemClick }) =
     );
 };
 
-export default React.memo(SubMenu);
+export default memo(SubMenu);

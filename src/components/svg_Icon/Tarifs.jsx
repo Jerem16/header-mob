@@ -1,4 +1,4 @@
-import React from "react";
+import { memo } from "react";
 
 const Tarifs = () => {
     return (
@@ -12,4 +12,4 @@ const Tarifs = () => {
         </div>
     );
 };
-export default React.memo(Tarifs);
+export default memo(Tarifs);

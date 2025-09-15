@@ -1,4 +1,4 @@
-import React, { useCallback, useMemo } from "react";
+import { useCallback, useMemo, memo } from "react";
 import { useNavigation } from "../../utils/context/NavigationContext";
 import MenuList from "./MenuList";
 import { MenuItem } from "../../assets/data/menuItems";
@@ -38,4 +38,4 @@ const MenuOpen: React.FC<NavProps> = ({ menuItems, onNavigationClick }) => {
     );
 };
 
-export default React.memo(MenuOpen);
+export default memo(MenuOpen);

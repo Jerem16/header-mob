@@ -1,4 +1,4 @@
-import React from "react";
+import { memo } from "react";
 
 const Blog = () => {
     return (
@@ -12,4 +12,4 @@ const Blog = () => {
         </div>
     );
 };
-export default React.memo(Blog);
+export default memo(Blog);

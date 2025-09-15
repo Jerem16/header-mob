@@ -1,4 +1,4 @@
-import React from "react";
+import { memo } from "react";
 import { MenuItem } from "../../assets/data/menuItems";
 import ButtonOpen from "./ButtonOpen";
 import MenuOpen from "./MenuOpen";
@@ -13,12 +13,9 @@ const Nav: React.FC<NavProps> = ({ menuItems, onNavigationClick }) => {
     return (
         <>
             <ButtonOpen />
-            <MenuOpen
-                menuItems={menuItems}
-                onNavigationClick={onNavigationClick}
-            />
+            <MenuOpen menuItems={menuItems} onNavigationClick={onNavigationClick} />
         </>
     );
 };
 
-export default React.memo(Nav);
+export default memo(Nav);

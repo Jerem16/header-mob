@@ -1,8 +1,7 @@
 // ButtonOpen.tsx
-import React, { useCallback } from "react";
+import { useCallback, memo } from "react";
 import { useNavigation } from "../../utils/context/NavigationContext";
-import OpenMenuIcon from "@components/svg_Icon/utils/OpenMenuIcon";
-import CloseMenuIcon from "@components/svg_Icon/utils/CloseMenuIcon";
+import MenuIcon from "@components/svg_Icon/utils/MenuIcon";
 
 const ButtonOpen = () => {
     const { hamburgerMenuIsOpen, openHamburgerMenu, closeHamburgerMenu } = useNavigation();
@@ -22,9 +21,9 @@ const ButtonOpen = () => {
             onClick={handleClick}
             className="menu"
         >
-            {hamburgerMenuIsOpen ? <CloseMenuIcon /> : <OpenMenuIcon />}
+            <MenuIcon isOpen={hamburgerMenuIsOpen} />
         </button>
     );
 };
 
-export default React.memo(ButtonOpen);
+export default memo(ButtonOpen);

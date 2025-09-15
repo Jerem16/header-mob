@@ -1,6 +1,6 @@
 // NavLink.tsx
 "use client";
-import React, { useMemo } from "react";
+import { useMemo, memo } from "react";
 import dynamic from "next/dynamic";
 import type { MenuItem } from "../../assets/data/menuItems";
 import { useNavigation } from "../../utils/context/NavigationContext";
@@ -87,4 +87,4 @@ const NavLink: React.FC<NavLinkProps> = ({
     );
 };
 
-export default React.memo(NavLink);
+export default memo(NavLink);

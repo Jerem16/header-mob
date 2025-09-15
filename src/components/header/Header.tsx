@@ -1,5 +1,5 @@
 // Header.tsx
-import React, { useCallback, useMemo } from "react";
+import { useCallback, useMemo, memo } from "react";
 import LogoLink from "./LogoLink";
 import { usePathname } from "next/navigation";
 import Nav from "./Nav";
@@ -52,4 +52,4 @@ const Header: React.FC<NavProps> = () => {
     );
 };
 
-export default React.memo(Header);
+export default memo(Header);

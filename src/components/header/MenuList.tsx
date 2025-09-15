@@ -1,4 +1,4 @@
-import React, { useMemo } from "react";
+import { useMemo, memo } from "react";
 import { MenuItem } from "../../assets/data/menuItems";
 import NavLink from "./NavLink";
 
@@ -32,4 +32,4 @@ const MenuList: React.FC<MenuListProps> = ({
     return <nav className="main-nav">{renderedMenuItems}</nav>;
 };
 
-export default React.memo(MenuList);
+export default memo(MenuList);
