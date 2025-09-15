@@ -18,6 +18,13 @@ export default function RootLayout({
 
                 <link rel="preload" href="/css/mobileDefer.css" as="style" />
                 <link rel="stylesheet" href="/css/mobileDefer.css" fetchPriority="low" />
+
+                {process.env.NODE_ENV === "production" && (
+                    <>
+                        <link rel="prefetch" href="/p1" />
+                        <link rel="prefetch" href="/p2" />
+                    </>
+                )}
             </head>
             <body id="top">
                 {/* <DesktopRedirect /> */}

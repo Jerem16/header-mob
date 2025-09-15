@@ -16,11 +16,31 @@ export const useScrollAnchors = (_sections: { id: string }[]) => {
     useEffect(() => {
         if (typeof window === "undefined") return;
 
-        const worker = new Worker(new URL("/public/workers/scrollWorker.js", import.meta.url));
-
+        let worker: Worker | null = null;
+        let workerReady: Promise<void> | null = null;
         let currentSections: { id: string }[] = [];
 
-        const handleScroll = () => {
+        const loadWorker = () => {
+            if (!workerReady) {
+                workerReady = import("../workers/createScrollWorker").then(
+                    ({ default: create }) => {
+                        worker = create();
+                        worker.onmessage = (event) => {
+                            const { currentSectionId } = event.data;
+                            if (currentSectionId) {
+                                scrollInView(currentSections);
+                                addNewUrl(currentSectionId);
+                                updateSectionClasses(currentSections, setActiveSection);
+                            }
+                        };
+                    }
+                );
+            }
+            return workerReady;
+        };
+
+        const handleScroll = async () => {
+            await loadWorker();
             const nodes = Array.from(document.querySelectorAll<HTMLElement>("section[id]"));
             currentSections = nodes.map((el) => ({ id: el.id }));
             const positions = currentSections.reduce<Record<string, SectionPosition>>(
@@ -37,26 +57,16 @@ export const useScrollAnchors = (_sections: { id: string }[]) => {
                 {}
             );
 
-            worker.postMessage({
+            worker?.postMessage({
                 sections: currentSections,
                 scrollY: window.scrollY,
                 positions,
             });
         };
 
-        worker.onmessage = (event) => {
-            const { currentSectionId } = event.data;
-            if (currentSectionId) {
-                scrollInView(currentSections);
-                addNewUrl(currentSectionId);
-                updateSectionClasses(currentSections, setActiveSection);
-            }
-        };
-
         const controller = new AbortController();
         const throttledScroll = rafThrottle(handleScroll);
 
-        handleScroll();
         window.addEventListener("scroll", throttledScroll, {
             passive: true,
             signal: controller.signal,
@@ -65,7 +75,7 @@ export const useScrollAnchors = (_sections: { id: string }[]) => {
         return () => {
             controller.abort();
             throttledScroll.cancel();
-            worker.terminate();
+            worker?.terminate();
         };
     }, [setActiveSection]);
 };

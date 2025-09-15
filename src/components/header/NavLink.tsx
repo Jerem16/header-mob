@@ -2,8 +2,12 @@
 import React, { useMemo } from "react";
 import { MenuItem } from "../../assets/data/menuItems";
 import { useNavigation } from "../../utils/context/NavigationContext";
-import SubMenu from "./SubMenu";
+import dynamic from "next/dynamic";
 import { svgComponents } from "./svgComponents";
+
+const SubMenu = dynamic(() => import("./SubMenu"), {
+    loading: () => <div className="submenu-placeholder" />,
+});
 import { makeClickHandler } from "@utils/handlers";
 
 interface NavLinkProps {
